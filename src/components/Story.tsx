@@ -7,7 +7,7 @@ const Story = () => {
         <div className="max-w-4xl mx-auto">
           <Card className="p-8 md:p-12 shadow-card border-2 hover:border-primary/50 transition-smooth">
             <div className="space-y-6">
-              <h2 className="text-3xl md:text-4xl font-bold text-gradient-rebel">
+              <h2 className="text-3xl md:text-4xl font-bold text-kindai-orange">
                 The Rebel's Beginning
               </h2>
               
@@ -26,7 +26,7 @@ const Story = () => {
               </div>
               
               <div className="pt-6 border-t border-border">
-                <blockquote className="text-2xl md:text-3xl font-bold text-gradient-hero italic">
+                <blockquote className="text-2xl md:text-3xl font-bold text-kindai-purple italic">
                   "Forged by bullies, freed by building."
                 </blockquote>
               </div>

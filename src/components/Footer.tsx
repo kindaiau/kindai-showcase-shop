@@ -2,7 +2,7 @@ import logo from "@/assets/kindai-logo.png";
 
 const Footer = () => {
   return (
-    <footer className="py-12 bg-muted/30 border-t border-border">
+    <footer className="py-12 bg-background border-t border-border">
       <div className="container px-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -11,7 +11,7 @@ const Footer = () => {
             </div>
             
             <div className="text-sm text-muted-foreground text-center md:text-right">
-              <p>Built by rebels, for rebels.</p>
+              <p className="text-kindai-pink font-semibold">Built by rebels, for rebels.</p>
               <p className="mt-1">© 2025 Kindai. Forged by bullies, freed by building.</p>
             </div>
           </div>

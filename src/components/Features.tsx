@@ -47,7 +47,7 @@ const Features = () => {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold">
-              Your <span className="text-gradient-rebel">Rebel Toolkit</span>
+              Your <span className="text-kindai-green">Rebel Toolkit</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Everything you need to build incredible digital products. No fluff, just power.

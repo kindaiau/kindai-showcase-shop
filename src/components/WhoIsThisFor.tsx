@@ -22,7 +22,7 @@ const WhoIsThisFor = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-4xl md:text-5xl font-bold">
-              Built for <span className="text-gradient-hero">Digital Rebels</span>
+              Built for <span className="text-kindai-blue">Digital Rebels</span>
             </h2>
             <p className="text-xl text-muted-foreground">
               This playbook is for the ones who refuse to be limited
