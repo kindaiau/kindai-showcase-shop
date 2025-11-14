@@ -1,18 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Check } from "lucide-react";
-
-const audience = [
-  "Builders who outgrew rigid tools",
-  "People who want less friction",
-  "Rebels who value compassion + speed",
-  "Neurodivergent minds seeking freedom",
-  "Anyone tired of broken systems",
-  "Dreamers ready to build their future",
-];
-
+const audience = ["Builders who outgrew rigid tools", "People who want less friction", "Rebels who value compassion + speed", "Neurodivergent minds seeking freedom", "Anyone tired of broken systems", "Dreamers ready to build their future"];
 const WhoIsThisFor = () => {
-  return (
-    <section className="py-24 bg-muted/30 relative overflow-hidden">
+  return <section className="py-24 bg-muted/30 relative overflow-hidden">
       <div className="absolute inset-0 opacity-50">
         <div className="absolute top-0 left-1/4 w-72 h-72 bg-kindai-orange/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-kindai-green/10 rounded-full blur-3xl" />
@@ -22,25 +12,7 @@ const WhoIsThisFor = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-4xl md:text-5xl font-bold">
-              Built for{" "}
-              <span className="inline-block">
-                <span className="text-kindai-pink text-glow-pink">D</span>
-                <span className="text-kindai-orange text-glow-orange">i</span>
-                <span className="text-kindai-green text-glow-green">g</span>
-                <span className="text-kindai-blue text-glow-blue">i</span>
-                <span className="text-kindai-purple text-glow-purple">t</span>
-                <span className="text-kindai-pink text-glow-pink">a</span>
-                <span className="text-kindai-orange text-glow-orange">l</span>
-              </span>
-              {" "}
-              <span className="inline-block">
-                <span className="text-kindai-green text-glow-green">R</span>
-                <span className="text-kindai-blue text-glow-blue">e</span>
-                <span className="text-kindai-purple text-glow-purple">b</span>
-                <span className="text-kindai-pink text-glow-pink">e</span>
-                <span className="text-kindai-orange text-glow-orange">l</span>
-                <span className="text-kindai-green text-glow-green">s</span>
-              </span>
+              Built for Real People    <span className="text-kindai-blue">Digital Rebels</span>
             </h2>
             <p className="text-xl text-muted-foreground">
               This playbook is for the ones who refuse to be limited
@@ -49,11 +21,7 @@ const WhoIsThisFor = () => {
           
           <Card className="p-8 md:p-12 shadow-card">
             <div className="grid md:grid-cols-2 gap-6">
-              {audience.map((item, index) => (
-                <div 
-                  key={index}
-                  className="flex items-start gap-3 group"
-                >
+              {audience.map((item, index) => <div key={index} className="flex items-start gap-3 group">
                   <div className="mt-1 flex-shrink-0">
                     <div className="w-6 h-6 rounded-full gradient-rebel flex items-center justify-center shadow-glow group-hover:scale-110 transition-smooth">
                       <Check className="w-4 h-4 text-white" />
@@ -62,14 +30,11 @@ const WhoIsThisFor = () => {
                   <p className="text-lg font-medium leading-relaxed">
                     {item}
                   </p>
-                </div>
-              ))}
+                </div>)}
             </div>
           </Card>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default WhoIsThisFor;
