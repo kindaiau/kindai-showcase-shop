@@ -1,0 +1,153 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { Mail, Sparkles } from "lucide-react";
+
+interface EmailCaptureFormProps {
+  variant?: "inline" | "dialog";
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
+const EmailCaptureForm = ({ variant = "inline", open, onOpenChange }: EmailCaptureFormProps) => {
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Insert into email_subscribers table
+      const { error: insertError } = await supabase
+        .from("email_subscribers")
+        .insert({
+          email,
+          name: name || null,
+        });
+
+      if (insertError) throw insertError;
+
+      // Call edge function to send welcome email
+      const { error: emailError } = await supabase.functions.invoke("send-welcome-email", {
+        body: { email, name },
+      });
+
+      if (emailError) {
+        console.error("Email sending error:", emailError);
+        // Don't throw - subscription was successful even if email fails
+      }
+
+      toast({
+        title: "Welcome aboard, rebel! 🎉",
+        description: "Check your email for a special welcome message.",
+      });
+
+      setEmail("");
+      setName("");
+      
+      if (variant === "dialog" && onOpenChange) {
+        onOpenChange(false);
+      }
+    } catch (error: any) {
+      console.error("Subscription error:", error);
+      toast({
+        title: "Oops!",
+        description: error.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const formContent = (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="name">Name (Optional)</Label>
+        <Input
+          id="name"
+          type="text"
+          placeholder="Your rebel name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="bg-background/50 backdrop-blur"
+        />
+      </div>
+      
+      <div className="space-y-2">
+        <Label htmlFor="email">Email *</Label>
+        <Input
+          id="email"
+          type="email"
+          placeholder="rebel@example.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          className="bg-background/50 backdrop-blur"
+        />
+      </div>
+
+      <Button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full gradient-rebel hover:opacity-90 transition-smooth shadow-glow"
+      >
+        {isSubmitting ? (
+          "Joining..."
+        ) : (
+          <>
+            <Mail className="mr-2 h-4 w-4" />
+            Join the Waitlist
+          </>
+        )}
+      </Button>
+
+      <p className="text-xs text-muted-foreground text-center">
+        Be the first to know when we launch. No spam, just rebel power.
+      </p>
+    </form>
+  );
+
+  if (variant === "dialog") {
+    return (
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-kindai-pink" />
+              Join the Rebel Waitlist
+            </DialogTitle>
+            <DialogDescription>
+              Get early access to the 3-Agent Playbook and exclusive rebel resources.
+            </DialogDescription>
+          </DialogHeader>
+          {formContent}
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  return (
+    <div className="w-full max-w-md mx-auto p-6 rounded-lg border border-border bg-card shadow-elegant">
+      <div className="space-y-2 mb-6">
+        <h3 className="text-2xl font-bold flex items-center gap-2">
+          <Sparkles className="h-6 w-6 text-kindai-pink" />
+          Join the Waitlist
+        </h3>
+        <p className="text-muted-foreground">
+          Be the first to get your hands on the rebel's toolkit.
+        </p>
+      </div>
+      {formContent}
+    </div>
+  );
+};
+
+export default EmailCaptureForm;

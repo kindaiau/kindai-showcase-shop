@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import logo from "@/assets/kindai-logo-with-bird.png";
+import { useState } from "react";
+import EmailCaptureForm from "./EmailCaptureForm";
 
 const Hero = () => {
+  const [showEmailDialog, setShowEmailDialog] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
       {/* Gradient background orbs */}
@@ -34,8 +38,9 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="text-lg px-8 py-6 gradient-rebel hover:opacity-90 transition-smooth shadow-glow group"
+              onClick={() => setShowEmailDialog(true)}
             >
-              Get the Playbook
+              Join the Waitlist
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-smooth" />
             </Button>
             
@@ -47,6 +52,12 @@ const Hero = () => {
               Watch Demo
             </Button>
           </div>
+          
+          <EmailCaptureForm 
+            variant="dialog" 
+            open={showEmailDialog} 
+            onOpenChange={setShowEmailDialog} 
+          />
           
           <div className="pt-8 flex items-center justify-center gap-8 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
