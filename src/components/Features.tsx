@@ -47,7 +47,24 @@ const Features = () => {
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold">
-              Your <span className="text-kindai-green">Rebel Toolkit</span>
+              Your{" "}
+              <span className="inline-block">
+                <span className="text-kindai-pink text-glow-pink">R</span>
+                <span className="text-kindai-orange text-glow-orange">e</span>
+                <span className="text-kindai-green text-glow-green">b</span>
+                <span className="text-kindai-blue text-glow-blue">e</span>
+                <span className="text-kindai-purple text-glow-purple">l</span>
+              </span>
+              {" "}
+              <span className="inline-block">
+                <span className="text-kindai-pink text-glow-pink">T</span>
+                <span className="text-kindai-orange text-glow-orange">o</span>
+                <span className="text-kindai-green text-glow-green">o</span>
+                <span className="text-kindai-blue text-glow-blue">l</span>
+                <span className="text-kindai-purple text-glow-purple">k</span>
+                <span className="text-kindai-pink text-glow-pink">i</span>
+                <span className="text-kindai-orange text-glow-orange">t</span>
+              </span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Everything you need to build incredible digital products. No fluff, just power.
