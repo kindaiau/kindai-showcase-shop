@@ -153,4 +153,25 @@ All colors MUST be HSL.
   .transition-smooth {
     transition: var(--transition-smooth);
   }
+  
+  /* Text glow effects for colored headings */
+  .text-glow-pink {
+    text-shadow: 0 0 20px hsl(var(--kindai-pink) / 0.5), 0 0 40px hsl(var(--kindai-pink) / 0.3);
+  }
+
+  .text-glow-orange {
+    text-shadow: 0 0 20px hsl(var(--kindai-orange) / 0.5), 0 0 40px hsl(var(--kindai-orange) / 0.3);
+  }
+
+  .text-glow-green {
+    text-shadow: 0 0 20px hsl(var(--kindai-green) / 0.5), 0 0 40px hsl(var(--kindai-green) / 0.3);
+  }
+
+  .text-glow-blue {
+    text-shadow: 0 0 20px hsl(var(--kindai-blue) / 0.5), 0 0 40px hsl(var(--kindai-blue) / 0.3);
+  }
+
+  .text-glow-purple {
+    text-shadow: 0 0 20px hsl(var(--kindai-purple) / 0.5), 0 0 40px hsl(var(--kindai-purple) / 0.3);
+  }
 }

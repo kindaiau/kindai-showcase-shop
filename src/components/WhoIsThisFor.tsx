@@ -22,7 +22,25 @@ const WhoIsThisFor = () => {
         <div className="max-w-4xl mx-auto">
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-4xl md:text-5xl font-bold">
-              Built for <span className="text-kindai-blue">Digital Rebels</span>
+              Built for{" "}
+              <span className="inline-block">
+                <span className="text-kindai-pink text-glow-pink">D</span>
+                <span className="text-kindai-orange text-glow-orange">i</span>
+                <span className="text-kindai-green text-glow-green">g</span>
+                <span className="text-kindai-blue text-glow-blue">i</span>
+                <span className="text-kindai-purple text-glow-purple">t</span>
+                <span className="text-kindai-pink text-glow-pink">a</span>
+                <span className="text-kindai-orange text-glow-orange">l</span>
+              </span>
+              {" "}
+              <span className="inline-block">
+                <span className="text-kindai-green text-glow-green">R</span>
+                <span className="text-kindai-blue text-glow-blue">e</span>
+                <span className="text-kindai-purple text-glow-purple">b</span>
+                <span className="text-kindai-pink text-glow-pink">e</span>
+                <span className="text-kindai-orange text-glow-orange">l</span>
+                <span className="text-kindai-green text-glow-green">s</span>
+              </span>
             </h2>
             <p className="text-xl text-muted-foreground">
               This playbook is for the ones who refuse to be limited

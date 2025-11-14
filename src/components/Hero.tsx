@@ -25,9 +25,27 @@ const Hero = () => {
           />
           
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
-            The <span className="text-kindai-pink">3-Agent</span>
+            The{" "}
+            <span className="inline-block">
+              <span className="text-kindai-pink text-glow-pink">3</span>
+              <span className="text-kindai-orange text-glow-orange">-</span>
+              <span className="text-kindai-green text-glow-green">A</span>
+              <span className="text-kindai-blue text-glow-blue">g</span>
+              <span className="text-kindai-purple text-glow-purple">e</span>
+              <span className="text-kindai-pink text-glow-pink">n</span>
+              <span className="text-kindai-orange text-glow-orange">t</span>
+            </span>
             <br />
-            Playbook
+            <span className="inline-block">
+              <span className="text-kindai-green text-glow-green">P</span>
+              <span className="text-kindai-blue text-glow-blue">l</span>
+              <span className="text-kindai-purple text-glow-purple">a</span>
+              <span className="text-kindai-pink text-glow-pink">y</span>
+              <span className="text-kindai-orange text-glow-orange">b</span>
+              <span className="text-kindai-green text-glow-green">o</span>
+              <span className="text-kindai-blue text-glow-blue">o</span>
+              <span className="text-kindai-purple text-glow-purple">k</span>
+            </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
