@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import EmailCaptureForm from "./EmailCaptureForm";
 
 const CTA = () => {
   return (
@@ -23,15 +24,7 @@ const CTA = () => {
             Get instant access to the complete 3-Agent Playbook. Templates, checklists, diagrams, and your rebel toolkit. No fluff, just power.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Button 
-              size="lg" 
-              className="text-lg px-10 py-7 gradient-rebel hover:opacity-90 transition-smooth shadow-glow group"
-            >
-              Get the Playbook Now
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-smooth" />
-            </Button>
-          </div>
+          <EmailCaptureForm variant="inline" />
           
           <div className="pt-8 space-y-2 text-sm text-muted-foreground">
             <p>✓ Instant digital access</p>
