@@ -25,7 +25,7 @@ const Hero = () => {
           />
           
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
-            The <span className="text-gradient-hero">3-Agent</span>
+            The <span className="text-kindai-pink">3-Agent</span>
             <br />
             Playbook
           </h1>

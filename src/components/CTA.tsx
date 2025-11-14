@@ -17,7 +17,7 @@ const CTA = () => {
           <h2 className="text-4xl md:text-6xl font-bold leading-tight">
             Start Building Like a
             <br />
-            <span className="text-gradient-hero">Rebel Today</span>
+            <span className="text-kindai-purple">Rebel Today</span>
           </h2>
           
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
