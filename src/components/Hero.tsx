@@ -10,7 +10,8 @@ const Hero = () => {
   const parallax2 = useParallax(0.2);
   const parallax3 = useParallax(0.15);
 
-  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
       {/* Gradient background orbs with parallax */}
       <div className="absolute inset-0 overflow-hidden">
         <div 
@@ -28,10 +29,19 @@ const Hero = () => {
       </div>
 
       <div className="container relative z-10 px-4 py-20">
-        <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
-          <img src={logo} alt="Kindai Logo" className="w-48 mx-auto mb-8 animate-slide-up" />
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          {/* Staggered entrance animations */}
+          <img 
+            src={logo} 
+            alt="Kindai Logo" 
+            className="w-48 mx-auto mb-8 animate-bounce-in" 
+            style={{ animationDelay: "0ms" }}
+          />
           
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
+          <h1 
+            className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight animate-slide-in-bottom"
+            style={{ animationDelay: "100ms", animationFillMode: "both" }}
+          >
             The{" "}
             <span className="inline-block">
               <span className="text-kindai-pink text-glow-pink">3</span>
@@ -55,14 +65,20 @@ const Hero = () => {
             </span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p 
+            className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed animate-slide-in-bottom"
+            style={{ animationDelay: "200ms", animationFillMode: "both" }}
+          >
             3 AI Agents that create content, build strategies, and automate your business. Tell them what you need — they do the work.
           </p>
           
-          <div className="flex justify-center items-center pt-4">
+          <div 
+            className="flex justify-center items-center pt-4 animate-slide-in-bottom"
+            style={{ animationDelay: "300ms", animationFillMode: "both" }}
+          >
             <Button 
               size="lg" 
-              className="text-lg px-8 py-6 gradient-rebel hover:opacity-90 transition-smooth shadow-glow group" 
+              className="text-lg px-8 py-6 gradient-rebel hover:opacity-90 transition-smooth shadow-glow group active:scale-95 touch-feedback" 
               onClick={() => navigate("/toolkit")}
             >
               <Sparkles className="mr-2 w-5 h-5" />
@@ -71,7 +87,10 @@ const Hero = () => {
             </Button>
           </div>
           
-          <div className="pt-8 flex items-center justify-center gap-8 text-sm text-muted-foreground">
+          <div 
+            className="pt-8 flex flex-wrap items-center justify-center gap-4 md:gap-8 text-sm text-muted-foreground animate-slide-in-bottom"
+            style={{ animationDelay: "400ms", animationFillMode: "both" }}
+          >
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-kindai-green animate-pulse-glow" />
               No code required
@@ -87,6 +106,8 @@ const Hero = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default Hero;

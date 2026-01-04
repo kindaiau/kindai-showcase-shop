@@ -178,4 +178,28 @@ All colors MUST be HSL.
   .text-glow-purple {
     text-shadow: 0 0 20px hsl(var(--kindai-purple) / 0.5), 0 0 40px hsl(var(--kindai-purple) / 0.3);
   }
+
+  /* Mobile touch feedback */
+  .touch-feedback {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .touch-feedback:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease-out;
+  }
+
+  /* Hover scale for interactive elements */
+  .hover-scale {
+    @apply transition-transform duration-200;
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+
+  .hover-scale:active {
+    transform: scale(0.98);
+  }
 }
