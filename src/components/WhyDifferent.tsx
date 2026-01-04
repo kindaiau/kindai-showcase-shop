@@ -1,5 +1,6 @@
 import { Check, X } from "lucide-react";
 import { useParallax } from "@/hooks/use-parallax";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const comparisons = [
   {
@@ -58,77 +59,84 @@ const WhyDifferent = () => {
       <div className="container px-4 relative z-10">
         <div className="max-w-5xl mx-auto space-y-16">
           {/* Header */}
-          <div className="text-center space-y-4">
-            <p className="text-kindai-purple font-medium uppercase tracking-wider text-sm">
-              Why We're Different
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold">
-              Stop Learning.{" "}
-              <span className="text-gradient-rebel">Start Doing.</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Most tools give you instructions. We give you results.
-            </p>
-          </div>
+          <ScrollReveal animation="fade-up">
+            <div className="text-center space-y-4">
+              <p className="text-kindai-purple font-medium uppercase tracking-wider text-sm">
+                Why We're Different
+              </p>
+              <h2 className="text-4xl md:text-5xl font-bold">
+                Stop Learning.{" "}
+                <span className="text-gradient-rebel">Start Doing.</span>
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Most tools give you instructions. We give you results.
+              </p>
+            </div>
+          </ScrollReveal>
 
           {/* Comparison Table */}
-          <div className="bg-card border-2 border-border rounded-2xl overflow-hidden">
-            {/* Table Header */}
-            <div className="grid grid-cols-2 bg-muted/50">
-              <div className="p-4 md:p-6 border-r border-border">
-                <div className="flex items-center gap-2 text-muted-foreground font-medium">
-                  <X className="w-5 h-5 text-destructive" />
-                  <span>Other Tools</span>
+          <ScrollReveal animation="fade-up" delay={100}>
+            <div className="bg-card border-2 border-border rounded-2xl overflow-hidden">
+              {/* Table Header */}
+              <div className="grid grid-cols-2 bg-muted/50">
+                <div className="p-4 md:p-6 border-r border-border">
+                  <div className="flex items-center gap-2 text-muted-foreground font-medium">
+                    <X className="w-5 h-5 text-destructive" />
+                    <span>Other Tools</span>
+                  </div>
+                </div>
+                <div className="p-4 md:p-6">
+                  <div className="flex items-center gap-2 font-medium">
+                    <Check className="w-5 h-5 text-kindai-green" />
+                    <span className="text-gradient-rebel">Rebel Toolkit</span>
+                  </div>
                 </div>
               </div>
-              <div className="p-4 md:p-6">
-                <div className="flex items-center gap-2 font-medium">
-                  <Check className="w-5 h-5 text-kindai-green" />
-                  <span className="text-gradient-rebel">Rebel Toolkit</span>
-                </div>
-              </div>
-            </div>
 
-            {/* Table Rows */}
-            {comparisons.map((item, index) => (
-              <div
-                key={index}
-                className="grid grid-cols-2 border-t border-border"
-              >
-                <div className="p-4 md:p-6 border-r border-border text-muted-foreground">
-                  {item.others}
+              {/* Table Rows */}
+              {comparisons.map((item, index) => (
+                <div
+                  key={index}
+                  className="grid grid-cols-2 border-t border-border"
+                >
+                  <div className="p-4 md:p-6 border-r border-border text-muted-foreground">
+                    {item.others}
+                  </div>
+                  <div className="p-4 md:p-6 font-medium">
+                    {item.us}
+                  </div>
                 </div>
-                <div className="p-4 md:p-6 font-medium">
-                  {item.us}
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </ScrollReveal>
 
           {/* Differentiators */}
           <div className="grid md:grid-cols-3 gap-6">
             {differentiators.map((item, index) => (
-              <div
-                key={index}
-                className={`bg-card border-2 border-border hover:border-${item.color}/50 rounded-2xl p-6 transition-smooth`}
-              >
-                <div className={`w-3 h-3 rounded-full bg-${item.color} mb-4`} />
-                <h3 className="text-lg font-bold mb-2">{item.title}</h3>
-                <p className="text-muted-foreground text-sm">{item.description}</p>
-              </div>
+              <ScrollReveal key={index} animation="fade-up" delay={index * 100}>
+                <div
+                  className={`bg-card border-2 border-border hover:border-${item.color}/50 rounded-2xl p-6 transition-smooth h-full`}
+                >
+                  <div className={`w-3 h-3 rounded-full bg-${item.color} mb-4`} />
+                  <h3 className="text-lg font-bold mb-2">{item.title}</h3>
+                  <p className="text-muted-foreground text-sm">{item.description}</p>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
 
           {/* Bottom CTA */}
-          <div className="text-center bg-gradient-to-r from-kindai-pink/10 via-kindai-green/10 to-kindai-blue/10 rounded-2xl p-8 border-2 border-border">
-            <p className="text-2xl font-bold mb-2">
-              Ready to stop learning and start{" "}
-              <span className="text-kindai-green">getting things done</span>?
-            </p>
-            <p className="text-muted-foreground">
-              Join thousands of rebels who chose results over tutorials.
-            </p>
-          </div>
+          <ScrollReveal animation="scale">
+            <div className="text-center bg-gradient-to-r from-kindai-pink/10 via-kindai-green/10 to-kindai-blue/10 rounded-2xl p-8 border-2 border-border">
+              <p className="text-2xl font-bold mb-2">
+                Ready to stop learning and start{" "}
+                <span className="text-kindai-green">getting things done</span>?
+              </p>
+              <p className="text-muted-foreground">
+                Join thousands of rebels who chose results over tutorials.
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
