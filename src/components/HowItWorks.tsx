@@ -1,4 +1,4 @@
-import { MessageSquare, Bot, Download } from "lucide-react";
+import { MessageSquare, Bot, Download, ArrowRight } from "lucide-react";
 import { useParallax } from "@/hooks/use-parallax";
 
 const steps = [
@@ -136,13 +136,20 @@ const HowItWorks = () => {
             ))}
           </div>
 
-          {/* Bottom tagline */}
-          <div className="text-center">
+          {/* Bottom tagline with link */}
+          <div className="text-center space-y-4">
             <p className="text-lg text-muted-foreground">
               <span className="font-semibold text-foreground">The difference?</span>{" "}
               Other tools teach you to fish.{" "}
               <span className="text-kindai-green font-semibold">We hand you the fish — cooked, seasoned, and plated.</span>
             </p>
+            <a 
+              href="/how-it-works" 
+              className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
+            >
+              See the full breakdown with demos
+              <ArrowRight className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </div>
