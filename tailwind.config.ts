@@ -103,6 +103,26 @@ export default {
           "0%, 100%": { opacity: "0.2", transform: "scale(1)" },
           "50%": { opacity: "0.8", transform: "scale(1.2)" },
         },
+        // Mobile-optimized animations
+        "bounce-in": {
+          "0%": { opacity: "0", transform: "scale(0.3)" },
+          "50%": { transform: "scale(1.05)" },
+          "70%": { transform: "scale(0.9)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        "slide-in-bottom": {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "wiggle": {
+          "0%, 100%": { transform: "rotate(-2deg)" },
+          "50%": { transform: "rotate(2deg)" },
+        },
+        "tap-highlight": {
+          "0%": { transform: "scale(1)" },
+          "50%": { transform: "scale(0.95)" },
+          "100%": { transform: "scale(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -113,6 +133,11 @@ export default {
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "particle": "particle 15s linear infinite",
         "twinkle": "twinkle 3s ease-in-out infinite",
+        // Mobile-optimized animations
+        "bounce-in": "bounce-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+        "slide-in-bottom": "slide-in-bottom 0.4s ease-out",
+        "wiggle": "wiggle 0.3s ease-in-out",
+        "tap-highlight": "tap-highlight 0.15s ease-out",
       },
     },
   },

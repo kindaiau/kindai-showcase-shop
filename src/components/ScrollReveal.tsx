@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -20,22 +22,27 @@ const ScrollReveal = ({
   threshold = 0.1,
 }: ScrollRevealProps) => {
   const { ref, isVisible } = useScrollAnimation({ threshold });
+  const isMobile = useIsMobile();
+  const prefersReducedMotion = useReducedMotion();
 
+  // Reduce translate distance on mobile for smoother animations
+  const mobileOffset = isMobile ? "4" : "8";
+  
   const animations = {
     "fade-up": {
-      hidden: "opacity-0 translate-y-8",
+      hidden: `opacity-0 translate-y-${mobileOffset}`,
       visible: "opacity-100 translate-y-0",
     },
     "fade-down": {
-      hidden: "opacity-0 -translate-y-8",
+      hidden: `opacity-0 -translate-y-${mobileOffset}`,
       visible: "opacity-100 translate-y-0",
     },
     "fade-left": {
-      hidden: "opacity-0 translate-x-8",
+      hidden: `opacity-0 translate-x-${mobileOffset}`,
       visible: "opacity-100 translate-x-0",
     },
     "fade-right": {
-      hidden: "opacity-0 -translate-x-8",
+      hidden: `opacity-0 -translate-x-${mobileOffset}`,
       visible: "opacity-100 translate-x-0",
     },
     scale: {
@@ -50,6 +57,14 @@ const ScrollReveal = ({
 
   const { hidden, visible } = animations[animation];
 
+  // If user prefers reduced motion, show content immediately without animation
+  if (prefersReducedMotion) {
+    return <div className={className}>{children}</div>;
+  }
+
+  // Slightly faster animations on mobile
+  const actualDuration = isMobile ? Math.min(duration, 400) : duration;
+
   return (
     <div
       ref={ref}
@@ -59,7 +74,7 @@ const ScrollReveal = ({
         className
       )}
       style={{
-        transitionDuration: `${duration}ms`,
+        transitionDuration: `${actualDuration}ms`,
         transitionDelay: `${delay}ms`,
       }}
     >
