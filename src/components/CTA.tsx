@@ -14,7 +14,7 @@ const CTA = () => {
       />
       
       <div className="container px-4 relative z-10">
-        <ScrollReveal animation="fade-up">
+        <ScrollReveal animation="fade-left">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted border border-border">
               <Sparkles className="w-4 h-4 text-kindai-pink" />

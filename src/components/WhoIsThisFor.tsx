@@ -31,7 +31,7 @@ const WhoIsThisFor = () => {
 
       <div className="container px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <ScrollReveal animation="fade-up">
+          <ScrollReveal animation="fade-right">
             <div className="text-center space-y-4 mb-12">
               <h2 className="text-4xl md:text-5xl font-bold">
                 Built for Real People{" "}
@@ -43,7 +43,7 @@ const WhoIsThisFor = () => {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal animation="fade-up" delay={150}>
+          <ScrollReveal animation="fade-left" delay={150}>
             <Card className="p-8 md:p-12 shadow-card">
               <div className="grid md:grid-cols-2 gap-6">
                 {audience.map((item, index) => (

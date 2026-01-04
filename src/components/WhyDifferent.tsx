@@ -59,7 +59,7 @@ const WhyDifferent = () => {
       <div className="container px-4 relative z-10">
         <div className="max-w-5xl mx-auto space-y-16">
           {/* Header */}
-          <ScrollReveal animation="fade-up">
+          <ScrollReveal animation="fade-left">
             <div className="text-center space-y-4">
               <p className="text-kindai-purple font-medium uppercase tracking-wider text-sm">
                 Why We're Different
@@ -75,7 +75,7 @@ const WhyDifferent = () => {
           </ScrollReveal>
 
           {/* Comparison Table */}
-          <ScrollReveal animation="fade-up" delay={100}>
+          <ScrollReveal animation="fade-right" delay={100}>
             <div className="bg-card border-2 border-border rounded-2xl overflow-hidden">
               {/* Table Header */}
               <div className="grid grid-cols-2 bg-muted/50">
@@ -113,7 +113,7 @@ const WhyDifferent = () => {
           {/* Differentiators */}
           <div className="grid md:grid-cols-3 gap-6">
             {differentiators.map((item, index) => (
-              <ScrollReveal key={index} animation="fade-up" delay={index * 100}>
+              <ScrollReveal key={index} animation={index % 2 === 0 ? "fade-left" : "fade-right"} delay={index * 100}>
                 <div
                   className={`bg-card border-2 border-border hover:border-${item.color}/50 rounded-2xl p-6 transition-smooth h-full`}
                 >

@@ -54,7 +54,7 @@ const HowItWorks = () => {
       <div className="container px-4 relative z-10">
         <div className="max-w-5xl mx-auto space-y-16">
           {/* Header */}
-          <ScrollReveal animation="fade-up">
+          <ScrollReveal animation="fade-left">
             <div className="text-center space-y-4">
               <p className="text-kindai-green font-medium uppercase tracking-wider text-sm">
                 How It Works
@@ -74,7 +74,7 @@ const HowItWorks = () => {
             {steps.map((step, index) => (
               <ScrollReveal
                 key={index}
-                animation="fade-up"
+                animation={index % 2 === 0 ? "fade-right" : "fade-left"}
                 delay={index * 150}
               >
                 <div className="relative group h-full">
