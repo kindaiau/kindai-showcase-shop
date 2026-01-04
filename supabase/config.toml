@@ -1,1 +1,7 @@
 project_id = "ccwbdarlfwmqbeftppzk"
+
+[functions.send-welcome-email]
+verify_jwt = false
+
+[functions.rebel-ai-chat]
+verify_jwt = true
