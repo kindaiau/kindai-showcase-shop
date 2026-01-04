@@ -10,14 +10,16 @@ import {
   FileText, 
   CheckSquare, 
   Bot, 
-  Sparkles,
   Home,
-  Zap
+  PenTool,
+  TrendingUp,
+  Zap,
+  Sparkles
 } from "lucide-react";
 import logo from "@/assets/kindai-logo-with-bird.png";
-import AIAssistant from "@/components/toolkit/AIAssistant";
 import ToolkitContentCard from "@/components/toolkit/ToolkitContentCard";
 import ContentViewer from "@/components/toolkit/ContentViewer";
+import SpecializedAgent from "@/components/toolkit/SpecializedAgent";
 
 interface ToolkitContent {
   id: string;
@@ -37,7 +39,7 @@ const Toolkit = () => {
   const [content, setContent] = useState<ToolkitContent[]>([]);
   const [selectedContent, setSelectedContent] = useState<ToolkitContent | null>(null);
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState("guides");
+  const [activeTab, setActiveTab] = useState("agents");
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
@@ -126,7 +128,7 @@ const Toolkit = () => {
               <h1 className="font-bold text-lg">
                 <span className="text-kindai-pink">Rebel</span> Toolkit
               </h1>
-              <p className="text-xs text-muted-foreground">Your 3-Agent Playbook</p>
+              <p className="text-xs text-muted-foreground">3 AI Agents at Your Service</p>
             </div>
           </div>
           
@@ -147,117 +149,190 @@ const Toolkit = () => {
         {/* Welcome section */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">
-            Welcome, <span className="text-kindai-pink">Rebel</span>! 🚀
+            Your AI Team is Ready, <span className="text-kindai-pink">Rebel</span> 🚀
           </h2>
           <p className="text-muted-foreground">
-            Everything you need to build incredible digital products. No fluff, just power.
+            3 specialized AI agents that do the work for you. No learning curve, just results.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main content area */}
-          <div className="lg:col-span-2">
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="grid grid-cols-4 mb-6">
-                <TabsTrigger value="guides" className="flex items-center gap-2">
-                  <BookOpen className="w-4 h-4" />
-                  <span className="hidden sm:inline">Guides</span>
-                </TabsTrigger>
-                <TabsTrigger value="templates" className="flex items-center gap-2">
-                  <FileText className="w-4 h-4" />
-                  <span className="hidden sm:inline">Templates</span>
-                </TabsTrigger>
-                <TabsTrigger value="checklists" className="flex items-center gap-2">
-                  <CheckSquare className="w-4 h-4" />
-                  <span className="hidden sm:inline">Checklists</span>
-                </TabsTrigger>
-                <TabsTrigger value="generate" className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4" />
-                  <span className="hidden sm:inline">Generate</span>
-                </TabsTrigger>
-              </TabsList>
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <TabsList className="grid grid-cols-5 mb-6 h-auto">
+            <TabsTrigger value="agents" className="flex items-center gap-2 py-3">
+              <Bot className="w-4 h-4" />
+              <span className="hidden sm:inline">AI Agents</span>
+            </TabsTrigger>
+            <TabsTrigger value="guides" className="flex items-center gap-2 py-3">
+              <BookOpen className="w-4 h-4" />
+              <span className="hidden sm:inline">Guides</span>
+            </TabsTrigger>
+            <TabsTrigger value="templates" className="flex items-center gap-2 py-3">
+              <FileText className="w-4 h-4" />
+              <span className="hidden sm:inline">Templates</span>
+            </TabsTrigger>
+            <TabsTrigger value="checklists" className="flex items-center gap-2 py-3">
+              <CheckSquare className="w-4 h-4" />
+              <span className="hidden sm:inline">Checklists</span>
+            </TabsTrigger>
+            <TabsTrigger value="resources" className="flex items-center gap-2 py-3">
+              <Sparkles className="w-4 h-4" />
+              <span className="hidden sm:inline">Resources</span>
+            </TabsTrigger>
+          </TabsList>
 
-              <TabsContent value="guides" className="space-y-4">
-                <div className="flex items-center gap-2 mb-4">
-                  <Zap className="w-5 h-5 text-kindai-blue" />
-                  <h3 className="font-semibold">Step-by-Step Guides</h3>
-                </div>
-                {guides.map(item => (
-                  <ToolkitContentCard
-                    key={item.id}
-                    id={item.id}
-                    title={item.title}
-                    description={item.description || ""}
-                    contentType={item.content_type}
-                    category={item.category}
-                    icon={item.icon || "FileText"}
-                    content={item.content}
-                    onOpen={handleOpenContent}
-                  />
-                ))}
-              </TabsContent>
-
-              <TabsContent value="templates" className="space-y-4">
-                <div className="flex items-center gap-2 mb-4">
-                  <FileText className="w-5 h-5 text-kindai-orange" />
-                  <h3 className="font-semibold">Automation Templates</h3>
-                </div>
-                {templates.map(item => (
-                  <ToolkitContentCard
-                    key={item.id}
-                    id={item.id}
-                    title={item.title}
-                    description={item.description || ""}
-                    contentType={item.content_type}
-                    category={item.category}
-                    icon={item.icon || "FileText"}
-                    content={item.content}
-                    onOpen={handleOpenContent}
-                  />
-                ))}
-              </TabsContent>
-
-              <TabsContent value="checklists" className="space-y-4">
-                <div className="flex items-center gap-2 mb-4">
-                  <CheckSquare className="w-5 h-5 text-kindai-green" />
-                  <h3 className="font-semibold">Business Checklists</h3>
-                </div>
-                {checklists.map(item => (
-                  <ToolkitContentCard
-                    key={item.id}
-                    id={item.id}
-                    title={item.title}
-                    description={item.description || ""}
-                    contentType={item.content_type}
-                    category={item.category}
-                    icon={item.icon || "FileText"}
-                    content={item.content}
-                    onOpen={handleOpenContent}
-                  />
-                ))}
-              </TabsContent>
-
-              <TabsContent value="generate">
-                <div className="flex items-center gap-2 mb-4">
-                  <Sparkles className="w-5 h-5 text-kindai-purple" />
-                  <h3 className="font-semibold">AI Content Generator</h3>
-                </div>
-                <AIAssistant mode="generate" />
-              </TabsContent>
-            </Tabs>
-          </div>
-
-          {/* AI Assistant sidebar */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-24">
-              <div className="flex items-center gap-2 mb-4">
-                <Bot className="w-5 h-5 text-kindai-purple" />
-                <h3 className="font-semibold">Rebel AI Assistant</h3>
+          {/* AI Agents Tab */}
+          <TabsContent value="agents">
+            <div className="space-y-6">
+              {/* Agent Selection */}
+              <div className="grid md:grid-cols-3 gap-4">
+                <AgentCard
+                  title="Content Creator"
+                  description="Writes complete blog posts, social media content, emails, and marketing copy."
+                  icon={<PenTool className="w-6 h-6" />}
+                  color="bg-kindai-pink"
+                  examples={["Blog posts", "Social calendars", "Email sequences", "Ad copy"]}
+                  onClick={() => setActiveTab("agent-content")}
+                />
+                <AgentCard
+                  title="Business Strategist"
+                  description="Builds business plans, pricing strategies, and competitive analyses."
+                  icon={<TrendingUp className="w-6 h-6" />}
+                  color="bg-kindai-orange"
+                  examples={["Business plans", "Pricing models", "Market analysis", "Growth roadmaps"]}
+                  onClick={() => setActiveTab("agent-strategy")}
+                />
+                <AgentCard
+                  title="Automation Engineer"
+                  description="Creates automation workflows, technical integrations, and SEO configs."
+                  icon={<Zap className="w-6 h-6" />}
+                  color="bg-kindai-green"
+                  examples={["Zapier workflows", "CRM setups", "Email automations", "SEO markup"]}
+                  onClick={() => setActiveTab("agent-tech")}
+                />
               </div>
-              <AIAssistant mode="chat" />
+
+              <div className="text-center py-8 border-2 border-dashed border-border rounded-lg">
+                <Bot className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
+                <h3 className="font-semibold text-lg mb-2">Select an Agent to Get Started</h3>
+                <p className="text-muted-foreground max-w-md mx-auto">
+                  Click on any agent above to start working. They'll create complete, 
+                  ready-to-use content — not just advice.
+                </p>
+              </div>
             </div>
-          </div>
-        </div>
+          </TabsContent>
+
+          {/* Individual Agent Tabs */}
+          <TabsContent value="agent-content">
+            <Button variant="ghost" size="sm" onClick={() => setActiveTab("agents")} className="mb-4">
+              ← Back to Agents
+            </Button>
+            <SpecializedAgent agentType="content" />
+          </TabsContent>
+
+          <TabsContent value="agent-strategy">
+            <Button variant="ghost" size="sm" onClick={() => setActiveTab("agents")} className="mb-4">
+              ← Back to Agents
+            </Button>
+            <SpecializedAgent agentType="strategy" />
+          </TabsContent>
+
+          <TabsContent value="agent-tech">
+            <Button variant="ghost" size="sm" onClick={() => setActiveTab("agents")} className="mb-4">
+              ← Back to Agents
+            </Button>
+            <SpecializedAgent agentType="tech" />
+          </TabsContent>
+
+          {/* Guides Tab */}
+          <TabsContent value="guides" className="space-y-4">
+            <div className="flex items-center gap-2 mb-4">
+              <BookOpen className="w-5 h-5 text-kindai-blue" />
+              <h3 className="font-semibold">Reference Guides</h3>
+              <span className="text-sm text-muted-foreground">— Learn the strategies behind the agents</span>
+            </div>
+            {guides.map(item => (
+              <ToolkitContentCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                description={item.description || ""}
+                contentType={item.content_type}
+                category={item.category}
+                icon={item.icon || "FileText"}
+                content={item.content}
+                onOpen={handleOpenContent}
+              />
+            ))}
+          </TabsContent>
+
+          {/* Templates Tab */}
+          <TabsContent value="templates" className="space-y-4">
+            <div className="flex items-center gap-2 mb-4">
+              <FileText className="w-5 h-5 text-kindai-orange" />
+              <h3 className="font-semibold">Prompt Templates</h3>
+              <span className="text-sm text-muted-foreground">— Copy-paste prompts for the agents</span>
+            </div>
+            {templates.map(item => (
+              <ToolkitContentCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                description={item.description || ""}
+                contentType={item.content_type}
+                category={item.category}
+                icon={item.icon || "FileText"}
+                content={item.content}
+                onOpen={handleOpenContent}
+              />
+            ))}
+          </TabsContent>
+
+          {/* Checklists Tab */}
+          <TabsContent value="checklists" className="space-y-4">
+            <div className="flex items-center gap-2 mb-4">
+              <CheckSquare className="w-5 h-5 text-kindai-green" />
+              <h3 className="font-semibold">Implementation Checklists</h3>
+              <span className="text-sm text-muted-foreground">— Track your progress</span>
+            </div>
+            {checklists.map(item => (
+              <ToolkitContentCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                description={item.description || ""}
+                contentType={item.content_type}
+                category={item.category}
+                icon={item.icon || "FileText"}
+                content={item.content}
+                onOpen={handleOpenContent}
+              />
+            ))}
+          </TabsContent>
+
+          {/* Resources Tab */}
+          <TabsContent value="resources" className="space-y-4">
+            <div className="flex items-center gap-2 mb-4">
+              <Sparkles className="w-5 h-5 text-kindai-purple" />
+              <h3 className="font-semibold">All Resources</h3>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {content.map(item => (
+                <ToolkitContentCard
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
+                  description={item.description || ""}
+                  contentType={item.content_type}
+                  category={item.category}
+                  icon={item.icon || "FileText"}
+                  content={item.content}
+                  onOpen={handleOpenContent}
+                />
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
 
       {/* Content viewer modal */}
@@ -271,5 +346,35 @@ const Toolkit = () => {
     </div>
   );
 };
+
+// Agent Card Component
+interface AgentCardProps {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  color: string;
+  examples: string[];
+  onClick: () => void;
+}
+
+const AgentCard = ({ title, description, icon, color, examples, onClick }: AgentCardProps) => (
+  <button
+    onClick={onClick}
+    className="text-left p-6 rounded-xl border-2 border-border hover:border-primary/50 transition-all hover:shadow-lg group bg-card"
+  >
+    <div className={`w-12 h-12 rounded-lg ${color} flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform`}>
+      {icon}
+    </div>
+    <h3 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors">{title}</h3>
+    <p className="text-sm text-muted-foreground mb-4">{description}</p>
+    <div className="flex flex-wrap gap-1">
+      {examples.map((ex, i) => (
+        <span key={i} className="text-xs bg-muted px-2 py-1 rounded-full">
+          {ex}
+        </span>
+      ))}
+    </div>
+  </button>
+);
 
 export default Toolkit;
