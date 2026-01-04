@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { useParallax } from "@/hooks/use-parallax";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const Story = () => {
   const parallax1 = useParallax(0.12);
@@ -19,8 +20,9 @@ const Story = () => {
         />
       </div>
       <div className="container px-4 relative z-10">
-        <div className="max-w-4xl mx-auto">
-          <Card className="p-8 md:p-12 shadow-card border-2 hover:border-primary/50 transition-smooth">
+        <ScrollReveal animation="fade-up">
+          <div className="max-w-4xl mx-auto">
+            <Card className="p-8 md:p-12 shadow-card border-2 hover:border-primary/50 transition-smooth">
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold">
                 <span className="text-kindai-pink text-glow-pink">T</span>
@@ -67,7 +69,8 @@ const Story = () => {
               </div>
             </div>
           </Card>
-        </div>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

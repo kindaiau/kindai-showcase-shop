@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Brain, Zap, Heart, Sparkles, RefreshCw, CheckCircle } from "lucide-react";
 import { useParallax } from "@/hooks/use-parallax";
+import ScrollReveal from "@/components/ScrollReveal";
 const features = [
   {
     icon: Brain,
@@ -60,8 +61,9 @@ const Features = () => {
       </div>
       <div className="container px-4 relative z-10">
         <div className="max-w-6xl mx-auto space-y-12">
-          <div className="text-center space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold">
+          <ScrollReveal animation="fade-up">
+            <div className="text-center space-y-4">
+              <h2 className="text-4xl md:text-5xl font-bold">
               Your{" "}
               <span className="inline-block">
                 <span className="text-kindai-pink text-glow-pink">R</span>
@@ -81,32 +83,37 @@ const Features = () => {
                 <span className="text-kindai-orange text-glow-orange">t</span>
               </span>
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to build incredible digital products. No fluff, just power.
-            </p>
-          </div>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Everything you need to build incredible digital products. No fluff, just power.
+              </p>
+            </div>
+          </ScrollReveal>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
-              <Card 
-                key={index}
-                className="p-6 hover:shadow-card transition-smooth border-2 hover:border-primary/30 group"
-                style={{ animationDelay: `${index * 100}ms` }}
+              <ScrollReveal 
+                key={index} 
+                animation="fade-up" 
+                delay={index * 100}
               >
-                <div className="space-y-4">
-                  <div className={`${feature.color} transition-smooth group-hover:scale-110`}>
-                    <feature.icon className="w-10 h-10" />
+                <Card 
+                  className="p-6 hover:shadow-card transition-smooth border-2 hover:border-primary/30 group h-full"
+                >
+                  <div className="space-y-4">
+                    <div className={`${feature.color} transition-smooth group-hover:scale-110`}>
+                      <feature.icon className="w-10 h-10" />
+                    </div>
+                    
+                    <h3 className="text-xl font-bold">
+                      {feature.title}
+                    </h3>
+                    
+                    <p className="text-muted-foreground leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
-                  
-                  <h3 className="text-xl font-bold">
-                    {feature.title}
-                  </h3>
-                  
-                  <p className="text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              </Card>
+                </Card>
+              </ScrollReveal>
             ))}
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { MessageSquare, Bot, Download, ArrowRight } from "lucide-react";
 import { useParallax } from "@/hooks/use-parallax";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const steps = [
   {
@@ -53,26 +54,30 @@ const HowItWorks = () => {
       <div className="container px-4 relative z-10">
         <div className="max-w-5xl mx-auto space-y-16">
           {/* Header */}
-          <div className="text-center space-y-4">
-            <p className="text-kindai-green font-medium uppercase tracking-wider text-sm">
-              How It Works
-            </p>
-            <h2 className="text-4xl md:text-5xl font-bold">
-              You Describe.{" "}
-              <span className="text-gradient-rebel">We Deliver.</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              No courses. No tutorials. No learning curve. Just tell our AI agents what you need, and they do the work.
-            </p>
-          </div>
+          <ScrollReveal animation="fade-up">
+            <div className="text-center space-y-4">
+              <p className="text-kindai-green font-medium uppercase tracking-wider text-sm">
+                How It Works
+              </p>
+              <h2 className="text-4xl md:text-5xl font-bold">
+                You Describe.{" "}
+                <span className="text-gradient-rebel">We Deliver.</span>
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                No courses. No tutorials. No learning curve. Just tell our AI agents what you need, and they do the work.
+              </p>
+            </div>
+          </ScrollReveal>
 
           {/* Steps */}
           <div className="grid md:grid-cols-3 gap-8">
             {steps.map((step, index) => (
-              <div
+              <ScrollReveal
                 key={index}
-                className="relative group"
+                animation="fade-up"
+                delay={index * 150}
               >
+                <div className="relative group h-full">
                 {/* Connector line (hidden on last item and mobile) */}
                 {index < steps.length - 1 && (
                   <div className="hidden md:block absolute top-12 left-[60%] w-[80%] h-[2px] bg-gradient-to-r from-muted-foreground/30 to-transparent" />
@@ -131,8 +136,9 @@ const HowItWorks = () => {
                       ))}
                     </div>
                   )}
+                  </div>
                 </div>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
 
