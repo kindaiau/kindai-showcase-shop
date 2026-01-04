@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import logo from "@/assets/kindai-logo-with-bird.png";
 import { useState } from "react";
 import EmailCaptureForm from "./EmailCaptureForm";
@@ -7,6 +8,7 @@ import { useParallax } from "@/hooks/use-parallax";
 
 const Hero = () => {
   const [showEmailDialog, setShowEmailDialog] = useState(false);
+  const navigate = useNavigate();
   const parallax1 = useParallax(0.3);
   const parallax2 = useParallax(0.2);
   const parallax3 = useParallax(0.15);
@@ -61,13 +63,23 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Button size="lg" className="text-lg px-8 py-6 gradient-rebel hover:opacity-90 transition-smooth shadow-glow group" onClick={() => setShowEmailDialog(true)}>
-              Join the Waitlist
+            <Button 
+              size="lg" 
+              className="text-lg px-8 py-6 gradient-rebel hover:opacity-90 transition-smooth shadow-glow group" 
+              onClick={() => navigate("/toolkit")}
+            >
+              <Sparkles className="mr-2 w-5 h-5" />
+              Access Rebel Toolkit
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-smooth" />
             </Button>
             
-            <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-2 hover:border-primary transition-smooth">
-              Watch Demo
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="text-lg px-8 py-6 border-2 hover:border-primary transition-smooth"
+              onClick={() => setShowEmailDialog(true)}
+            >
+              Join Waitlist
             </Button>
           </div>
           

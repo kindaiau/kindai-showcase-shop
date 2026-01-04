@@ -14,6 +14,62 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_conversations: {
+        Row: {
+          created_at: string
+          id: string
+          title: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          title?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          title?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      ai_messages: {
+        Row: {
+          content: string
+          conversation_id: string
+          created_at: string
+          id: string
+          role: string
+        }
+        Insert: {
+          content: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          role: string
+        }
+        Update: {
+          content?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "ai_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       auction_submissions: {
         Row: {
           admin_notes: string | null
@@ -339,6 +395,78 @@ export type Database = {
         }
         Relationships: []
       }
+      toolkit_content: {
+        Row: {
+          category: string
+          content: Json
+          content_type: Database["public"]["Enums"]["toolkit_content_type"]
+          created_at: string
+          description: string | null
+          icon: string | null
+          id: string
+          is_premium: boolean | null
+          order_index: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          content?: Json
+          content_type: Database["public"]["Enums"]["toolkit_content_type"]
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          is_premium?: boolean | null
+          order_index?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          content?: Json
+          content_type?: Database["public"]["Enums"]["toolkit_content_type"]
+          created_at?: string
+          description?: string | null
+          icon?: string | null
+          id?: string
+          is_premium?: boolean | null
+          order_index?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_generated_content: {
+        Row: {
+          content: string
+          content_type: string
+          created_at: string
+          id: string
+          metadata: Json | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          content_type: string
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          content_type?: string
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -362,6 +490,44 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      user_toolkit_progress: {
+        Row: {
+          completed_at: string | null
+          completed_steps: Json | null
+          content_id: string
+          id: string
+          is_completed: boolean | null
+          started_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          completed_steps?: Json | null
+          content_id: string
+          id?: string
+          is_completed?: boolean | null
+          started_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          completed_steps?: Json | null
+          content_id?: string
+          id?: string
+          is_completed?: boolean | null
+          started_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_toolkit_progress_content_id_fkey"
+            columns: ["content_id"]
+            isOneToOne: false
+            referencedRelation: "toolkit_content"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       water_quotes: {
         Row: {
@@ -482,6 +648,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
+      toolkit_content_type: "guide" | "template" | "checklist"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -610,6 +777,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
+      toolkit_content_type: ["guide", "template", "checklist"],
     },
   },
 } as const
