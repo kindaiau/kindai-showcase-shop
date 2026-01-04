@@ -6,6 +6,15 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Sparkles } from "lucide-react";
+import { z } from "zod";
+
+const emailFormSchema = z.object({
+  email: z.string().trim().email("Please enter a valid email").max(255, "Email too long"),
+  name: z.string().trim().max(100, "Name too long").optional()
+    .refine(val => !val || !/[<>"'&]/.test(val), {
+      message: "Name contains invalid characters"
+    })
+});
 
 interface EmailCaptureFormProps {
   variant?: "inline" | "dialog";
@@ -21,6 +30,18 @@ const EmailCaptureForm = ({ variant = "inline", open, onOpenChange }: EmailCaptu
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate input
+    const validation = emailFormSchema.safeParse({ email, name: name || undefined });
+    if (!validation.success) {
+      toast({
+        title: "Invalid input",
+        description: validation.error.errors[0].message,
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -28,8 +49,8 @@ const EmailCaptureForm = ({ variant = "inline", open, onOpenChange }: EmailCaptu
       const { error: insertError } = await supabase
         .from("email_subscribers")
         .insert({
-          email,
-          name: name || null,
+          email: validation.data.email,
+          name: validation.data.name || null,
         });
 
       if (insertError) throw insertError;
