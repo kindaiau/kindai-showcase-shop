@@ -1,6 +1,8 @@
 import Hero from "@/components/Hero";
 import Story from "@/components/Story";
+import HowItWorks from "@/components/HowItWorks";
 import Features from "@/components/Features";
+import WhyDifferent from "@/components/WhyDifferent";
 import WhoIsThisFor from "@/components/WhoIsThisFor";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
@@ -12,7 +14,9 @@ const Index = () => {
       <AnimatedParticles count={40} />
       <Hero />
       <Story />
+      <HowItWorks />
       <Features />
+      <WhyDifferent />
       <WhoIsThisFor />
       <CTA />
       <Footer />
