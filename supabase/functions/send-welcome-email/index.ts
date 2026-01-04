@@ -8,10 +8,35 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-interface WelcomeEmailRequest {
-  email: string;
-  name?: string;
-}
+// Helper to mask email for logging
+const maskEmail = (email: string): string => {
+  const [local, domain] = email.split('@');
+  if (!domain) return '***';
+  const maskedLocal = local.length > 2 ? local.slice(0, 2) + '***' : '***';
+  return `${maskedLocal}@${domain}`;
+};
+
+// Helper to escape HTML entities
+const escapeHtml = (str: string): string => {
+  const htmlEntities: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  };
+  return str.replace(/[&<>"']/g, (char) => htmlEntities[char] || char);
+};
+
+// Simple validation
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email) && email.length <= 255;
+};
+
+const isValidName = (name: string): boolean => {
+  return name.length <= 100 && !/[<>"'&]/.test(name);
+};
 
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
@@ -20,13 +45,31 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { email, name }: WelcomeEmailRequest = await req.json();
+    const body = await req.json();
+    const email = typeof body.email === 'string' ? body.email.trim() : '';
+    const name = typeof body.name === 'string' ? body.name.trim() : '';
 
-    if (!email) {
-      throw new Error("Email is required");
+    // Validate email
+    if (!email || !isValidEmail(email)) {
+      return new Response(
+        JSON.stringify({ error: "Valid email is required" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
     }
 
-    console.log(`Sending welcome email to: ${email}`);
+    // Validate name if provided
+    if (name && !isValidName(name)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid name format" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Log with masked email for privacy
+    console.log(`Sending welcome email to: ${maskEmail(email)}`);
+
+    // Escape name for HTML safety
+    const safeName = name ? escapeHtml(name) : '';
 
     const emailResponse = await resend.emails.send({
       from: "Kindai <onboarding@resend.dev>",
@@ -48,7 +91,7 @@ const handler = async (req: Request): Promise<Response> => {
             
             <div style="background: white; padding: 40px 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
               <h2 style="color: #FF1B8D; margin-top: 0;">
-                ${name ? `Hey ${name}! ` : 'Hey there! '}You're on the list!
+                ${safeName ? `Hey ${safeName}! ` : 'Hey there! '}You're on the list!
               </h2>
               
               <p style="font-size: 16px; line-height: 1.8;">
@@ -97,7 +140,7 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Welcome email sent successfully:", emailResponse);
+    console.log("Welcome email sent successfully");
 
     return new Response(JSON.stringify(emailResponse), {
       status: 200,
@@ -107,9 +150,9 @@ const handler = async (req: Request): Promise<Response> => {
       },
     });
   } catch (error: any) {
-    console.error("Error in send-welcome-email function:", error);
+    console.error("Error in send-welcome-email function:", error.message);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "Failed to send email" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
