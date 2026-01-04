@@ -1,9 +1,24 @@
 import { Card } from "@/components/ui/card";
+import { useParallax } from "@/hooks/use-parallax";
 
 const Story = () => {
+  const parallax1 = useParallax(0.12);
+  const parallax2 = useParallax(0.08);
+
   return (
-    <section className="py-24 bg-muted/30">
-      <div className="container px-4">
+    <section className="py-24 bg-muted/30 relative overflow-hidden">
+      {/* Parallax background orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div 
+          className="absolute -top-20 -right-20 w-80 h-80 bg-kindai-purple/10 rounded-full blur-3xl"
+          style={{ transform: `translateY(${parallax1}px)` }}
+        />
+        <div 
+          className="absolute -bottom-20 -left-20 w-80 h-80 bg-kindai-orange/10 rounded-full blur-3xl"
+          style={{ transform: `translateY(${parallax2}px)` }}
+        />
+      </div>
+      <div className="container px-4 relative z-10">
         <div className="max-w-4xl mx-auto">
           <Card className="p-8 md:p-12 shadow-card border-2 hover:border-primary/50 transition-smooth">
             <div className="space-y-6">

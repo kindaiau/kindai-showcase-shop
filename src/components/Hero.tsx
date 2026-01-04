@@ -3,18 +3,29 @@ import { ArrowRight } from "lucide-react";
 import logo from "@/assets/kindai-logo-with-bird.png";
 import { useState } from "react";
 import EmailCaptureForm from "./EmailCaptureForm";
+import { useParallax } from "@/hooks/use-parallax";
+
 const Hero = () => {
   const [showEmailDialog, setShowEmailDialog] = useState(false);
+  const parallax1 = useParallax(0.3);
+  const parallax2 = useParallax(0.2);
+  const parallax3 = useParallax(0.15);
+
   return <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-      {/* Gradient background orbs */}
+      {/* Gradient background orbs with parallax */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/4 -left-1/4 w-96 h-96 bg-kindai-pink/20 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-kindai-blue/20 rounded-full blur-3xl animate-float" style={{
-        animationDelay: "2s"
-      }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-kindai-green/10 rounded-full blur-3xl animate-float" style={{
-        animationDelay: "4s"
-      }} />
+        <div 
+          className="absolute top-1/4 -left-1/4 w-96 h-96 bg-kindai-pink/20 rounded-full blur-3xl animate-float" 
+          style={{ transform: `translateY(${parallax1}px)` }}
+        />
+        <div 
+          className="absolute bottom-1/4 -right-1/4 w-96 h-96 bg-kindai-blue/20 rounded-full blur-3xl animate-float" 
+          style={{ transform: `translateY(${parallax2}px)`, animationDelay: "2s" }}
+        />
+        <div 
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 w-96 h-96 bg-kindai-green/10 rounded-full blur-3xl animate-float" 
+          style={{ transform: `translateY(calc(-50% + ${parallax3}px))`, animationDelay: "4s" }}
+        />
       </div>
 
       <div className="container relative z-10 px-4 py-20">

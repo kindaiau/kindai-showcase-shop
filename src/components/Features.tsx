@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Brain, Zap, Heart, Sparkles, RefreshCw, CheckCircle } from "lucide-react";
-
+import { useParallax } from "@/hooks/use-parallax";
 const features = [
   {
     icon: Brain,
@@ -40,10 +40,25 @@ const features = [
   },
 ];
 
+
 const Features = () => {
+  const parallax1 = useParallax(0.1);
+  const parallax2 = useParallax(0.15);
+
   return (
-    <section className="py-24 bg-background">
-      <div className="container px-4">
+    <section className="py-24 bg-background relative overflow-hidden">
+      {/* Parallax background orbs */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div 
+          className="absolute top-20 -left-40 w-96 h-96 bg-kindai-green/10 rounded-full blur-3xl"
+          style={{ transform: `translateY(${parallax1}px)` }}
+        />
+        <div 
+          className="absolute bottom-20 -right-40 w-96 h-96 bg-kindai-blue/10 rounded-full blur-3xl"
+          style={{ transform: `translateY(${parallax2}px)` }}
+        />
+      </div>
+      <div className="container px-4 relative z-10">
         <div className="max-w-6xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold">

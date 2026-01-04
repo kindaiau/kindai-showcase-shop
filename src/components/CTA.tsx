@@ -1,11 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import EmailCaptureForm from "./EmailCaptureForm";
+import { useParallax } from "@/hooks/use-parallax";
 
 const CTA = () => {
+  const parallax = useParallax(0.1);
+
   return (
     <section className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 gradient-hero opacity-10" />
+      <div 
+        className="absolute inset-0 gradient-hero opacity-10" 
+        style={{ transform: `translateY(${parallax}px)` }}
+      />
       
       <div className="container px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center space-y-8">
