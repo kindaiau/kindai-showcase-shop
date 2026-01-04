@@ -14,11 +14,13 @@ import {
   PenTool,
   TrendingUp,
   Zap,
-  Sparkles
+  Sparkles,
+  LayoutDashboard
 } from "lucide-react";
 import logo from "@/assets/kindai-logo-with-bird.png";
 import ToolkitContentCard from "@/components/toolkit/ToolkitContentCard";
 import ContentViewer from "@/components/toolkit/ContentViewer";
+import ToolkitDashboard from "@/components/toolkit/ToolkitDashboard";
 import SpecializedAgent from "@/components/toolkit/SpecializedAgent";
 
 interface ToolkitContent {
@@ -39,7 +41,7 @@ const Toolkit = () => {
   const [content, setContent] = useState<ToolkitContent[]>([]);
   const [selectedContent, setSelectedContent] = useState<ToolkitContent | null>(null);
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
-  const [activeTab, setActiveTab] = useState("agents");
+  const [activeTab, setActiveTab] = useState("dashboard");
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
@@ -157,7 +159,11 @@ const Toolkit = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-5 mb-6 h-auto">
+          <TabsList className="grid grid-cols-6 mb-6 h-auto">
+            <TabsTrigger value="dashboard" className="flex items-center gap-2 py-3">
+              <LayoutDashboard className="w-4 h-4" />
+              <span className="hidden sm:inline">Dashboard</span>
+            </TabsTrigger>
             <TabsTrigger value="agents" className="flex items-center gap-2 py-3">
               <Bot className="w-4 h-4" />
               <span className="hidden sm:inline">AI Agents</span>
@@ -179,6 +185,14 @@ const Toolkit = () => {
               <span className="hidden sm:inline">Resources</span>
             </TabsTrigger>
           </TabsList>
+
+          {/* Dashboard Tab */}
+          <TabsContent value="dashboard">
+            <ToolkitDashboard 
+              onOpenContent={handleOpenContent}
+              onNavigateToAgent={(type) => setActiveTab(type === "templates" ? "templates" : `agent-${type}`)}
+            />
+          </TabsContent>
 
           {/* AI Agents Tab */}
           <TabsContent value="agents">
