@@ -59,7 +59,7 @@ const Hero = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Built by Rebels, for Rebels. Forge incredible websites, automation , and AI magic without writing a single line of code.
+            3 AI Agents that create content, build strategies, and automate your business. Tell them what you need — they do the work.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">

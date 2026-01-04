@@ -23,7 +23,7 @@ const features = [
   {
     icon: Sparkles,
     title: "3 Specialized AI Agents",
-    description: "Your rebel toolkit includes step-by-step setup, templates, checklists, and powerful AI agents to bring your vision to life.",
+    description: "Content Agent writes for you. Strategy Agent plans for you. Tech Agent automates for you. They work — you win.",
     color: "text-kindai-blue",
   },
   {
