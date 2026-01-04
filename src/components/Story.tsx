@@ -20,7 +20,7 @@ const Story = () => {
         />
       </div>
       <div className="container px-4 relative z-10">
-        <ScrollReveal animation="fade-up">
+        <ScrollReveal animation="fade-right">
           <div className="max-w-4xl mx-auto">
             <Card className="p-8 md:p-12 shadow-card border-2 hover:border-primary/50 transition-smooth">
             <div className="space-y-6">

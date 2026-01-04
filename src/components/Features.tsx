@@ -61,7 +61,7 @@ const Features = () => {
       </div>
       <div className="container px-4 relative z-10">
         <div className="max-w-6xl mx-auto space-y-12">
-          <ScrollReveal animation="fade-up">
+          <ScrollReveal animation="fade-right">
             <div className="text-center space-y-4">
               <h2 className="text-4xl md:text-5xl font-bold">
               Your{" "}
@@ -93,7 +93,7 @@ const Features = () => {
             {features.map((feature, index) => (
               <ScrollReveal 
                 key={index} 
-                animation="fade-up" 
+                animation={index % 2 === 0 ? "fade-left" : "fade-right"} 
                 delay={index * 100}
               >
                 <Card 
