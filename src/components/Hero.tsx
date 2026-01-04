@@ -2,12 +2,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logo from "@/assets/kindai-logo-with-bird.png";
-import { useState } from "react";
-import EmailCaptureForm from "./EmailCaptureForm";
 import { useParallax } from "@/hooks/use-parallax";
 
 const Hero = () => {
-  const [showEmailDialog, setShowEmailDialog] = useState(false);
   const navigate = useNavigate();
   const parallax1 = useParallax(0.3);
   const parallax2 = useParallax(0.2);
@@ -62,7 +59,7 @@ const Hero = () => {
             3 AI Agents that create content, build strategies, and automate your business. Tell them what you need — they do the work.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+          <div className="flex justify-center items-center pt-4">
             <Button 
               size="lg" 
               className="text-lg px-8 py-6 gradient-rebel hover:opacity-90 transition-smooth shadow-glow group" 
@@ -72,18 +69,7 @@ const Hero = () => {
               Access Rebel Toolkit
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-smooth" />
             </Button>
-            
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="text-lg px-8 py-6 border-2 hover:border-primary transition-smooth"
-              onClick={() => setShowEmailDialog(true)}
-            >
-              Join Waitlist
-            </Button>
           </div>
-          
-          <EmailCaptureForm variant="dialog" open={showEmailDialog} onOpenChange={setShowEmailDialog} />
           
           <div className="pt-8 flex items-center justify-center gap-8 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
