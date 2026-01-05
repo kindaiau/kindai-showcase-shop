@@ -1,5 +1,4 @@
 import { Sparkles } from "lucide-react";
-import EmailCaptureForm from "./EmailCaptureForm";
 import { useParallax } from "@/hooks/use-parallax";
 import ScrollReveal from "@/components/ScrollReveal";
 
@@ -65,12 +64,10 @@ const CTA = () => {
               Get instant access to the complete 3-Agent Playbook. Templates, checklists, diagrams, and your rebel toolkit. No fluff, just power.
             </p>
             
-            <EmailCaptureForm variant="inline" />
-            
-            <div className="pt-8 space-y-2 text-sm text-muted-foreground">
-              <p>✓ Instant digital access</p>
-              <p>✓ Setup in 30 minutes</p>
-              <p>✓ Built for neurodivergent minds</p>
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
+              <span>✓ Instant digital access</span>
+              <span>✓ Setup in 30 minutes</span>
+              <span>✓ Built for neurodivergent minds</span>
             </div>
           </div>
         </ScrollReveal>
