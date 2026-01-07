@@ -79,10 +79,10 @@ const Hero = () => {
             <Button 
               size="lg" 
               className="text-lg px-8 py-6 gradient-rebel hover:opacity-90 transition-smooth shadow-glow group active:scale-95 touch-feedback" 
-              onClick={() => navigate("/toolkit")}
+              onClick={() => navigate("/pricing")}
             >
               <Sparkles className="mr-2 w-5 h-5" />
-              Access Rebel Toolkit
+              Get Started Now
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-smooth" />
             </Button>
           </div>
