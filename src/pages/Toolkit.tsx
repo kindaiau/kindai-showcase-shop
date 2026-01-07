@@ -15,13 +15,15 @@ import {
   TrendingUp,
   Zap,
   Sparkles,
-  LayoutDashboard
+  LayoutDashboard,
+  Play
 } from "lucide-react";
 import logo from "@/assets/kindai-logo-with-bird.png";
 import ToolkitContentCard from "@/components/toolkit/ToolkitContentCard";
 import ContentViewer from "@/components/toolkit/ContentViewer";
 import ToolkitDashboard from "@/components/toolkit/ToolkitDashboard";
 import SpecializedAgent from "@/components/toolkit/SpecializedAgent";
+import MockBusinessTest from "@/components/toolkit/MockBusinessTest";
 
 interface ToolkitContent {
   id: string;
@@ -225,6 +227,17 @@ const Toolkit = () => {
                 />
               </div>
 
+              <div className="flex items-center justify-between p-4 bg-muted/30 rounded-lg border border-dashed border-border">
+                <div>
+                  <h3 className="font-semibold">Try the 3-Agent Demo</h3>
+                  <p className="text-sm text-muted-foreground">Watch all 3 agents work on a mock business</p>
+                </div>
+                <Button onClick={() => setActiveTab("demo")} variant="outline">
+                  <Play className="w-4 h-4 mr-2" />
+                  Run Demo
+                </Button>
+              </div>
+
               <div className="text-center py-8 border-2 border-dashed border-border rounded-lg">
                 <Bot className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
                 <h3 className="font-semibold text-lg mb-2">Select an Agent to Get Started</h3>
@@ -234,6 +247,14 @@ const Toolkit = () => {
                 </p>
               </div>
             </div>
+          </TabsContent>
+
+          {/* Demo Tab */}
+          <TabsContent value="demo">
+            <Button variant="ghost" size="sm" onClick={() => setActiveTab("agents")} className="mb-4">
+              ← Back to Agents
+            </Button>
+            <MockBusinessTest />
           </TabsContent>
 
           {/* Individual Agent Tabs */}
