@@ -70,108 +70,6 @@ export type Database = {
           },
         ]
       }
-      auction_submissions: {
-        Row: {
-          admin_notes: string | null
-          artist: string
-          created_at: string
-          description: string | null
-          end_time: string
-          id: string
-          image_url: string | null
-          reviewed_at: string | null
-          reviewed_by: string | null
-          starting_bid: number
-          status: string
-          submitted_at: string
-          submitted_by: string | null
-          title: string
-          updated_at: string
-        }
-        Insert: {
-          admin_notes?: string | null
-          artist: string
-          created_at?: string
-          description?: string | null
-          end_time: string
-          id?: string
-          image_url?: string | null
-          reviewed_at?: string | null
-          reviewed_by?: string | null
-          starting_bid: number
-          status?: string
-          submitted_at?: string
-          submitted_by?: string | null
-          title: string
-          updated_at?: string
-        }
-        Update: {
-          admin_notes?: string | null
-          artist?: string
-          created_at?: string
-          description?: string | null
-          end_time?: string
-          id?: string
-          image_url?: string | null
-          reviewed_at?: string | null
-          reviewed_by?: string | null
-          starting_bid?: number
-          status?: string
-          submitted_at?: string
-          submitted_by?: string | null
-          title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      auctions: {
-        Row: {
-          artist: string
-          created_at: string
-          current_bid: number
-          description: string | null
-          end_time: string
-          id: string
-          image_url: string
-          starting_bid: number
-          status: string
-          title: string
-          updated_at: string
-          winner_notified: boolean | null
-          winner_notified_at: string | null
-        }
-        Insert: {
-          artist: string
-          created_at?: string
-          current_bid: number
-          description?: string | null
-          end_time: string
-          id?: string
-          image_url: string
-          starting_bid: number
-          status?: string
-          title: string
-          updated_at?: string
-          winner_notified?: boolean | null
-          winner_notified_at?: string | null
-        }
-        Update: {
-          artist?: string
-          created_at?: string
-          current_bid?: number
-          description?: string | null
-          end_time?: string
-          id?: string
-          image_url?: string
-          starting_bid?: number
-          status?: string
-          title?: string
-          updated_at?: string
-          winner_notified?: boolean | null
-          winner_notified_at?: string | null
-        }
-        Relationships: []
-      }
       audit_logs: {
         Row: {
           created_at: string | null
@@ -207,88 +105,6 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
-      }
-      bid_notifications: {
-        Row: {
-          bid_id: string | null
-          id: string
-          notification_type: string
-          sent_at: string
-          status: string
-        }
-        Insert: {
-          bid_id?: string | null
-          id?: string
-          notification_type: string
-          sent_at?: string
-          status?: string
-        }
-        Update: {
-          bid_id?: string | null
-          id?: string
-          notification_type?: string
-          sent_at?: string
-          status?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "bid_notifications_bid_id_fkey"
-            columns: ["bid_id"]
-            isOneToOne: false
-            referencedRelation: "bids"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      bids: {
-        Row: {
-          auction_id: string
-          bid_amount: number
-          bid_time: string
-          bidder_email: string
-          bidder_name: string
-          bidder_phone: string | null
-          created_at: string
-          id: string
-          maximum_bid_amount: number
-          status: string
-          submitted_bid_amount: number
-        }
-        Insert: {
-          auction_id: string
-          bid_amount: number
-          bid_time?: string
-          bidder_email: string
-          bidder_name: string
-          bidder_phone?: string | null
-          created_at?: string
-          id?: string
-          maximum_bid_amount: number
-          status?: string
-          submitted_bid_amount: number
-        }
-        Update: {
-          auction_id?: string
-          bid_amount?: number
-          bid_time?: string
-          bidder_email?: string
-          bidder_name?: string
-          bidder_phone?: string | null
-          created_at?: string
-          id?: string
-          maximum_bid_amount?: number
-          status?: string
-          submitted_bid_amount?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "bids_auction_id_fkey"
-            columns: ["auction_id"]
-            isOneToOne: false
-            referencedRelation: "auctions"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       contact_submissions: {
         Row: {
@@ -624,22 +440,7 @@ export type Database = {
       }
     }
     Views: {
-      auction_bid_counts: {
-        Row: {
-          auction_id: string | null
-          bid_count: number | null
-          current_high_bid: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "bids_auction_id_fkey"
-            columns: ["auction_id"]
-            isOneToOne: false
-            referencedRelation: "auctions"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
+      [_ in never]: never
     }
     Functions: {
       detect_suspicious_access: {
@@ -655,17 +456,6 @@ export type Database = {
       encrypt_customer_data: { Args: { data: string }; Returns: string }
       ensure_admin_exists: { Args: never; Returns: boolean }
       get_current_user_role: { Args: never; Returns: string }
-      get_my_bids: {
-        Args: never
-        Returns: {
-          auction_id: string
-          bid_amount: number
-          bid_time: string
-          id: string
-          status: string
-          submitted_bid_amount: number
-        }[]
-      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
