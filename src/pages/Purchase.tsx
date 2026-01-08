@@ -85,10 +85,10 @@ const Purchase = () => {
       if (data.success) {
         toast({
           title: "License verified!",
-          description: "Welcome to the Rebel Toolkit. Redirecting...",
+          description: "Welcome to the Rebel Toolkit!",
         });
         await refetch();
-        setTimeout(() => navigate("/toolkit"), 1500);
+        navigate("/purchase/success");
       } else {
         toast({
           title: "Verification failed",
