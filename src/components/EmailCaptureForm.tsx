@@ -125,13 +125,13 @@ const EmailCaptureForm = ({ variant = "inline", open, onOpenChange }: EmailCaptu
         ) : (
           <>
             <Mail className="mr-2 h-4 w-4" />
-            Join the Waitlist
+            Subscribe
           </>
         )}
       </Button>
 
       <p className="text-xs text-muted-foreground text-center">
-        Be the first to know when we launch. No spam, just rebel power.
+        Get rebel tips and updates. No spam, unsubscribe anytime.
       </p>
     </form>
   );
@@ -143,10 +143,10 @@ const EmailCaptureForm = ({ variant = "inline", open, onOpenChange }: EmailCaptu
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-kindai-pink" />
-              Join the Rebel Waitlist
+              Stay in the Loop
             </DialogTitle>
             <DialogDescription>
-              Get early access to the 3-Agent Playbook and exclusive rebel resources.
+              Get exclusive rebel tips and updates delivered to your inbox.
             </DialogDescription>
           </DialogHeader>
           {formContent}
@@ -160,10 +160,10 @@ const EmailCaptureForm = ({ variant = "inline", open, onOpenChange }: EmailCaptu
       <div className="space-y-2 mb-6">
         <h3 className="text-2xl font-bold flex items-center gap-2">
           <Sparkles className="h-6 w-6 text-kindai-pink" />
-          Join the Waitlist
+          Stay Updated
         </h3>
         <p className="text-muted-foreground">
-          Be the first to get your hands on the rebel's toolkit.
+          Get rebel tips and exclusive content straight to your inbox.
         </p>
       </div>
       {formContent}

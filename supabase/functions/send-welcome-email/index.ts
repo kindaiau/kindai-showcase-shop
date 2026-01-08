@@ -99,22 +99,22 @@ const handler = async (req: Request): Promise<Response> => {
               </p>
               
               <div style="background: #f9fafb; border-left: 4px solid #10b981; padding: 20px; margin: 30px 0; border-radius: 4px;">
-                <h3 style="margin-top: 0; color: #10b981;">What's Coming Your Way:</h3>
+                <h3 style="margin-top: 0; color: #10b981;">What You'll Get:</h3>
                 <ul style="margin: 0; padding-left: 20px;">
-                  <li style="margin-bottom: 10px;">🎯 The complete 3-Agent Playbook</li>
-                  <li style="margin-bottom: 10px;">🛠️ Ready-to-use templates & checklists</li>
-                  <li style="margin-bottom: 10px;">🧠 ADHD-friendly workflows</li>
-                  <li style="margin-bottom: 10px;">⚡ AI magic without the code</li>
-                  <li>🎁 Exclusive rebel resources</li>
+                  <li style="margin-bottom: 10px;">🎯 Exclusive rebel business tips</li>
+                  <li style="margin-bottom: 10px;">🛠️ Templates & resources</li>
+                  <li style="margin-bottom: 10px;">🧠 ADHD-friendly strategies</li>
+                  <li style="margin-bottom: 10px;">⚡ AI insights and updates</li>
+                  <li>🎁 Special offers for subscribers</li>
                 </ul>
               </div>
               
               <p style="font-size: 16px;">
-                We're putting the final touches on the playbook, and you'll be among the first to get access when we launch.
+                You're now part of the rebel community. We'll keep you updated with the best tips and resources to help you build your freedom business.
               </p>
               
               <p style="font-size: 16px;">
-                In the meantime, keep building, keep rebelling, and keep breaking the rules that don't serve you.
+                Keep building, keep rebelling, and keep breaking the rules that don't serve you.
               </p>
               
               <div style="text-align: center; margin: 40px 0;">
@@ -131,7 +131,7 @@ const handler = async (req: Request): Promise<Response> => {
               <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
               
               <p style="font-size: 12px; color: #6b7280; text-align: center;">
-                You're receiving this email because you signed up for the 3-Agent Playbook waitlist.<br>
+                You're receiving this email because you subscribed to the Kindai newsletter.<br>
                 Built by Rebels, for Rebels.
               </p>
             </div>
