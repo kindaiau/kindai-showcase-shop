@@ -134,6 +134,9 @@ HELPFUL LINKS (use markdown):
 - Sign up or login: [Get Started](/auth)
 - View the toolkit: [Explore Toolkit](/toolkit)
 - Purchase access: [Get Access](/purchase)
+- Full FAQ: [View FAQ](/faq)
+
+For detailed questions about pricing, features, technical issues, or how the agents work, direct users to the FAQ page at /faq which has comprehensive answers.
 
 PERSONALITY: Friendly, helpful, concise. Use emojis sparingly (1-2 per response max).
 
