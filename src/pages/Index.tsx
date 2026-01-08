@@ -7,6 +7,7 @@ import WhoIsThisFor from "@/components/WhoIsThisFor";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import AnimatedParticles from "@/components/AnimatedParticles";
+import FloatingHelpButton from "@/components/FloatingHelpButton";
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
       <WhoIsThisFor />
       <CTA />
       <Footer />
+      <FloatingHelpButton />
     </div>
   );
 };
