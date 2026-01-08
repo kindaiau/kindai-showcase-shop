@@ -467,6 +467,45 @@ export type Database = {
         }
         Relationships: []
       }
+      user_purchases: {
+        Row: {
+          created_at: string
+          email: string
+          gumroad_sale_id: string | null
+          id: string
+          is_verified: boolean
+          license_key: string | null
+          product_id: string
+          purchase_date: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          gumroad_sale_id?: string | null
+          id?: string
+          is_verified?: boolean
+          license_key?: string | null
+          product_id: string
+          purchase_date?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          gumroad_sale_id?: string | null
+          id?: string
+          is_verified?: boolean
+          license_key?: string | null
+          product_id?: string
+          purchase_date?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string

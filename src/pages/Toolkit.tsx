@@ -24,6 +24,8 @@ import ContentViewer from "@/components/toolkit/ContentViewer";
 import ToolkitDashboard from "@/components/toolkit/ToolkitDashboard";
 import SpecializedAgent from "@/components/toolkit/SpecializedAgent";
 import MockBusinessTest from "@/components/toolkit/MockBusinessTest";
+import PurchaseGate from "@/components/PurchaseGate";
+import { usePurchaseStatus } from "@/hooks/use-purchase-status";
 
 interface ToolkitContent {
   id: string;
@@ -36,7 +38,7 @@ interface ToolkitContent {
   order_index: number;
 }
 
-const Toolkit = () => {
+const ToolkitContent_ = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -411,5 +413,51 @@ const AgentCard = ({ title, description, icon, color, examples, onClick }: Agent
     </div>
   </button>
 );
+
+// Main Toolkit component with purchase gate
+const Toolkit = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const { hasPurchased, isLoading: purchaseLoading } = usePurchaseStatus(user);
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+      if (!session?.user) {
+        navigate("/auth");
+      }
+    });
+
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      if (!session?.user) {
+        navigate("/auth");
+      }
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  if (loading || purchaseLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex gap-2">
+          <span className="w-3 h-3 bg-kindai-pink rounded-full animate-pulse" />
+          <span className="w-3 h-3 bg-kindai-orange rounded-full animate-pulse" style={{ animationDelay: "0.2s" }} />
+          <span className="w-3 h-3 bg-kindai-green rounded-full animate-pulse" style={{ animationDelay: "0.4s" }} />
+        </div>
+      </div>
+    );
+  }
+
+  if (!hasPurchased) {
+    navigate("/purchase");
+    return null;
+  }
+
+  return <ToolkitContent_ />;
+};
 
 export default Toolkit;
