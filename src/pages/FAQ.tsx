@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -8,6 +8,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import FloatingHelpButton from "@/components/FloatingHelpButton";
+import SiteHeader from "@/components/SiteHeader";
+import Footer from "@/components/Footer";
 
 const faqData = [
   {
@@ -119,21 +121,8 @@ const faqData = [
 
 const FAQ = () => {
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-            <ArrowLeft className="h-4 w-4" />
-            <span>Back to Home</span>
-          </Link>
-          <Link to="/toolkit">
-            <Button variant="outline" size="sm">
-              Go to Toolkit
-            </Button>
-          </Link>
-        </div>
-      </header>
+    <div className="min-h-screen bg-background flex flex-col">
+      <SiteHeader />
 
       {/* Hero */}
       <section className="py-16 md:py-24 text-center">
@@ -200,6 +189,7 @@ const FAQ = () => {
         </div>
       </section>
 
+      <Footer />
       <FloatingHelpButton />
     </div>
   );

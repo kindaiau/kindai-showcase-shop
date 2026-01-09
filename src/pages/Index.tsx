@@ -8,11 +8,13 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import AnimatedParticles from "@/components/AnimatedParticles";
 import FloatingHelpButton from "@/components/FloatingHelpButton";
+import SiteHeader from "@/components/SiteHeader";
 
 const Index = () => {
   return (
     <div className="min-h-screen relative">
       <AnimatedParticles count={40} />
+      <SiteHeader />
       <Hero />
       <Story />
       <HowItWorks />
