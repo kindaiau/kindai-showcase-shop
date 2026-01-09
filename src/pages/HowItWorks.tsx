@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useParallax } from "@/hooks/use-parallax";
 import Footer from "@/components/Footer";
 import AnimatedParticles from "@/components/AnimatedParticles";
+import SiteHeader from "@/components/SiteHeader";
+import FloatingHelpButton from "@/components/FloatingHelpButton";
 
 const steps = [
   {
@@ -93,7 +95,7 @@ const HowItWorksPage = () => {
   return (
     <div className="min-h-screen relative bg-background">
       <AnimatedParticles count={30} />
-      
+      <SiteHeader />
       {/* Hero Section */}
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
@@ -108,15 +110,7 @@ const HowItWorksPage = () => {
         </div>
 
         <div className="container px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-foreground"
-              onClick={() => navigate("/")}
-            >
-              ← Back to Home
-            </Button>
-            
+          <div className="max-w-4xl mx-auto text-center space-y-6">            
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold">
               How{" "}
               <span className="text-gradient-rebel">Rebel Toolkit</span>
@@ -413,6 +407,7 @@ const HowItWorksPage = () => {
       </section>
 
       <Footer />
+      <FloatingHelpButton />
     </div>
   );
 };
