@@ -20,9 +20,9 @@ import {
   FileText
 } from "lucide-react";
 
-// You'll need to add this as a secret or environment variable
-const GUMROAD_PRODUCT_ID = "your-product-id"; // Replace after creating Gumroad product
-const GUMROAD_PRODUCT_URL = "https://kindai.gumroad.com/l/rebel-toolkit"; // Replace with actual URL
+// Gumroad product configuration
+const GUMROAD_PRODUCT_ID = "xktdh";
+const GUMROAD_PRODUCT_URL = "https://matthewgas.gumroad.com/l/xktdh";
 
 const Purchase = () => {
   const [user, setUser] = useState<User | null>(null);
