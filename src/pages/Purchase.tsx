@@ -21,10 +21,10 @@ import {
 } from "lucide-react";
 
 // Gumroad product configuration
-const GUMROAD_PRODUCT_ID = "xktdh";
+const GUMROAD_PRODUCT_ID = "rebelkit";
 // Note: Set up redirect in Gumroad product settings: Product > Checkout > After purchase redirect URL
 // Set it to: https://kindai.io/purchase/redirect
-const GUMROAD_PRODUCT_URL = `https://matthewgas.gumroad.com/l/xktdh?wanted=true`;
+const GUMROAD_PRODUCT_URL = `https://matthewgas.gumroad.com/l/rebelkit?wanted=true`;
 
 const Purchase = () => {
   const [user, setUser] = useState<User | null>(null);
