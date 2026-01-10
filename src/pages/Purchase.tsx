@@ -23,7 +23,7 @@ import {
 // Gumroad product configuration
 const GUMROAD_PRODUCT_ID = "rebelkit";
 // Note: Set up redirect in Gumroad product settings: Product > Checkout > After purchase redirect URL
-// Set it to: https://kindai.io/purchase/redirect
+// Set it to: https://kindai-showcase-shop.lovable.app/purchase/redirect
 const GUMROAD_PRODUCT_URL = `https://matthewgas.gumroad.com/l/rebelkit?wanted=true`;
 
 const Purchase = () => {
