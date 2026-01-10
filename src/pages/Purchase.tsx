@@ -153,6 +153,33 @@ const Purchase = () => {
       </header>
 
       <main className="container px-4 py-12 max-w-4xl mx-auto">
+        {/* Already Purchased Banner - Prominent at top */}
+        <div className="mb-10 p-6 rounded-2xl border-2 border-primary/30 bg-gradient-to-r from-primary/10 to-primary/5">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <div className="flex items-center gap-3 flex-1">
+              <div className="p-3 rounded-full bg-primary/20">
+                <Key className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold">Already purchased?</h2>
+                <p className="text-sm text-muted-foreground">Enter your license key to unlock access</p>
+              </div>
+            </div>
+            <form onSubmit={handleVerifyLicense} className="flex gap-2 flex-1">
+              <Input
+                type="text"
+                placeholder="Enter license key..."
+                value={licenseKey}
+                onChange={(e) => setLicenseKey(e.target.value)}
+                className="font-mono flex-1"
+              />
+              <Button type="submit" disabled={isVerifying} className="shrink-0">
+                {isVerifying ? <Loader2 className="w-4 h-4 animate-spin" /> : "Unlock"}
+              </Button>
+            </form>
+          </div>
+        </div>
+
         <div className="grid md:grid-cols-2 gap-12">
           {/* Left: Product Info */}
           <div className="space-y-8">
@@ -203,78 +230,43 @@ const Purchase = () => {
             </div>
           </div>
 
-          {/* Right: License Verification */}
+          {/* Right: What's Included */}
           <div className="space-y-8">
-            <div className="p-6 rounded-xl border border-border bg-card">
-              <div className="space-y-6">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <Key className="w-5 h-5 text-primary" />
-                    <h2 className="text-xl font-semibold">Already Purchased?</h2>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Enter your license key from your Gumroad purchase email to unlock access.
-                  </p>
-                </div>
-
-                <form onSubmit={handleVerifyLicense} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="license-key">License Key</Label>
-                    <Input
-                      id="license-key"
-                      type="text"
-                      placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"
-                      value={licenseKey}
-                      onChange={(e) => setLicenseKey(e.target.value)}
-                      className="font-mono"
-                    />
-                  </div>
-                  <Button 
-                    type="submit" 
-                    variant="secondary" 
-                    className="w-full gap-2"
-                    disabled={isVerifying}
-                  >
-                    {isVerifying ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        Verifying...
-                      </>
-                    ) : (
-                      <>
-                        <Check className="w-4 h-4" />
-                        Verify License
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </div>
-            </div>
-
             <div className="space-y-4 p-6 rounded-xl bg-muted/30">
-              <h3 className="font-semibold">What's included:</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  Brand Voice AI Agent - Find your unique voice
+              <h3 className="font-semibold text-lg">What's included:</h3>
+              <ul className="space-y-3 text-muted-foreground">
+                <li className="flex items-start gap-3">
+                  <Check className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                  <span>Brand Voice AI Agent - Find your unique voice</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  Offer Crafter AI Agent - Create irresistible offers
+                <li className="flex items-start gap-3">
+                  <Check className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                  <span>Offer Crafter AI Agent - Create irresistible offers</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  Business Test AI Agent - Validate ideas fast
+                <li className="flex items-start gap-3">
+                  <Check className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                  <span>Business Test AI Agent - Validate ideas fast</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  Complete setup guides and templates
+                <li className="flex items-start gap-3">
+                  <Check className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                  <span>Complete setup guides and templates</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                  Lifetime access to all updates
+                <li className="flex items-start gap-3">
+                  <Check className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                  <span>Lifetime access to all updates</span>
                 </li>
               </ul>
+            </div>
+
+            <div className="p-6 rounded-xl border border-border bg-card">
+              <div className="text-center space-y-3">
+                <p className="text-sm text-muted-foreground">
+                  🔒 30-day money-back guarantee
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Not happy? Get a full refund, no questions asked.
+                </p>
+              </div>
             </div>
           </div>
         </div>
