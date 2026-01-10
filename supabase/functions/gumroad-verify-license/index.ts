@@ -1,4 +1,5 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { Resend } from "https://esm.sh/resend@4.0.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -127,6 +128,82 @@ Deno.serve(async (req) => {
     }
 
     console.log(`License verified successfully for user ${user.id}`);
+
+    // Send welcome email for purchase
+    try {
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (resendApiKey) {
+        const resend = new Resend(resendApiKey);
+        const recipientEmail = purchase.email || user.email;
+        
+        await resend.emails.send({
+          from: "Kindai <onboarding@resend.dev>",
+          to: [recipientEmail],
+          subject: "🎉 Welcome to The Rebel Toolkit!",
+          html: `
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              </head>
+              <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9fafb;">
+                <div style="background: linear-gradient(135deg, #FF1B8D 0%, #FF6B35 100%); padding: 40px 20px; text-align: center; border-radius: 12px 12px 0 0;">
+                  <h1 style="color: white; margin: 0; font-size: 28px; font-weight: bold;">
+                    Welcome to The Rebel Toolkit! 🚀
+                  </h1>
+                </div>
+                
+                <div style="background: white; padding: 40px 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
+                  <p style="font-size: 18px; margin-top: 0;">
+                    Hey Rebel! 👋
+                  </p>
+                  
+                  <p style="font-size: 16px; line-height: 1.8;">
+                    Your purchase has been verified and you now have <strong>full access</strong> to The Rebel Toolkit!
+                  </p>
+                  
+                  <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; margin: 30px 0; border-radius: 4px;">
+                    <h3 style="margin-top: 0; color: #10b981;">Your toolkit includes:</h3>
+                    <ul style="margin: 0; padding-left: 20px;">
+                      <li style="margin-bottom: 10px;">🤖 <strong>3 AI Agents</strong> - Brand Voice, Offer Crafter, Business Test</li>
+                      <li style="margin-bottom: 10px;">📚 <strong>Complete Guides</strong> - Step-by-step rebel playbooks</li>
+                      <li style="margin-bottom: 10px;">📝 <strong>Templates</strong> - Ready-to-use frameworks</li>
+                      <li>⚡ <strong>Lifetime Access</strong> - All future updates included</li>
+                    </ul>
+                  </div>
+                  
+                  <div style="text-align: center; margin: 40px 0;">
+                    <a href="https://kindai.io/toolkit" style="background: linear-gradient(135deg, #FF1B8D 0%, #FF6B35 100%); color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; box-shadow: 0 4px 14px rgba(255, 27, 141, 0.3);">
+                      Access Your Toolkit →
+                    </a>
+                  </div>
+                  
+                  <p style="font-size: 16px;">
+                    If you have any questions, just reply to this email. We're here to help!
+                  </p>
+                  
+                  <p style="font-size: 16px; margin-bottom: 10px;">
+                    Stay rebellious,<br>
+                    <strong style="color: #FF1B8D;">The Kindai Team</strong>
+                  </p>
+                  
+                  <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+                  
+                  <p style="font-size: 12px; color: #6b7280; text-align: center;">
+                    Thank you for your purchase! Built by Rebels, for Rebels.
+                  </p>
+                </div>
+              </body>
+            </html>
+          `,
+        });
+        console.log(`Welcome email sent to ${recipientEmail}`);
+      }
+    } catch (emailError) {
+      // Don't fail the verification if email fails
+      console.error("Failed to send welcome email:", emailError);
+    }
 
     return new Response(
       JSON.stringify({ 
