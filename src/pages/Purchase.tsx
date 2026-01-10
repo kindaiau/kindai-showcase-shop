@@ -22,7 +22,9 @@ import {
 
 // Gumroad product configuration
 const GUMROAD_PRODUCT_ID = "xktdh";
-const GUMROAD_PRODUCT_URL = "https://matthewgas.gumroad.com/l/xktdh";
+// Include redirect URL so Gumroad sends users back with their license key
+const REDIRECT_URL = `${window.location.origin}/purchase/redirect`;
+const GUMROAD_PRODUCT_URL = `https://matthewgas.gumroad.com/l/xktdh?wanted=true&redirect=${encodeURIComponent(REDIRECT_URL)}`;
 
 const Purchase = () => {
   const [user, setUser] = useState<User | null>(null);
