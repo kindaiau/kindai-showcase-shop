@@ -24,8 +24,12 @@ const SiteHeader = () => {
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="Kindai" className="h-8 w-auto" />
             <span className="font-bold text-lg hidden sm:block">
-              <span className="text-kindai-pink">Kind</span>
-              <span className="text-kindai-orange">ai</span>
+              <span className="text-kindai-pink text-glow-pink">K</span>
+              <span className="text-kindai-orange text-glow-orange">i</span>
+              <span className="text-kindai-green text-glow-green">n</span>
+              <span className="text-kindai-blue text-glow-blue">d</span>
+              <span className="text-kindai-pink text-glow-pink">a</span>
+              <span className="text-kindai-orange text-glow-orange">i</span>
             </span>
           </Link>
 

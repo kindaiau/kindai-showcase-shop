@@ -132,7 +132,12 @@ const FAQ = () => {
             <span className="text-sm font-medium">Frequently Asked Questions</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-            Everything You Need to Know
+            Everything You{" "}
+            <span className="text-kindai-pink text-glow-pink">N</span>
+            <span className="text-kindai-orange text-glow-orange">e</span>
+            <span className="text-kindai-green text-glow-green">e</span>
+            <span className="text-kindai-blue text-glow-blue">d</span>{" "}
+            to Know
           </h1>
           <p className="text-lg text-muted-foreground">
             Got questions about the 3-Agent Playbook? Find answers here, or chat with our AI assistant for personalized help.

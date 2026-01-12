@@ -132,7 +132,12 @@ const ToolkitContent_ = () => {
             <img src={logo} alt="Kindai" className="w-10 h-10" />
             <div>
               <h1 className="font-bold text-lg">
-                <span className="text-kindai-pink">Rebel</span> Toolkit
+                <span className="text-kindai-pink text-glow-pink">R</span>
+                <span className="text-kindai-orange text-glow-orange">e</span>
+                <span className="text-kindai-green text-glow-green">b</span>
+                <span className="text-kindai-blue text-glow-blue">e</span>
+                <span className="text-kindai-pink text-glow-pink">l</span>{" "}
+                Toolkit
               </h1>
               <p className="text-xs text-muted-foreground">3 AI Agents at Your Service</p>
             </div>
@@ -155,7 +160,19 @@ const ToolkitContent_ = () => {
         {/* Welcome section */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold mb-2">
-            Your AI Team is Ready, <span className="text-kindai-pink">Rebel</span> 🚀
+            Your{" "}
+            <span className="text-kindai-pink text-glow-pink">A</span>
+            <span className="text-kindai-orange text-glow-orange">I</span>{" "}
+            <span className="text-kindai-green text-glow-green">T</span>
+            <span className="text-kindai-blue text-glow-blue">e</span>
+            <span className="text-kindai-pink text-glow-pink">a</span>
+            <span className="text-kindai-orange text-glow-orange">m</span>{" "}
+            is Ready,{" "}
+            <span className="text-kindai-green text-glow-green">R</span>
+            <span className="text-kindai-blue text-glow-blue">e</span>
+            <span className="text-kindai-pink text-glow-pink">b</span>
+            <span className="text-kindai-orange text-glow-orange">e</span>
+            <span className="text-kindai-green text-glow-green">l</span>{" "}🚀
           </h2>
           <p className="text-muted-foreground">
             3 specialized AI agents that do the work for you. No learning curve, just results.

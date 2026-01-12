@@ -17,7 +17,22 @@ const Terms = () => {
           Back to Home
         </Link>
 
-        <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
+        <h1 className="text-4xl font-bold mb-8">
+          <span className="text-kindai-pink text-glow-pink">T</span>
+          <span className="text-kindai-orange text-glow-orange">e</span>
+          <span className="text-kindai-green text-glow-green">r</span>
+          <span className="text-kindai-blue text-glow-blue">m</span>
+          <span className="text-kindai-pink text-glow-pink">s</span>{" "}
+          <span className="text-kindai-orange text-glow-orange">o</span>
+          <span className="text-kindai-green text-glow-green">f</span>{" "}
+          <span className="text-kindai-blue text-glow-blue">S</span>
+          <span className="text-kindai-pink text-glow-pink">e</span>
+          <span className="text-kindai-orange text-glow-orange">r</span>
+          <span className="text-kindai-green text-glow-green">v</span>
+          <span className="text-kindai-blue text-glow-blue">i</span>
+          <span className="text-kindai-pink text-glow-pink">c</span>
+          <span className="text-kindai-orange text-glow-orange">e</span>
+        </h1>
         
         <div className="prose prose-invert max-w-none space-y-8">
           <p className="text-muted-foreground">

@@ -113,7 +113,18 @@ const HowItWorksPage = () => {
           <div className="max-w-4xl mx-auto text-center space-y-6">            
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold">
               How{" "}
-              <span className="text-gradient-rebel">Rebel Toolkit</span>
+              <span className="text-kindai-pink text-glow-pink">R</span>
+              <span className="text-kindai-orange text-glow-orange">e</span>
+              <span className="text-kindai-green text-glow-green">b</span>
+              <span className="text-kindai-blue text-glow-blue">e</span>
+              <span className="text-kindai-pink text-glow-pink">l</span>{" "}
+              <span className="text-kindai-orange text-glow-orange">T</span>
+              <span className="text-kindai-green text-glow-green">o</span>
+              <span className="text-kindai-blue text-glow-blue">o</span>
+              <span className="text-kindai-pink text-glow-pink">l</span>
+              <span className="text-kindai-orange text-glow-orange">k</span>
+              <span className="text-kindai-green text-glow-green">i</span>
+              <span className="text-kindai-blue text-glow-blue">t</span>
               {" "}Works
             </h1>
             

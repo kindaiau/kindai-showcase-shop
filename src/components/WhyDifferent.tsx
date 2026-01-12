@@ -65,8 +65,28 @@ const WhyDifferent = () => {
                 Why We're Different
               </p>
               <h2 className="text-4xl md:text-5xl font-bold">
-                Stop Learning.{" "}
-                <span className="text-gradient-rebel">Start Doing.</span>
+                <span className="text-kindai-pink text-glow-pink">S</span>
+                <span className="text-kindai-orange text-glow-orange">t</span>
+                <span className="text-kindai-green text-glow-green">o</span>
+                <span className="text-kindai-blue text-glow-blue">p</span>{" "}
+                <span className="text-kindai-pink text-glow-pink">L</span>
+                <span className="text-kindai-orange text-glow-orange">e</span>
+                <span className="text-kindai-green text-glow-green">a</span>
+                <span className="text-kindai-blue text-glow-blue">r</span>
+                <span className="text-kindai-pink text-glow-pink">n</span>
+                <span className="text-kindai-orange text-glow-orange">i</span>
+                <span className="text-kindai-green text-glow-green">n</span>
+                <span className="text-kindai-blue text-glow-blue">g</span>.{" "}
+                <span className="text-kindai-pink text-glow-pink">S</span>
+                <span className="text-kindai-orange text-glow-orange">t</span>
+                <span className="text-kindai-green text-glow-green">a</span>
+                <span className="text-kindai-blue text-glow-blue">r</span>
+                <span className="text-kindai-pink text-glow-pink">t</span>{" "}
+                <span className="text-kindai-orange text-glow-orange">D</span>
+                <span className="text-kindai-green text-glow-green">o</span>
+                <span className="text-kindai-blue text-glow-blue">i</span>
+                <span className="text-kindai-pink text-glow-pink">n</span>
+                <span className="text-kindai-orange text-glow-orange">g</span>.
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 Most tools give you instructions. We give you results.
