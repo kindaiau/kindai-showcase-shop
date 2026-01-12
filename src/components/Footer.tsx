@@ -26,7 +26,21 @@ const Footer = () => {
             </div>
             
             <div className="text-sm text-muted-foreground text-center md:text-right">
-              <p className="text-kindai-pink font-semibold">Built by rebels, for rebels.</p>
+              <p className="font-semibold">
+                Built by{" "}
+                <span className="text-kindai-pink text-glow-pink">r</span>
+                <span className="text-kindai-orange text-glow-orange">e</span>
+                <span className="text-kindai-green text-glow-green">b</span>
+                <span className="text-kindai-blue text-glow-blue">e</span>
+                <span className="text-kindai-pink text-glow-pink">l</span>
+                <span className="text-kindai-orange text-glow-orange">s</span>, for{" "}
+                <span className="text-kindai-green text-glow-green">r</span>
+                <span className="text-kindai-blue text-glow-blue">e</span>
+                <span className="text-kindai-pink text-glow-pink">b</span>
+                <span className="text-kindai-orange text-glow-orange">e</span>
+                <span className="text-kindai-green text-glow-green">l</span>
+                <span className="text-kindai-blue text-glow-blue">s</span>.
+              </p>
               <p className="mt-1">© 2025 Kindai. Forged by bullies, freed by building.</p>
             </div>
           </div>

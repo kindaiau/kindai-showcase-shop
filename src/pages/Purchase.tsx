@@ -191,7 +191,15 @@ const Purchase = () => {
                 The Rebel Toolkit
               </div>
               <h1 className="text-4xl font-bold leading-tight">
-                Build Your Freedom Business
+                Build Your{" "}
+                <span className="text-kindai-pink text-glow-pink">F</span>
+                <span className="text-kindai-orange text-glow-orange">r</span>
+                <span className="text-kindai-green text-glow-green">e</span>
+                <span className="text-kindai-blue text-glow-blue">e</span>
+                <span className="text-kindai-pink text-glow-pink">d</span>
+                <span className="text-kindai-orange text-glow-orange">o</span>
+                <span className="text-kindai-green text-glow-green">m</span>{" "}
+                Business
               </h1>
               <p className="text-lg text-muted-foreground">
                 Everything you need to escape the 9-5 and build a business that works for your neurodivergent brain.

@@ -49,7 +49,16 @@ const PurchaseSuccess = () => {
 
           {/* Title */}
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Welcome to the Rebellion!
+            Welcome to the{" "}
+            <span className="text-kindai-pink text-glow-pink">R</span>
+            <span className="text-kindai-orange text-glow-orange">e</span>
+            <span className="text-kindai-green text-glow-green">b</span>
+            <span className="text-kindai-blue text-glow-blue">e</span>
+            <span className="text-kindai-pink text-glow-pink">l</span>
+            <span className="text-kindai-orange text-glow-orange">l</span>
+            <span className="text-kindai-green text-glow-green">i</span>
+            <span className="text-kindai-blue text-glow-blue">o</span>
+            <span className="text-kindai-pink text-glow-pink">n</span>!
           </h1>
           
           <p className="text-xl text-muted-foreground mb-8 max-w-lg mx-auto">

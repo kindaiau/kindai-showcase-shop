@@ -60,8 +60,26 @@ const HowItWorks = () => {
                 How It Works
               </p>
               <h2 className="text-4xl md:text-5xl font-bold">
-                You Describe.{" "}
-                <span className="text-gradient-rebel">We Deliver.</span>
+                <span className="text-kindai-pink text-glow-pink">Y</span>
+                <span className="text-kindai-orange text-glow-orange">o</span>
+                <span className="text-kindai-green text-glow-green">u</span>{" "}
+                <span className="text-kindai-blue text-glow-blue">D</span>
+                <span className="text-kindai-pink text-glow-pink">e</span>
+                <span className="text-kindai-orange text-glow-orange">s</span>
+                <span className="text-kindai-green text-glow-green">c</span>
+                <span className="text-kindai-blue text-glow-blue">r</span>
+                <span className="text-kindai-pink text-glow-pink">i</span>
+                <span className="text-kindai-orange text-glow-orange">b</span>
+                <span className="text-kindai-green text-glow-green">e</span>.{" "}
+                <span className="text-kindai-blue text-glow-blue">W</span>
+                <span className="text-kindai-pink text-glow-pink">e</span>{" "}
+                <span className="text-kindai-orange text-glow-orange">D</span>
+                <span className="text-kindai-green text-glow-green">e</span>
+                <span className="text-kindai-blue text-glow-blue">l</span>
+                <span className="text-kindai-pink text-glow-pink">i</span>
+                <span className="text-kindai-orange text-glow-orange">v</span>
+                <span className="text-kindai-green text-glow-green">e</span>
+                <span className="text-kindai-blue text-glow-blue">r</span>.
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 No courses. No tutorials. No learning curve. Just tell our AI agents what you need, and they do the work.

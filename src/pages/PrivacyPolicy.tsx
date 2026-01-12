@@ -17,7 +17,21 @@ const PrivacyPolicy = () => {
           Back to Home
         </Link>
 
-        <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
+        <h1 className="text-4xl font-bold mb-8">
+          <span className="text-kindai-pink text-glow-pink">P</span>
+          <span className="text-kindai-orange text-glow-orange">r</span>
+          <span className="text-kindai-green text-glow-green">i</span>
+          <span className="text-kindai-blue text-glow-blue">v</span>
+          <span className="text-kindai-pink text-glow-pink">a</span>
+          <span className="text-kindai-orange text-glow-orange">c</span>
+          <span className="text-kindai-green text-glow-green">y</span>{" "}
+          <span className="text-kindai-blue text-glow-blue">P</span>
+          <span className="text-kindai-pink text-glow-pink">o</span>
+          <span className="text-kindai-orange text-glow-orange">l</span>
+          <span className="text-kindai-green text-glow-green">i</span>
+          <span className="text-kindai-blue text-glow-blue">c</span>
+          <span className="text-kindai-pink text-glow-pink">y</span>
+        </h1>
         
         <div className="prose prose-invert max-w-none space-y-8">
           <p className="text-muted-foreground">

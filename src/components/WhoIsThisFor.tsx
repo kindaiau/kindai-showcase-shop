@@ -34,8 +34,20 @@ const WhoIsThisFor = () => {
           <ScrollReveal animation="fade-right">
             <div className="text-center space-y-4 mb-12">
               <h2 className="text-4xl md:text-5xl font-bold">
-                Built for Real People{" "}
-                <span className="text-kindai-blue">Digital Rebels</span>
+                Built for{" "}
+                <span className="text-kindai-pink text-glow-pink">D</span>
+                <span className="text-kindai-orange text-glow-orange">i</span>
+                <span className="text-kindai-green text-glow-green">g</span>
+                <span className="text-kindai-blue text-glow-blue">i</span>
+                <span className="text-kindai-pink text-glow-pink">t</span>
+                <span className="text-kindai-orange text-glow-orange">a</span>
+                <span className="text-kindai-green text-glow-green">l</span>{" "}
+                <span className="text-kindai-blue text-glow-blue">R</span>
+                <span className="text-kindai-pink text-glow-pink">e</span>
+                <span className="text-kindai-orange text-glow-orange">b</span>
+                <span className="text-kindai-green text-glow-green">e</span>
+                <span className="text-kindai-blue text-glow-blue">l</span>
+                <span className="text-kindai-pink text-glow-pink">s</span>
               </h2>
               <p className="text-xl text-muted-foreground">
                 This playbook is for the ones who refuse to be limited
