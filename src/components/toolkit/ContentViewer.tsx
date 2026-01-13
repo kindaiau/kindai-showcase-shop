@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Check, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import RichTextRenderer from "./RichTextRenderer";
 
 interface ContentViewerProps {
   isOpen: boolean;
@@ -61,7 +62,7 @@ const ContentViewer = ({
         {step && (
           <div className="space-y-4">
             <h3 className="text-2xl font-bold">{step.title}</h3>
-            <p className="text-muted-foreground leading-relaxed">{step.content}</p>
+            <RichTextRenderer content={step.content || ""} />
             
             <div className="flex items-center gap-2 pt-4">
               <Checkbox 
