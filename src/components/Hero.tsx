@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Play } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import logo from "@/assets/kindai-logo-with-bird.png";
 import { useParallax } from "@/hooks/use-parallax";
@@ -73,7 +73,7 @@ const Hero = () => {
           </p>
           
           <div 
-            className="flex justify-center items-center pt-4 animate-slide-in-bottom"
+            className="flex flex-wrap justify-center items-center gap-4 pt-4 animate-slide-in-bottom"
             style={{ animationDelay: "300ms", animationFillMode: "both" }}
           >
             <Button 
@@ -84,6 +84,15 @@ const Hero = () => {
               <Sparkles className="mr-2 w-5 h-5" />
               Access Rebel Toolkit
               <ArrowRight className="ml-2 group-hover:translate-x-1 transition-smooth" />
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline"
+              className="text-lg px-8 py-6 group active:scale-95 touch-feedback" 
+              onClick={() => navigate("/demo")}
+            >
+              <Play className="mr-2 w-5 h-5" />
+              Try Demo Free
             </Button>
           </div>
           
