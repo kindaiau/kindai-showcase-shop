@@ -4,7 +4,7 @@ project_id = "ccwbdarlfwmqbeftppzk"
 verify_jwt = false
 
 [functions.rebel-ai-chat]
-verify_jwt = true
+verify_jwt = false
 
 [functions.gumroad-verify-license]
 verify_jwt = false
