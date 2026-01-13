@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Toolkit from "./pages/Toolkit";
+import Demo from "./pages/Demo";
 import Purchase from "./pages/Purchase";
 import PurchaseRedirect from "./pages/PurchaseRedirect";
 import PurchaseSuccess from "./pages/PurchaseSuccess";
@@ -26,6 +27,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/demo" element={<Demo />} />
           <Route path="/toolkit" element={<Toolkit />} />
           <Route path="/purchase" element={<Purchase />} />
           <Route path="/purchase/redirect" element={<PurchaseRedirect />} />

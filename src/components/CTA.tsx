@@ -1,4 +1,6 @@
-import { Sparkles } from "lucide-react";
+import { Sparkles, Play } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { useParallax } from "@/hooks/use-parallax";
 import ScrollReveal from "@/components/ScrollReveal";
 
@@ -63,6 +65,21 @@ const CTA = () => {
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Get instant access to the complete 3-Agent Playbook. Templates, checklists, diagrams, and your rebel toolkit. No fluff, just power.
             </p>
+            
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button asChild size="lg" className="gradient-rebel text-white hover:opacity-90">
+                <Link to="/purchase">
+                  <Sparkles className="w-5 h-5 mr-2" />
+                  Get the Toolkit
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <Link to="/demo">
+                  <Play className="w-5 h-5 mr-2" />
+                  Try Demo Free
+                </Link>
+              </Button>
+            </div>
             
             <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
               <span>✓ Instant digital access</span>
