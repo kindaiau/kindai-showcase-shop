@@ -15,7 +15,8 @@ import {
   PenTool,
   TrendingUp,
   Zap,
-  Download
+  Download,
+  Image as ImageIcon
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -23,6 +24,7 @@ import { toast } from "sonner";
 interface Message {
   role: "user" | "assistant";
   content: string;
+  imageUrl?: string;
 }
 
 type AgentType = "content" | "strategy" | "tech";
@@ -47,9 +49,9 @@ const AGENT_CONFIGS: Record<AgentType, AgentConfig> = {
     placeholder: "Describe the content you need (e.g., 'Write a 1000-word blog post about productivity tips for entrepreneurs')...",
     quickActions: [
       { label: "Blog Post", prompt: "Write a complete 1200-word SEO-optimized blog post about [topic]. Include meta description, headers, and a compelling CTA." },
+      { label: "Social Post + Image", prompt: "[GENERATE_IMAGE] Create an Instagram post about [topic]. Include caption, hashtags, and generate a matching image." },
       { label: "Social Media Week", prompt: "Create a 7-day social media content calendar for [brand/niche]. Include posts for Instagram, LinkedIn, and Twitter with hashtags and posting times." },
       { label: "Email Sequence", prompt: "Write a complete 5-email welcome sequence for [type of business]. Include subject lines, preview text, and full email body copy." },
-      { label: "Landing Page", prompt: "Write complete landing page copy for [product/service]. Include headline, subheadline, features, benefits, testimonial placeholders, and CTA." },
     ],
   },
   strategy: {
@@ -91,6 +93,7 @@ const SpecializedAgent = ({ agentType }: SpecializedAgentProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isGeneratingImage, setIsGeneratingImage] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -181,10 +184,41 @@ const SpecializedAgent = ({ agentType }: SpecializedAgentProps) => {
     return assistantContent;
   }, [agentType]);
 
+  const generateImage = useCallback(async (prompt: string): Promise<string | null> => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      toast.error("Please log in to generate images");
+      return null;
+    }
+
+    try {
+      const response = await supabase.functions.invoke("generate-social-image", {
+        body: { prompt, style: "modern, vibrant, social media ready" },
+      });
+
+      if (response.error) {
+        throw new Error(response.error.message || "Image generation failed");
+      }
+
+      return response.data?.imageUrl || null;
+    } catch (error: any) {
+      console.error("Image generation error:", error);
+      toast.error("Failed to generate image");
+      return null;
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
+    const shouldGenerateImage = agentType === "content" && 
+      (input.toLowerCase().includes("[generate_image]") || 
+       input.toLowerCase().includes("generate image") ||
+       input.toLowerCase().includes("with image") ||
+       input.toLowerCase().includes("create an image"));
+
+    const cleanedInput = input.replace(/\[generate_image\]/gi, "").trim();
     const userMessage: Message = { role: "user", content: input.trim() };
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
@@ -192,7 +226,33 @@ const SpecializedAgent = ({ agentType }: SpecializedAgentProps) => {
     setIsLoading(true);
 
     try {
-      await streamChat(newMessages);
+      // Stream the text response
+      const textContent = await streamChat([...newMessages.slice(0, -1), { role: "user", content: cleanedInput }]);
+
+      // If content agent and image requested, generate image
+      if (shouldGenerateImage && textContent) {
+        setIsGeneratingImage(true);
+        toast.info("Generating matching image...");
+        
+        // Extract a good image prompt from the content
+        const imagePrompt = cleanedInput.replace(/create|write|make|generate/gi, "").substring(0, 200);
+        const imageUrl = await generateImage(imagePrompt);
+        
+        if (imageUrl) {
+          // Update the last assistant message to include the image
+          setMessages(prev => {
+            const lastIndex = prev.length - 1;
+            if (prev[lastIndex]?.role === "assistant") {
+              return prev.map((m, i) => 
+                i === lastIndex ? { ...m, imageUrl } : m
+              );
+            }
+            return prev;
+          });
+          toast.success("Image generated!");
+        }
+        setIsGeneratingImage(false);
+      }
     } catch (error: any) {
       console.error("AI error:", error);
       toast.error(error.message || "Failed to get AI response");
@@ -302,11 +362,25 @@ const SpecializedAgent = ({ agentType }: SpecializedAgentProps) => {
                       : "bg-muted p-4"
                   }`}
                 >
+                  {/* Image display */}
+                  {message.imageUrl && (
+                    <div className="mb-3">
+                      <img 
+                        src={message.imageUrl} 
+                        alt="Generated social media image" 
+                        className="rounded-lg max-w-full h-auto border border-border"
+                      />
+                      <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                        <ImageIcon className="w-3 h-3" />
+                        AI-generated image
+                      </p>
+                    </div>
+                  )}
                   <div className="text-sm whitespace-pre-wrap prose prose-sm dark:prose-invert max-w-none">
                     {message.content}
                   </div>
                   {message.role === "assistant" && (
-                    <div className="flex gap-2 mt-3 pt-2 border-t border-border/50">
+                    <div className="flex flex-wrap gap-2 mt-3 pt-2 border-t border-border/50">
                       <Button
                         variant="ghost"
                         size="sm"
@@ -329,6 +403,22 @@ const SpecializedAgent = ({ agentType }: SpecializedAgentProps) => {
                         <Download className="w-3 h-3 mr-1" />
                         Download
                       </Button>
+                      {message.imageUrl && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-7 text-xs"
+                          onClick={() => {
+                            const a = document.createElement("a");
+                            a.href = message.imageUrl!;
+                            a.download = `social-image-${Date.now()}.png`;
+                            a.click();
+                          }}
+                        >
+                          <ImageIcon className="w-3 h-3 mr-1" />
+                          Save Image
+                        </Button>
+                      )}
                     </div>
                   )}
                 </div>
@@ -339,14 +429,14 @@ const SpecializedAgent = ({ agentType }: SpecializedAgentProps) => {
                 )}
               </div>
             ))}
-            {isLoading && messages[messages.length - 1]?.role === "user" && (
+            {(isLoading || isGeneratingImage) && messages[messages.length - 1]?.role === "user" && (
               <div className="flex gap-3">
                 <div className={`w-8 h-8 rounded-full ${config.bgColor} flex-shrink-0 flex items-center justify-center`}>
                   <Loader2 className="w-4 h-4 text-white animate-spin" />
                 </div>
                 <div className="bg-muted rounded-lg p-4">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>Working on it...</span>
+                    <span>{isGeneratingImage ? "Generating image..." : "Working on it..."}</span>
                   </div>
                 </div>
               </div>
@@ -386,6 +476,9 @@ const SpecializedAgent = ({ agentType }: SpecializedAgentProps) => {
         </div>
         <p className="text-xs text-muted-foreground mt-2">
           Press Enter to send, Shift+Enter for new line
+          {agentType === "content" && (
+            <span className="ml-2 text-kindai-pink">• Add "[GENERATE_IMAGE]" or "with image" for AI images</span>
+          )}
         </p>
       </form>
     </Card>
