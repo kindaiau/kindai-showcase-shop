@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { Menu, X, Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 import logo from "@/assets/kindai-logo-with-bird.png";
 
 const SiteHeader = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const location = useLocation();
 
   const navLinks = [
@@ -15,6 +16,22 @@ const SiteHeader = () => {
   ];
 
   const isActive = (path: string) => location.pathname === path;
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initialTheme = storedTheme ?? (prefersDark ? "dark" : "light");
+    const shouldUseDark = initialTheme === "dark";
+    document.documentElement.classList.toggle("dark", shouldUseDark);
+    setIsDarkMode(shouldUseDark);
+  }, []);
+
+  const handleThemeToggle = () => {
+    const nextMode = !isDarkMode;
+    setIsDarkMode(nextMode);
+    document.documentElement.classList.toggle("dark", nextMode);
+    localStorage.setItem("theme", nextMode ? "dark" : "light");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md">
@@ -51,7 +68,16 @@ const SiteHeader = () => {
           </nav>
 
           {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2">
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              onClick={handleThemeToggle}
+              aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </Button>
             <Link to="/auth">
               <Button variant="ghost" size="sm">
                 Sign In
@@ -97,6 +123,18 @@ const SiteHeader = () => {
                 </Link>
               ))}
               <div className="flex flex-col gap-2 pt-4 border-t border-border/40">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="w-full"
+                  onClick={() => {
+                    handleThemeToggle();
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  {isDarkMode ? "Light Mode" : "Dark Mode"}
+                </Button>
                 <Link to="/auth" onClick={() => setMobileMenuOpen(false)}>
                   <Button variant="outline" size="sm" className="w-full">
                     Sign In
