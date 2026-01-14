@@ -398,7 +398,7 @@ const HowItWorksPage = () => {
               <Button
                 size="lg"
                 className="text-lg px-8 py-6 gradient-rebel hover:opacity-90 transition-smooth shadow-glow group"
-                onClick={() => navigate("/toolkit")}
+                onClick={() => navigate("/purchase")}
               >
                 <Sparkles className="mr-2 w-5 h-5" />
                 Try Rebel Toolkit Now

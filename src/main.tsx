@@ -2,7 +2,10 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
-// Enable dark mode globally
-document.documentElement.classList.add('dark');
+const storedTheme = localStorage.getItem("theme");
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+const initialTheme = storedTheme ?? (prefersDark ? "dark" : "light");
+
+document.documentElement.classList.toggle("dark", initialTheme === "dark");
 
 createRoot(document.getElementById("root")!).render(<App />);

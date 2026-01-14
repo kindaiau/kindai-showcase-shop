@@ -34,6 +34,7 @@ const Purchase = () => {
   const { hasPurchased, isLoading: purchaseLoading, refetch } = usePurchaseStatus(user);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const isSignedIn = Boolean(user);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -118,22 +119,6 @@ const Purchase = () => {
     );
   }
 
-  if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background p-4">
-        <div className="text-center space-y-6 max-w-md">
-          <h1 className="text-2xl font-bold">Sign in to continue</h1>
-          <p className="text-muted-foreground">
-            You need to be signed in to purchase or verify your license.
-          </p>
-          <Button onClick={() => navigate("/auth")} size="lg">
-            Sign In
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
   const features = [
     { icon: Bot, label: "3 AI Agents", desc: "Brand Voice, Offer, Business Test" },
     { icon: BookOpen, label: "Complete Guides", desc: "Step-by-step rebel playbooks" },
@@ -150,7 +135,13 @@ const Purchase = () => {
             <ArrowLeft className="w-4 h-4" />
             Back
           </Button>
-          <span className="text-sm text-muted-foreground">{user.email}</span>
+          {isSignedIn ? (
+            <span className="text-sm text-muted-foreground">{user?.email}</span>
+          ) : (
+            <Button variant="ghost" size="sm" onClick={() => navigate("/auth")}>
+              Sign In
+            </Button>
+          )}
         </div>
       </header>
 
@@ -164,20 +155,34 @@ const Purchase = () => {
               </div>
               <div>
                 <h2 className="text-lg font-semibold">Already purchased?</h2>
-                <p className="text-sm text-muted-foreground">Enter your license key to unlock access</p>
+                <p className="text-sm text-muted-foreground">
+                  {isSignedIn ? "Enter your license key to unlock access" : "Sign in to verify your license key."}
+                </p>
               </div>
             </div>
-            <form onSubmit={handleVerifyLicense} className="flex gap-2 flex-1">
-              <Input
-                type="text"
-                placeholder="Enter license key..."
-                value={licenseKey}
-                onChange={(e) => setLicenseKey(e.target.value)}
-                className="font-mono flex-1"
-              />
-              <Button type="submit" disabled={isVerifying} className="shrink-0">
-                {isVerifying ? <Loader2 className="w-4 h-4 animate-spin" /> : "Unlock"}
-              </Button>
+            <form onSubmit={handleVerifyLicense} className="flex flex-col gap-2 flex-1">
+              <Label htmlFor="license-key" className="text-sm font-medium">
+                License key
+              </Label>
+              <div className="flex gap-2">
+                <Input
+                  id="license-key"
+                  type="text"
+                  placeholder="Enter license key..."
+                  value={licenseKey}
+                  onChange={(e) => setLicenseKey(e.target.value)}
+                  className="font-mono flex-1"
+                  disabled={!isSignedIn}
+                />
+                <Button type="submit" disabled={isVerifying || !isSignedIn} className="shrink-0">
+                  {isVerifying ? <Loader2 className="w-4 h-4 animate-spin" /> : "Unlock"}
+                </Button>
+              </div>
+              {!isSignedIn && (
+                <Button variant="outline" size="sm" onClick={() => navigate("/auth")}>
+                  Sign in to verify
+                </Button>
+              )}
             </form>
           </div>
         </div>
