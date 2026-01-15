@@ -48,7 +48,7 @@ Deno.serve(async (req) => {
     }
 
     // Get license key from request body
-    const { license_key, product_id } = await req.json();
+    const { license_key, product_id, tier } = await req.json();
 
     if (!license_key || !product_id) {
       return new Response(
@@ -84,6 +84,9 @@ Deno.serve(async (req) => {
 
     // License is valid - store purchase record
     const purchase = gumroadData.purchase;
+    const purchaseVariant = purchase?.variant || purchase?.variants || null;
+    const purchaseTier = tier || deriveTierFromVariant(purchaseVariant);
+    const priceCents = Number.isFinite(Number(purchase?.price)) ? Number(purchase.price) : null;
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const adminClient = createClient(supabaseUrl, serviceRoleKey);
 
@@ -101,6 +104,9 @@ Deno.serve(async (req) => {
         .update({ 
           user_id: user.id, 
           is_verified: true,
+          tier: purchaseTier,
+          gumroad_variant: purchaseVariant,
+          price_cents: priceCents,
           updated_at: new Date().toISOString()
         })
         .eq("gumroad_sale_id", purchase.sale_id);
@@ -116,6 +122,9 @@ Deno.serve(async (req) => {
           purchase_date: purchase.created_at || new Date().toISOString(),
           is_verified: true,
           gumroad_sale_id: purchase.sale_id,
+          tier: purchaseTier,
+          gumroad_variant: purchaseVariant,
+          price_cents: priceCents,
         });
 
       if (insertError) {
@@ -210,7 +219,8 @@ Deno.serve(async (req) => {
         success: true, 
         message: "License verified successfully",
         product_name: purchase.product_name,
-        email: purchase.email
+        email: purchase.email,
+        tier: purchaseTier
       }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
@@ -223,3 +233,12 @@ Deno.serve(async (req) => {
     );
   }
 });
+
+const deriveTierFromVariant = (variant: string | null) => {
+  if (!variant) return null;
+  const normalized = variant.toLowerCase();
+  if (normalized.includes("starter")) return "Starter";
+  if (normalized.includes("growth")) return "Growth";
+  if (normalized.includes("agency")) return "Agency";
+  return null;
+};

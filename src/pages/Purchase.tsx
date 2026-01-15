@@ -74,10 +74,12 @@ const Purchase = () => {
     setIsVerifying(true);
 
     try {
+      const selectedTier = sessionStorage.getItem("selected_tier") || undefined;
       const { data, error } = await supabase.functions.invoke("gumroad-verify-license", {
         body: {
           license_key: licenseKey.trim(),
           product_id: GUMROAD_PRODUCT_ID,
+          tier: selectedTier,
         },
       });
 
@@ -90,6 +92,7 @@ const Purchase = () => {
           title: "License verified!",
           description: "Welcome to the Rebel Toolkit!",
         });
+        sessionStorage.removeItem("selected_tier");
         await refetch();
         navigate("/purchase/success");
       } else {
@@ -125,6 +128,35 @@ const Purchase = () => {
     { icon: FileText, label: "Templates", desc: "Ready-to-use frameworks" },
     { icon: Zap, label: "Lifetime Access", desc: "All future updates included" },
   ];
+
+  const tiers = [
+    {
+      name: "Starter",
+      price: "$47",
+      cadence: "one-time",
+      highlight: "Best for solo rebels",
+      features: ["Full 3-Agent Toolkit", "Core guides + templates", "Lifetime updates"],
+      badge: "Most Popular",
+    },
+    {
+      name: "Growth",
+      price: "$97",
+      cadence: "one-time",
+      highlight: "For scaling your first offer",
+      features: ["Everything in Starter", "Advanced prompt packs", "Priority support"],
+    },
+    {
+      name: "Agency",
+      price: "$197",
+      cadence: "one-time",
+      highlight: "For teams + client work",
+      features: ["Everything in Growth", "Client-ready checklists", "Implementation playbooks"],
+    },
+  ];
+
+  const handleTierSelect = (tierName: string) => {
+    sessionStorage.setItem("selected_tier", tierName);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -225,20 +257,57 @@ const Purchase = () => {
               ))}
             </div>
 
-            <div className="p-6 rounded-xl border border-primary/20 bg-primary/5 space-y-4">
-              <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-bold">$47</span>
-                <span className="text-muted-foreground line-through">$97</span>
-                <span className="text-sm text-primary font-medium">Launch Price</span>
+            <div className="space-y-4">
+              <h2 className="text-2xl font-semibold">Choose your access tier</h2>
+              <div className="grid gap-4">
+                {tiers.map((tier) => (
+                  <div
+                    key={tier.name}
+                    className={`rounded-xl border p-5 space-y-4 ${
+                      tier.badge ? "border-primary/40 bg-primary/5" : "border-border bg-card"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h3 className="text-lg font-semibold">{tier.name}</h3>
+                          {tier.badge && (
+                            <span className="text-xs font-semibold uppercase tracking-wide text-primary bg-primary/10 px-2 py-1 rounded-full">
+                              {tier.badge}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm text-muted-foreground">{tier.highlight}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-3xl font-bold">{tier.price}</p>
+                        <p className="text-xs text-muted-foreground">{tier.cadence}</p>
+                      </div>
+                    </div>
+
+                    <ul className="text-sm text-muted-foreground space-y-1">
+                      {tier.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-2">
+                          <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <Button
+                      size="lg"
+                      className="w-full gap-2"
+                      onClick={() => {
+                        handleTierSelect(tier.name);
+                        window.open(GUMROAD_PRODUCT_URL, "_blank");
+                      }}
+                    >
+                      Choose {tier.name}
+                      <ExternalLink className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ))}
               </div>
-              <Button 
-                size="lg" 
-                className="w-full gap-2"
-                onClick={() => window.open(GUMROAD_PRODUCT_URL, "_blank")}
-              >
-                Buy Now on Gumroad
-                <ExternalLink className="w-4 h-4" />
-              </Button>
               <p className="text-xs text-center text-muted-foreground">
                 Secure payment via Gumroad. Instant access.
               </p>

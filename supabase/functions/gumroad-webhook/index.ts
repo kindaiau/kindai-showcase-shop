@@ -40,6 +40,9 @@ Deno.serve(async (req) => {
       product_name,
       seller_id 
     } = data;
+    const variantName = data.variants || data.variant || null;
+    const purchaseTier = deriveTierFromVariant(variantName);
+    const priceCents = Number.isFinite(Number(data.price)) ? Number(data.price) : null;
 
     if (!sale_id || !product_id || !email) {
       console.error("Missing required fields in webhook");
@@ -84,6 +87,9 @@ Deno.serve(async (req) => {
         purchase_date: new Date().toISOString(),
         is_verified: true,
         gumroad_sale_id: sale_id,
+        tier: purchaseTier,
+        gumroad_variant: variantName,
+        price_cents: priceCents,
       });
 
     if (insertError) {
@@ -109,3 +115,12 @@ Deno.serve(async (req) => {
     );
   }
 });
+
+const deriveTierFromVariant = (variant: string | null) => {
+  if (!variant) return null;
+  const normalized = variant.toLowerCase();
+  if (normalized.includes("starter")) return "Starter";
+  if (normalized.includes("growth")) return "Growth";
+  if (normalized.includes("agency")) return "Agency";
+  return null;
+};

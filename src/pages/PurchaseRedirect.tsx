@@ -39,16 +39,19 @@ const PurchaseRedirect = () => {
 
       // Verify the license
       try {
+        const selectedTier = sessionStorage.getItem("selected_tier") || undefined;
         const { data, error } = await supabase.functions.invoke("gumroad-verify-license", {
           body: {
             license_key: licenseKey,
             product_id: GUMROAD_PRODUCT_ID,
+            tier: selectedTier,
           },
         });
 
         if (error) throw error;
 
         if (data.success) {
+          sessionStorage.removeItem("selected_tier");
           setStatus("success");
           setTimeout(() => navigate("/purchase/success"), 1500);
         } else {
