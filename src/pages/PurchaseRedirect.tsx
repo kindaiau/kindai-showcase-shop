@@ -6,6 +6,20 @@ import { Button } from "@/components/ui/button";
 
 const GUMROAD_PRODUCT_ID = "rebelkit";
 
+// Helper to encode state for URL
+const encodeState = (data: { license_key: string; sale_id?: string; email?: string }) => {
+  return btoa(JSON.stringify(data));
+};
+
+// Helper to decode state from URL
+const decodeState = (state: string): { license_key: string; sale_id?: string; email?: string } | null => {
+  try {
+    return JSON.parse(atob(state));
+  } catch {
+    return null;
+  }
+};
+
 const PurchaseRedirect = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -14,10 +28,21 @@ const PurchaseRedirect = () => {
 
   useEffect(() => {
     const verifyPurchase = async () => {
-      // Gumroad passes these params on redirect
-      const licenseKey = searchParams.get("license_key");
-      const saleId = searchParams.get("sale_id");
-      const email = searchParams.get("email");
+      // Check for encoded state first (returning from auth)
+      const stateParam = searchParams.get("state");
+      let licenseKey = searchParams.get("license_key");
+      let saleId = searchParams.get("sale_id");
+      let email = searchParams.get("email");
+
+      // If we have encoded state, decode it
+      if (stateParam && !licenseKey) {
+        const decodedState = decodeState(stateParam);
+        if (decodedState) {
+          licenseKey = decodedState.license_key;
+          saleId = decodedState.sale_id || null;
+          email = decodedState.email || null;
+        }
+      }
 
       if (!licenseKey) {
         setStatus("error");
@@ -29,17 +54,19 @@ const PurchaseRedirect = () => {
       const { data: { session } } = await supabase.auth.getSession();
       
       if (!session) {
-        // Store license key and redirect to auth
-        sessionStorage.setItem("pending_license_key", licenseKey);
-        sessionStorage.setItem("pending_sale_id", saleId || "");
-        sessionStorage.setItem("pending_email", email || "");
-        navigate("/auth?redirect=/purchase/redirect");
+        // Encode license data in URL state and redirect to auth
+        const state = encodeState({
+          license_key: licenseKey,
+          sale_id: saleId || undefined,
+          email: email || undefined,
+        });
+        navigate(`/auth?redirect=${encodeURIComponent(`/purchase/redirect?state=${state}`)}`);
         return;
       }
 
       // Verify the license
       try {
-        const selectedTier = sessionStorage.getItem("selected_tier") || undefined;
+        const selectedTier = searchParams.get("tier") || undefined;
         const { data, error } = await supabase.functions.invoke("gumroad-verify-license", {
           body: {
             license_key: licenseKey,
@@ -51,7 +78,6 @@ const PurchaseRedirect = () => {
         if (error) throw error;
 
         if (data.success) {
-          sessionStorage.removeItem("selected_tier");
           setStatus("success");
           setTimeout(() => navigate("/purchase/success"), 1500);
         } else {
@@ -64,26 +90,6 @@ const PurchaseRedirect = () => {
         setErrorMessage(error.message || "Verification failed. Please enter your license manually.");
       }
     };
-
-    // Check for stored license key (returning from auth)
-    const storedLicenseKey = sessionStorage.getItem("pending_license_key");
-    if (storedLicenseKey && !searchParams.get("license_key")) {
-      // Add it to the URL and re-run
-      const newParams = new URLSearchParams(searchParams);
-      newParams.set("license_key", storedLicenseKey);
-      const storedSaleId = sessionStorage.getItem("pending_sale_id");
-      const storedEmail = sessionStorage.getItem("pending_email");
-      if (storedSaleId) newParams.set("sale_id", storedSaleId);
-      if (storedEmail) newParams.set("email", storedEmail);
-      
-      // Clear storage
-      sessionStorage.removeItem("pending_license_key");
-      sessionStorage.removeItem("pending_sale_id");
-      sessionStorage.removeItem("pending_email");
-      
-      navigate(`/purchase/redirect?${newParams.toString()}`, { replace: true });
-      return;
-    }
 
     verifyPurchase();
   }, [searchParams, navigate]);
