@@ -1,4 +1,42 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { Resend } from "https://esm.sh/resend@4.0.0";
+import { renderPurchaseConfirmationEmail } from "../_shared/email-templates.ts";
+
+// Helper function to verify webhook signature using HMAC SHA256
+async function verifyWebhookSignature(
+  payload: string,
+  signature: string | null,
+  secret: string | null
+): Promise<boolean> {
+  if (!secret || !signature) {
+    // If no secret is configured, skip verification (development mode)
+    console.warn("Webhook secret not configured - skipping signature verification");
+    return true;
+  }
+
+  try {
+    const encoder = new TextEncoder();
+    const keyData = encoder.encode(secret);
+    const key = await crypto.subtle.importKey(
+      "raw",
+      keyData,
+      { name: "HMAC", hash: "SHA-256" },
+      false,
+      ["sign"]
+    );
+
+    const payloadData = encoder.encode(payload);
+    const signatureBuffer = await crypto.subtle.sign("HMAC", key, payloadData);
+    const computedSignature = Array.from(new Uint8Array(signatureBuffer))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+
+    return computedSignature === signature;
+  } catch (error) {
+    console.error("Error verifying webhook signature:", error);
+    return false;
+  }
+}
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -21,12 +59,27 @@ Deno.serve(async (req) => {
   try {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const webhookSecret = Deno.env.get("GUMROAD_WEBHOOK_SECRET");
+
+    // Get the raw body for signature verification
+    const rawBody = await req.text();
+    const signature = req.headers.get("X-Gumroad-Signature");
+
+    // Verify webhook signature
+    const isValid = await verifyWebhookSignature(rawBody, signature, webhookSecret);
+    if (!isValid) {
+      console.error("Invalid webhook signature");
+      return new Response(
+        JSON.stringify({ error: "Invalid signature" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
     // Parse form data from Gumroad webhook
-    const formData = await req.formData();
+    const formData = new URLSearchParams(rawBody);
     const data: Record<string, string> = {};
     formData.forEach((value, key) => {
-      data[key] = value.toString();
+      data[key] = value;
     });
 
     console.log("Received Gumroad webhook:", JSON.stringify(data));
@@ -101,6 +154,37 @@ Deno.serve(async (req) => {
     }
 
     console.log(`Successfully recorded purchase for ${email}, sale_id: ${sale_id}`);
+
+    // Send purchase confirmation email
+    try {
+      const resendApiKey = Deno.env.get("RESEND_API_KEY");
+      if (resendApiKey) {
+        const resend = new Resend(resendApiKey);
+        
+        const emailHtml = renderPurchaseConfirmationEmail({
+          customerEmail: email,
+          productName: product_name || "The Rebel Toolkit",
+          tier: purchaseTier || undefined,
+          licenseKey: license_key || undefined,
+          toolkitUrl: "https://kindai.io/toolkit",
+        });
+        
+        await resend.emails.send({
+          from: "Kindai <onboarding@resend.dev>",
+          to: [email],
+          subject: "🎉 Welcome to The Rebel Toolkit!",
+          html: emailHtml,
+        });
+        console.log(`Purchase confirmation email sent to ${email}`);
+      }
+    } catch (emailError) {
+      // Don't fail the webhook if email fails
+      console.error("Failed to send purchase confirmation email:", emailError);
+    }
+
+    // TODO: Schedule follow-up email for 3 days later
+    // This could be implemented with a separate Supabase scheduled function
+    // or by inserting a record into a pending_emails table with send_at timestamp
 
     return new Response(
       JSON.stringify({ success: true, message: "Purchase recorded" }),

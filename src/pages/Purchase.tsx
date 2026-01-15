@@ -20,11 +20,12 @@ import {
   FileText
 } from "lucide-react";
 
-// Gumroad product configuration
-const GUMROAD_PRODUCT_ID = "rebelkit";
+// Gumroad product configuration from environment variables
+const GUMROAD_PRODUCT_ID = import.meta.env.VITE_GUMROAD_PRODUCT_ID || "rebelkit";
+const GUMROAD_SUBDOMAIN = import.meta.env.VITE_GUMROAD_SUBDOMAIN || "matthewgas";
 // Note: Set up redirect in Gumroad product settings: Product > Checkout > After purchase redirect URL
-// Set it to: https://kindai-showcase-shop.lovable.app/purchase/redirect
-const GUMROAD_PRODUCT_URL = `https://matthewgas.gumroad.com/l/rebelkit?wanted=true`;
+// Set it to: https://kindai-showcase-shop.lovable.app/purchase/redirect (or your production domain)
+const GUMROAD_PRODUCT_URL = `https://${GUMROAD_SUBDOMAIN}.gumroad.com/l/${GUMROAD_PRODUCT_ID}`;
 
 const Purchase = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -294,17 +295,23 @@ const Purchase = () => {
                       ))}
                     </ul>
 
-                    <Button
-                      size="lg"
-                      className="w-full gap-2"
-                      onClick={() => {
-                        handleTierSelect(tier.name);
-                        window.open(GUMROAD_PRODUCT_URL, "_blank");
-                      }}
+                    <a 
+                      href={GUMROAD_PRODUCT_URL} 
+                      className="gumroad-button block w-full"
+                      data-gumroad-single-product="true"
+                      onClick={() => handleTierSelect(tier.name)}
                     >
-                      Choose {tier.name}
-                      <ExternalLink className="w-4 h-4" />
-                    </Button>
+                      <Button
+                        size="lg"
+                        className="w-full gap-2"
+                        asChild
+                      >
+                        <span>
+                          Choose {tier.name}
+                          <ExternalLink className="w-4 h-4" />
+                        </span>
+                      </Button>
+                    </a>
                   </div>
                 ))}
               </div>
