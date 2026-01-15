@@ -288,11 +288,14 @@ export type Database = {
           created_at: string
           email: string
           gumroad_sale_id: string | null
+          gumroad_variant: string | null
           id: string
           is_verified: boolean
           license_key: string | null
+          price_cents: number | null
           product_id: string
           purchase_date: string | null
+          tier: string | null
           updated_at: string
           user_id: string | null
         }
@@ -300,11 +303,14 @@ export type Database = {
           created_at?: string
           email: string
           gumroad_sale_id?: string | null
+          gumroad_variant?: string | null
           id?: string
           is_verified?: boolean
           license_key?: string | null
+          price_cents?: number | null
           product_id: string
           purchase_date?: string | null
+          tier?: string | null
           updated_at?: string
           user_id?: string | null
         }
@@ -312,11 +318,14 @@ export type Database = {
           created_at?: string
           email?: string
           gumroad_sale_id?: string | null
+          gumroad_variant?: string | null
           id?: string
           is_verified?: boolean
           license_key?: string | null
+          price_cents?: number | null
           product_id?: string
           purchase_date?: string | null
+          tier?: string | null
           updated_at?: string
           user_id?: string | null
         }
