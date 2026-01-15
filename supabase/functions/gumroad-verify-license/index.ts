@@ -6,6 +6,19 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Helper to mask email for logging
+const maskEmail = (email: string): string => {
+  const [local, domain] = email.split('@');
+  if (!domain) return '***';
+  const maskedLocal = local.length > 2 ? local.slice(0, 2) + '***' : '***';
+  return `${maskedLocal}@${domain}`;
+};
+
+// Helper to mask user ID for logging
+const maskUserId = (id: string): string => {
+  return id.length > 8 ? id.slice(0, 8) + '***' : '***';
+};
+
 Deno.serve(async (req) => {
   // Handle CORS preflight
   if (req.method === "OPTIONS") {
@@ -40,7 +53,7 @@ Deno.serve(async (req) => {
 
     const { data: { user }, error: userError } = await supabase.auth.getUser();
     if (userError || !user) {
-      console.error("Auth error:", userError);
+      console.error("Auth error occurred");
       return new Response(
         JSON.stringify({ error: "Invalid authentication" }),
         { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -57,7 +70,7 @@ Deno.serve(async (req) => {
       );
     }
 
-    console.log(`Verifying license for user ${user.id}, product: ${product_id}`);
+    console.log(`Verifying license for user ${maskUserId(user.id)}, product: ${product_id}`);
 
     // Call Gumroad API to verify license
     const gumroadResponse = await fetch("https://api.gumroad.com/v2/licenses/verify", {
@@ -70,7 +83,9 @@ Deno.serve(async (req) => {
     });
 
     const gumroadData = await gumroadResponse.json();
-    console.log("Gumroad response:", JSON.stringify(gumroadData));
+    
+    // Log only success status, not full response with PII
+    console.log(`Gumroad verification result: ${gumroadData.success ? 'success' : 'failed'}`);
 
     if (!gumroadData.success) {
       return new Response(
@@ -128,7 +143,7 @@ Deno.serve(async (req) => {
         });
 
       if (insertError) {
-        console.error("Error saving purchase:", insertError);
+        console.error("Error saving purchase record");
         return new Response(
           JSON.stringify({ error: "Failed to save purchase record" }),
           { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -136,7 +151,7 @@ Deno.serve(async (req) => {
       }
     }
 
-    console.log(`License verified successfully for user ${user.id}`);
+    console.log(`License verified successfully for user ${maskUserId(user.id)}`);
 
     // Send welcome email for purchase
     try {
@@ -207,11 +222,11 @@ Deno.serve(async (req) => {
             </html>
           `,
         });
-        console.log(`Welcome email sent to ${recipientEmail}`);
+        console.log(`Welcome email sent to ${maskEmail(recipientEmail)}`);
       }
     } catch (emailError) {
       // Don't fail the verification if email fails
-      console.error("Failed to send welcome email:", emailError);
+      console.error("Failed to send welcome email");
     }
 
     return new Response(
@@ -226,7 +241,7 @@ Deno.serve(async (req) => {
     );
 
   } catch (error) {
-    console.error("Error in gumroad-verify-license:", error);
+    console.error("Error in gumroad-verify-license");
     return new Response(
       JSON.stringify({ error: "Internal server error" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
