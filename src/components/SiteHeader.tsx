@@ -92,7 +92,7 @@ const SiteHeader = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2"
+            className="md:hidden p-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
