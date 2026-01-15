@@ -6,6 +6,14 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Helper to mask email for logging
+const maskEmail = (email: string): string => {
+  const [local, domain] = email.split('@');
+  if (!domain) return '***';
+  const maskedLocal = local.length > 2 ? local.slice(0, 2) + '***' : '***';
+  return `${maskedLocal}@${domain}`;
+};
+
 // Welcome email HTML template
 const getWelcomeEmailHtml = (productName: string) => `
 <!DOCTYPE html>
@@ -159,10 +167,45 @@ async function sendWelcomeEmail(email: string, productName: string) {
     if (error) {
       console.error("Failed to send welcome email:", error);
     } else {
-      console.log("Welcome email sent successfully:", data);
+      console.log(`Welcome email sent successfully to ${maskEmail(email)}`);
     }
   } catch (error) {
     console.error("Error sending welcome email:", error);
+  }
+}
+
+// Verify sale with Gumroad API to prevent forged webhooks
+async function verifySaleWithGumroad(saleId: string): Promise<{ valid: boolean; saleData?: any }> {
+  const gumroadToken = Deno.env.get("GUMROAD_ACCESS_TOKEN");
+  
+  if (!gumroadToken) {
+    console.warn("GUMROAD_ACCESS_TOKEN not configured, skipping sale verification");
+    // Fall back to accepting webhook if token not configured
+    return { valid: true };
+  }
+
+  try {
+    const response = await fetch(
+      `https://api.gumroad.com/v2/sales/${saleId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${gumroadToken}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+    
+    if (data.success && data.sale) {
+      return { valid: true, saleData: data.sale };
+    }
+    
+    console.error("Gumroad sale verification failed:", data.message || "Unknown error");
+    return { valid: false };
+  } catch (error) {
+    console.error("Error verifying sale with Gumroad:", error);
+    // In case of network error, we'll reject the webhook for safety
+    return { valid: false };
   }
 }
 
@@ -190,7 +233,8 @@ Deno.serve(async (req) => {
       data[key] = value.toString();
     });
 
-    console.log("Received Gumroad webhook:", JSON.stringify(data));
+    // Log webhook receipt without PII
+    console.log("Received Gumroad webhook for sale_id:", data.sale_id || "unknown");
 
     // Validate required fields
     const { 
@@ -199,7 +243,6 @@ Deno.serve(async (req) => {
       email, 
       license_key,
       product_name,
-      seller_id 
     } = data;
     const variantName = data.variants || data.variant || null;
     const purchaseTier = deriveTierFromVariant(variantName);
@@ -213,17 +256,43 @@ Deno.serve(async (req) => {
       );
     }
 
+    // SECURITY: Verify this is a real sale with Gumroad API
+    const { valid: isValidSale, saleData } = await verifySaleWithGumroad(sale_id);
+    
+    if (!isValidSale) {
+      console.error(`Rejected potentially forged webhook for sale_id: ${sale_id}`);
+      return new Response(
+        JSON.stringify({ error: "Sale verification failed" }),
+        { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    // Use verified data from Gumroad API if available
+    const verifiedEmail = saleData?.email || email;
+    const verifiedProductId = saleData?.product_id || product_id;
+    const verifiedLicenseKey = saleData?.license_key || license_key;
+
     const adminClient = createClient(supabaseUrl, serviceRoleKey);
 
     // Check if this sale already exists
     const { data: existingPurchase } = await adminClient
       .from("user_purchases")
-      .select("id")
+      .select("id, created_at")
       .eq("gumroad_sale_id", sale_id)
       .maybeSingle();
 
     if (existingPurchase) {
-      console.log(`Sale ${sale_id} already recorded, skipping`);
+      // Check for duplicate webhook within 60 seconds (idempotency)
+      const timeDiff = Date.now() - new Date(existingPurchase.created_at).getTime();
+      if (timeDiff < 60000) {
+        console.log(`Duplicate webhook for sale ${sale_id} within 60s, skipping`);
+        return new Response(
+          JSON.stringify({ success: true, message: "Duplicate webhook ignored" }),
+          { status: 409, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      
+      console.log(`Sale ${sale_id} already recorded`);
       return new Response(
         JSON.stringify({ success: true, message: "Sale already recorded" }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
@@ -234,7 +303,7 @@ Deno.serve(async (req) => {
     const { data: existingUser } = await adminClient
       .from("profiles")
       .select("user_id")
-      .eq("email", email)
+      .eq("email", verifiedEmail)
       .maybeSingle();
 
     // Insert purchase record
@@ -242,9 +311,9 @@ Deno.serve(async (req) => {
       .from("user_purchases")
       .insert({
         user_id: existingUser?.user_id || null,
-        email: email,
-        license_key: license_key || null,
-        product_id: product_id,
+        email: verifiedEmail,
+        license_key: verifiedLicenseKey || null,
+        product_id: verifiedProductId,
         purchase_date: new Date().toISOString(),
         is_verified: true,
         gumroad_sale_id: sale_id,
@@ -261,16 +330,16 @@ Deno.serve(async (req) => {
       );
     }
 
-    console.log(`Successfully recorded purchase for ${email}, sale_id: ${sale_id}`);
+    console.log(`Successfully recorded verified purchase for ${maskEmail(verifiedEmail)}, sale_id: ${sale_id}`);
 
     // Send welcome email as background task (don't await to not block response)
     const productDisplayName = product_name || "Rebel Toolkit";
     // @ts-ignore - EdgeRuntime is available in Supabase Edge Functions
-    (globalThis as any).EdgeRuntime?.waitUntil?.(sendWelcomeEmail(email, productDisplayName)) 
-      ?? sendWelcomeEmail(email, productDisplayName).catch(console.error);
+    (globalThis as any).EdgeRuntime?.waitUntil?.(sendWelcomeEmail(verifiedEmail, productDisplayName)) 
+      ?? sendWelcomeEmail(verifiedEmail, productDisplayName).catch(console.error);
 
     return new Response(
-      JSON.stringify({ success: true, message: "Purchase recorded, welcome email queued" }),
+      JSON.stringify({ success: true, message: "Purchase verified and recorded" }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
 
