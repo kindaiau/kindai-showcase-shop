@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Mail, Lock, ArrowRight, Sparkles } from "lucide-react";
@@ -101,9 +102,14 @@ const Auth = () => {
         </div>
 
         <form onSubmit={handleAuth} className="space-y-4">
-          <div className="relative">
+          <div className="space-y-2">
+            <Label htmlFor="auth-email" className="text-sm font-medium">
+              Email
+            </Label>
+            <div className="relative">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <Input
+              id="auth-email"
               type="email"
               placeholder="Email"
               value={email}
@@ -111,11 +117,17 @@ const Auth = () => {
               className="pl-10"
               required
             />
+            </div>
           </div>
 
-          <div className="relative">
+          <div className="space-y-2">
+            <Label htmlFor="auth-password" className="text-sm font-medium">
+              Password
+            </Label>
+            <div className="relative">
             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <Input
+              id="auth-password"
               type="password"
               placeholder="Password"
               value={password}
@@ -124,6 +136,7 @@ const Auth = () => {
               required
               minLength={6}
             />
+            </div>
           </div>
 
           <Button
