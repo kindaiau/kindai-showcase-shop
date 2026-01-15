@@ -11,6 +11,7 @@ import Assessment from "./pages/Assessment";
 import Purchase from "./pages/Purchase";
 import PurchaseRedirect from "./pages/PurchaseRedirect";
 import PurchaseSuccess from "./pages/PurchaseSuccess";
+import Welcome from "./pages/Welcome";
 import HowItWorks from "./pages/HowItWorks";
 import FAQ from "./pages/FAQ";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/purchase" element={<Purchase />} />
           <Route path="/purchase/redirect" element={<PurchaseRedirect />} />
           <Route path="/purchase/success" element={<PurchaseSuccess />} />
+          <Route path="/welcome" element={<Welcome />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
