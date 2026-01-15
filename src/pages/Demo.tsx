@@ -234,7 +234,7 @@ const AgentDemoCard = ({
     className={`text-left p-6 rounded-xl border-2 border-border transition-all bg-card ${
       disabled 
         ? "opacity-50 cursor-not-allowed" 
-        : "hover:border-primary/50 hover:shadow-lg"
+        : "hover:border-primary/50 hover:shadow-lg focus:outline-none focus-visible:ring-4 focus-visible:ring-primary/30 focus-visible:border-primary"
     } group`}
   >
     <div className={`w-14 h-14 rounded-lg ${color} flex items-center justify-center text-white mb-4 ${!disabled && "group-hover:scale-110"} transition-transform`}>

@@ -204,24 +204,18 @@ const FloatingHelpButton = () => {
     </div>
   );
 
-  // Heart-shaped button styles - 20% smaller, transparent with brand gradient
+  // Heart-shaped button styles - using rounded button with heart icon for reliability
   const heartButtonClass = `
     fixed bottom-6 right-6 z-50 
-    w-12 h-12
+    w-14 h-14
     flex items-center justify-center
-    bg-gradient-to-br from-kindai-pink/70 via-kindai-orange/60 to-kindai-green/50
-    backdrop-blur-sm
+    bg-gradient-to-br from-kindai-pink via-kindai-orange to-kindai-green
+    rounded-full
     shadow-lg hover:shadow-xl 
     transition-all duration-300 hover:scale-110
-    border border-white/20
+    border-2 border-white/30
+    focus:outline-none focus-visible:ring-4 focus-visible:ring-kindai-pink/50
   `;
-
-  // CSS for heart shape using clip-path
-  const heartStyle: React.CSSProperties = {
-    clipPath: "path('M24 44c-1.2-1.1-2.4-2.1-3.5-3.1C12.5 34.1 6 28.2 6 20.5 6 14.4 10.9 9.5 17 9.5c3.5 0 6.8 1.6 9 4.2 2.2-2.6 5.5-4.2 9-4.2 6.1 0 11 4.9 11 11 0 7.7-6.5 13.6-14.5 20.4-1.1 1-2.3 2-3.5 3.1z')",
-    width: "48px",
-    height: "48px",
-  };
 
   // Mobile: use Drawer
   if (isMobile) {
@@ -230,10 +224,9 @@ const FloatingHelpButton = () => {
         <button
           onClick={() => setIsOpen(true)}
           className={heartButtonClass}
-          style={heartStyle}
           aria-label="Open help chat"
         >
-          <span className="text-white font-semibold text-xs drop-shadow-md">help</span>
+          <Heart className="w-6 h-6 text-white fill-white/50 drop-shadow-md" />
         </button>
 
         <Drawer open={isOpen} onOpenChange={setIsOpen}>
@@ -262,13 +255,12 @@ const FloatingHelpButton = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={heartButtonClass}
-        style={heartStyle}
         aria-label={isOpen ? "Close help chat" : "Open help chat"}
       >
         {isOpen ? (
-          <X className="h-4 w-4 text-white drop-shadow-md" />
+          <X className="h-6 w-6 text-white drop-shadow-md" />
         ) : (
-          <span className="text-white font-semibold text-xs drop-shadow-md">help</span>
+          <Heart className="w-6 h-6 text-white fill-white/50 drop-shadow-md" />
         )}
       </button>
 
