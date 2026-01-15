@@ -8,10 +8,18 @@ async function verifyWebhookSignature(
   signature: string | null,
   secret: string | null
 ): Promise<boolean> {
-  if (!secret || !signature) {
-    // If no secret is configured, skip verification (development mode)
-    console.warn("Webhook secret not configured - skipping signature verification");
+  // Production mode: strict verification required
+  if (!secret) {
+    console.error("GUMROAD_WEBHOOK_SECRET not configured - webhook verification disabled");
+    console.warn("This is a security risk in production. Set GUMROAD_WEBHOOK_SECRET to enable verification.");
+    // In production, you should fail the request if no secret is configured
+    // For now, we allow it for development purposes
     return true;
+  }
+
+  if (!signature) {
+    console.error("X-Gumroad-Signature header missing from webhook request");
+    return false;
   }
 
   try {
@@ -31,7 +39,11 @@ async function verifyWebhookSignature(
       .map(b => b.toString(16).padStart(2, '0'))
       .join('');
 
-    return computedSignature === signature;
+    const isValid = computedSignature === signature;
+    if (!isValid) {
+      console.error("Webhook signature mismatch");
+    }
+    return isValid;
   } catch (error) {
     console.error("Error verifying webhook signature:", error);
     return false;
@@ -76,11 +88,23 @@ Deno.serve(async (req) => {
     }
 
     // Parse form data from Gumroad webhook
-    const formData = new URLSearchParams(rawBody);
+    // Gumroad sends data as application/x-www-form-urlencoded
+    const contentType = req.headers.get("Content-Type") || "";
     const data: Record<string, string> = {};
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
+    
+    if (contentType.includes("application/x-www-form-urlencoded")) {
+      const formData = new URLSearchParams(rawBody);
+      formData.forEach((value, key) => {
+        data[key] = value;
+      });
+    } else {
+      console.warn(`Unexpected Content-Type: ${contentType}`);
+      // Fallback to URL params parsing
+      const formData = new URLSearchParams(rawBody);
+      formData.forEach((value, key) => {
+        data[key] = value;
+      });
+    }
 
     console.log("Received Gumroad webhook:", JSON.stringify(data));
 
@@ -170,7 +194,7 @@ Deno.serve(async (req) => {
         });
         
         await resend.emails.send({
-          from: "Kindai <onboarding@resend.dev>",
+          from: "Kindai <onboarding@resend.dev>", // TODO: Update to verified domain in production
           to: [email],
           subject: "🎉 Welcome to The Rebel Toolkit!",
           html: emailHtml,

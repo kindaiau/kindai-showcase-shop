@@ -21,11 +21,17 @@ import {
 } from "lucide-react";
 
 // Gumroad product configuration from environment variables
-const GUMROAD_PRODUCT_ID = import.meta.env.VITE_GUMROAD_PRODUCT_ID || "rebelkit";
-const GUMROAD_SUBDOMAIN = import.meta.env.VITE_GUMROAD_SUBDOMAIN || "matthewgas";
+const GUMROAD_PRODUCT_ID = import.meta.env.VITE_GUMROAD_PRODUCT_ID;
+const GUMROAD_SUBDOMAIN = import.meta.env.VITE_GUMROAD_SUBDOMAIN;
+
+// Validate required environment variables
+if (!GUMROAD_PRODUCT_ID || !GUMROAD_SUBDOMAIN) {
+  console.error("Missing required Gumroad environment variables. Please set VITE_GUMROAD_PRODUCT_ID and VITE_GUMROAD_SUBDOMAIN");
+}
+
 // Note: Set up redirect in Gumroad product settings: Product > Checkout > After purchase redirect URL
 // Set it to: https://kindai-showcase-shop.lovable.app/purchase/redirect (or your production domain)
-const GUMROAD_PRODUCT_URL = `https://${GUMROAD_SUBDOMAIN}.gumroad.com/l/${GUMROAD_PRODUCT_ID}`;
+const GUMROAD_PRODUCT_URL = `https://${GUMROAD_SUBDOMAIN || "matthewgas"}.gumroad.com/l/${GUMROAD_PRODUCT_ID || "rebelkit"}`;
 
 const Purchase = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -79,7 +85,7 @@ const Purchase = () => {
       const { data, error } = await supabase.functions.invoke("gumroad-verify-license", {
         body: {
           license_key: licenseKey.trim(),
-          product_id: GUMROAD_PRODUCT_ID,
+          product_id: GUMROAD_PRODUCT_ID || "rebelkit",
           tier: selectedTier,
         },
       });

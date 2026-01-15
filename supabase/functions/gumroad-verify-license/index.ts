@@ -155,7 +155,7 @@ Deno.serve(async (req) => {
         });
         
         await resend.emails.send({
-          from: "Kindai <onboarding@resend.dev>",
+          from: "Kindai <onboarding@resend.dev>", // TODO: Update to verified domain in production
           to: [recipientEmail],
           subject: "🎉 Welcome to The Rebel Toolkit!",
           html: emailHtml,

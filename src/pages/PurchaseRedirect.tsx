@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Loader2, CheckCircle, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const GUMROAD_PRODUCT_ID = "rebelkit";
+const GUMROAD_PRODUCT_ID = import.meta.env.VITE_GUMROAD_PRODUCT_ID || "rebelkit";
 
 const PurchaseRedirect = () => {
   const [searchParams] = useSearchParams();

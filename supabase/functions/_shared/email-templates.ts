@@ -2,6 +2,18 @@
 // Since we can't directly use React Email in Deno, we'll create HTML string templates
 // that match the React Email design
 
+// Helper function to escape HTML entities to prevent XSS
+function escapeHtml(str: string): string {
+  const htmlEntities: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+  return str.replace(/[&<>"']/g, (char) => htmlEntities[char] || char);
+}
+
 export interface PurchaseConfirmationData {
   customerEmail: string;
   productName: string;
@@ -33,6 +45,11 @@ export function renderPurchaseConfirmationEmail(data: PurchaseConfirmationData):
     toolkitUrl = "https://kindai.io/toolkit",
   } = data;
 
+  // Escape all dynamic content to prevent XSS
+  const safeProductName = escapeHtml(productName);
+  const safeTier = tier ? escapeHtml(tier) : null;
+  const safeLicenseKey = licenseKey ? escapeHtml(licenseKey) : null;
+
   return `
     <!DOCTYPE html>
     <html>
@@ -53,7 +70,7 @@ export function renderPurchaseConfirmationEmail(data: PurchaseConfirmationData):
           </h2>
           
           <p style="font-size: 16px; line-height: 1.8;">
-            Your purchase has been verified and you now have <strong>full access</strong> to ${productName}!
+            Your purchase has been verified and you now have <strong>full access</strong> to ${safeProductName}!
           </p>
           
           <div style="background: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; margin: 30px 0; border-radius: 4px;">
@@ -66,12 +83,12 @@ export function renderPurchaseConfirmationEmail(data: PurchaseConfirmationData):
             </ul>
           </div>
           
-          ${tier ? `<p style="font-size: 16px;"><strong>Your Tier:</strong> ${tier}</p>` : ''}
+          ${safeTier ? `<p style="font-size: 16px;"><strong>Your Tier:</strong> ${safeTier}</p>` : ''}
           
-          ${licenseKey ? `
+          ${safeLicenseKey ? `
           <div style="background: #fef3c7; border: 2px dashed #f59e0b; padding: 20px; margin: 30px 0; border-radius: 8px; text-align: center;">
             <p style="font-size: 14px; font-weight: 600; color: #92400e; margin: 0 0 10px 0;">Your License Key:</p>
-            <p style="font-size: 18px; font-weight: bold; font-family: monospace; color: #92400e; background: #fffbeb; padding: 12px; border-radius: 4px; margin: 10px 0;">${licenseKey}</p>
+            <p style="font-size: 18px; font-weight: bold; font-family: monospace; color: #92400e; background: #fffbeb; padding: 12px; border-radius: 4px; margin: 10px 0;">${safeLicenseKey}</p>
             <p style="font-size: 12px; color: #92400e; margin: 10px 0 0 0;">Keep this safe! You can use it to verify your purchase anytime.</p>
           </div>
           ` : ''}
