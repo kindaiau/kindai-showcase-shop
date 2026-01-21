@@ -1,5 +1,8 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { Resend } from "https://esm.sh/resend@2.0.0";
+import { Resend } from "https://esm.sh/resend@4.0.0";
+import React from "https://esm.sh/react@18.3.1";
+import { renderAsync } from "https://esm.sh/@react-email/components@0.0.22";
+import { PurchaseWelcome } from "../_shared/email-templates/templates/PurchaseWelcome.tsx";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -14,137 +17,6 @@ const maskEmail = (email: string): string => {
   return `${maskedLocal}@${domain}`;
 };
 
-// Welcome email HTML template
-const getWelcomeEmailHtml = (productName: string) => `
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body style="margin: 0; padding: 0; background-color: #0a0a0a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #0a0a0a; padding: 40px 20px;">
-    <tr>
-      <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" style="background-color: #1a1a1a; border-radius: 16px; overflow: hidden;">
-          <!-- Header -->
-          <tr>
-            <td style="background: linear-gradient(135deg, #ec4899 0%, #f97316 50%, #22c55e 100%); padding: 40px; text-align: center;">
-              <h1 style="color: #ffffff; font-size: 32px; margin: 0; font-weight: bold;">
-                🚀 Welcome to the Rebellion!
-              </h1>
-            </td>
-          </tr>
-          
-          <!-- Content -->
-          <tr>
-            <td style="padding: 40px;">
-              <p style="color: #ffffff; font-size: 18px; line-height: 1.6; margin: 0 0 20px 0;">
-                Thank you for purchasing the <strong>${productName}</strong>!
-              </p>
-              
-              <p style="color: #a1a1aa; font-size: 16px; line-height: 1.6; margin: 0 0 30px 0;">
-                Your 3 AI agents are ready and waiting. Here's how to access everything:
-              </p>
-              
-              <!-- Steps -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 30px;">
-                <tr>
-                  <td style="padding: 15px; background-color: #262626; border-radius: 8px; margin-bottom: 10px;">
-                    <table cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td style="width: 40px; vertical-align: top;">
-                          <span style="display: inline-block; width: 28px; height: 28px; background-color: #ec4899; color: white; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold;">1</span>
-                        </td>
-                        <td style="color: #ffffff; font-size: 15px;">
-                          <strong>Go to the Toolkit</strong><br>
-                          <span style="color: #a1a1aa;">Click the button below to access your dashboard</span>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                <tr><td style="height: 10px;"></td></tr>
-                <tr>
-                  <td style="padding: 15px; background-color: #262626; border-radius: 8px;">
-                    <table cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td style="width: 40px; vertical-align: top;">
-                          <span style="display: inline-block; width: 28px; height: 28px; background-color: #f97316; color: white; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold;">2</span>
-                        </td>
-                        <td style="color: #ffffff; font-size: 15px;">
-                          <strong>Sign in with THIS email</strong><br>
-                          <span style="color: #a1a1aa;">Use the same email you used to purchase</span>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                <tr><td style="height: 10px;"></td></tr>
-                <tr>
-                  <td style="padding: 15px; background-color: #262626; border-radius: 8px;">
-                    <table cellpadding="0" cellspacing="0">
-                      <tr>
-                        <td style="width: 40px; vertical-align: top;">
-                          <span style="display: inline-block; width: 28px; height: 28px; background-color: #22c55e; color: white; border-radius: 50%; text-align: center; line-height: 28px; font-weight: bold;">3</span>
-                        </td>
-                        <td style="color: #ffffff; font-size: 15px;">
-                          <strong>Start building!</strong><br>
-                          <span style="color: #a1a1aa;">All 3 agents + templates are unlocked</span>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-              
-              <!-- CTA Button -->
-              <table width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td align="center" style="padding: 20px 0;">
-                    <a href="https://kindai-showcase-shop.lovable.app/welcome" 
-                       style="display: inline-block; background: linear-gradient(135deg, #ec4899 0%, #f97316 100%); color: #ffffff; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-size: 18px; font-weight: bold;">
-                      Access Your Toolkit →
-                    </a>
-                  </td>
-                </tr>
-              </table>
-              
-              <!-- What's Inside -->
-              <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #333;">
-                <p style="color: #ffffff; font-size: 16px; font-weight: bold; margin: 0 0 15px 0;">
-                  ✨ What's Inside:
-                </p>
-                <ul style="color: #a1a1aa; font-size: 14px; line-height: 1.8; margin: 0; padding-left: 20px;">
-                  <li><strong style="color: #ec4899;">Content Creator Agent</strong> — Blog posts, emails, social content</li>
-                  <li><strong style="color: #f97316;">Business Strategist Agent</strong> — Plans, pricing, market analysis</li>
-                  <li><strong style="color: #22c55e;">Automation Engineer Agent</strong> — Workflows, integrations, SEO</li>
-                  <li>Done-for-you templates and checklists</li>
-                  <li>30-day launch roadmap</li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-          
-          <!-- Footer -->
-          <tr>
-            <td style="padding: 30px; background-color: #0f0f0f; text-align: center;">
-              <p style="color: #71717a; font-size: 14px; margin: 0 0 10px 0;">
-                Questions? Reply to this email or contact us at support@kindai.io
-              </p>
-              <p style="color: #52525b; font-size: 12px; margin: 0;">
-                © ${new Date().getFullYear()} Kindai. Built for rebels, by rebels.
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>
-`;
-
 // Background task to send welcome email
 async function sendWelcomeEmail(email: string, productName: string) {
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
@@ -157,11 +29,16 @@ async function sendWelcomeEmail(email: string, productName: string) {
   try {
     const resend = new Resend(resendApiKey);
     
+    // Render React Email template
+    const html = await renderAsync(
+      React.createElement(PurchaseWelcome, { productName })
+    );
+
     const { data, error } = await resend.emails.send({
       from: "Kindai <onboarding@resend.dev>",
       to: [email],
       subject: "🚀 Welcome to the Rebel Toolkit — Your AI Agents Are Ready!",
-      html: getWelcomeEmailHtml(productName),
+      html,
     });
 
     if (error) {
@@ -264,7 +141,7 @@ Deno.serve(async (req) => {
       return new Response(
         JSON.stringify({ error: "Sale verification failed" }),
         { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+    );
     }
 
     // Use verified data from Gumroad API if available
