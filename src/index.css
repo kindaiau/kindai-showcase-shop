@@ -21,20 +21,22 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 10%;
 
-    /* Kindai Brand Colors */
-    --kindai-pink: 338 100% 56%;
-    --kindai-orange: 16 100% 60%;
-    --kindai-green: 160 100% 41%;
-    --kindai-blue: 217 100% 50%;
-    --kindai-purple: 280 60% 55%;
+    /* Kindai Brand Colors - Official Palette */
+    --kindai-pink: 318 100% 64%;      /* #FF46C8 */
+    --kindai-orange: 6 97% 66%;        /* #FC6456 */
+    --kindai-yellow: 46 100% 68%;      /* #FFD75E */
+    --kindai-green: 158 58% 60%;       /* #5DD7A7 */
+    --kindai-aqua: 191 87% 65%;        /* #56DFF4 */
+    --kindai-blue: 232 66% 60%;        /* #5667DF */
+    --kindai-violet: 276 63% 46%;      /* #7B2CBF */
 
-    --primary: 338 100% 56%;
+    --primary: 318 100% 64%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 217 100% 50%;
+    --secondary: 232 66% 60%;
     --secondary-foreground: 0 0% 100%;
 
-    --accent: 16 100% 60%;
+    --accent: 6 97% 66%;
     --accent-foreground: 0 0% 100%;
 
     --muted: 240 5% 96%;
@@ -45,7 +47,7 @@ All colors MUST be HSL.
 
     --border: 240 6% 90%;
     --input: 240 6% 90%;
-    --ring: 338 100% 56%;
+    --ring: 318 100% 64%;
 
     --radius: 0.75rem;
 
@@ -73,13 +75,13 @@ All colors MUST be HSL.
     --popover: 240 8% 12%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 338 100% 56%;
+    --primary: 318 100% 64%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 217 100% 50%;
+    --secondary: 232 66% 60%;
     --secondary-foreground: 0 0% 100%;
 
-    --accent: 16 100% 60%;
+    --accent: 6 97% 66%;
     --accent-foreground: 0 0% 100%;
 
     --muted: 240 6% 16%;
@@ -90,7 +92,7 @@ All colors MUST be HSL.
 
     --border: 240 6% 20%;
     --input: 240 6% 20%;
-    --ring: 338 100% 56%;
+    --ring: 318 100% 64%;
     
     --shadow-glow: 0 0 40px hsl(var(--kindai-pink) / 0.4);
     --shadow-card: 0 10px 30px hsl(0 0% 0% / 0.5);
@@ -167,16 +169,24 @@ All colors MUST be HSL.
     text-shadow: 0 0 20px hsl(var(--kindai-orange) / 0.5), 0 0 40px hsl(var(--kindai-orange) / 0.3);
   }
 
+  .text-glow-yellow {
+    text-shadow: 0 0 20px hsl(var(--kindai-yellow) / 0.5), 0 0 40px hsl(var(--kindai-yellow) / 0.3);
+  }
+
   .text-glow-green {
     text-shadow: 0 0 20px hsl(var(--kindai-green) / 0.5), 0 0 40px hsl(var(--kindai-green) / 0.3);
+  }
+
+  .text-glow-aqua {
+    text-shadow: 0 0 20px hsl(var(--kindai-aqua) / 0.5), 0 0 40px hsl(var(--kindai-aqua) / 0.3);
   }
 
   .text-glow-blue {
     text-shadow: 0 0 20px hsl(var(--kindai-blue) / 0.5), 0 0 40px hsl(var(--kindai-blue) / 0.3);
   }
 
-  .text-glow-purple {
-    text-shadow: 0 0 20px hsl(var(--kindai-purple) / 0.5), 0 0 40px hsl(var(--kindai-purple) / 0.3);
+  .text-glow-violet {
+    text-shadow: 0 0 20px hsl(var(--kindai-violet) / 0.5), 0 0 40px hsl(var(--kindai-violet) / 0.3);
   }
 
   /* Mobile touch feedback */

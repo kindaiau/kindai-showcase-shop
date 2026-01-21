@@ -50,9 +50,11 @@ export default {
         kindai: {
           pink: "hsl(var(--kindai-pink))",
           orange: "hsl(var(--kindai-orange))",
+          yellow: "hsl(var(--kindai-yellow))",
           green: "hsl(var(--kindai-green))",
+          aqua: "hsl(var(--kindai-aqua))",
           blue: "hsl(var(--kindai-blue))",
-          purple: "hsl(var(--kindai-purple))",
+          violet: "hsl(var(--kindai-violet))",
         },
       },
       borderRadius: {
