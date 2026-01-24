@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import AnimatedParticles from "@/components/AnimatedParticles";
 import SiteHeader from "@/components/SiteHeader";
 import FloatingHelpButton from "@/components/FloatingHelpButton";
+import SEO from "@/components/SEO";
 
 const steps = [
   {
@@ -94,6 +95,12 @@ const HowItWorksPage = () => {
 
   return (
     <div className="min-h-screen relative bg-background">
+      <SEO 
+        title="How Rebel Toolkit Works - 3 Simple Steps"
+        description="Three simple steps, zero learning curve. Describe what you need, AI agents work, get results in minutes. See how it works."
+        image="/og-how-it-works.png"
+        url="https://kindai.dev/how-it-works"
+      />
       <AnimatedParticles count={30} />
       <SiteHeader />
       {/* Hero Section */}

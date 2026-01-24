@@ -9,10 +9,17 @@ import Footer from "@/components/Footer";
 import AnimatedParticles from "@/components/AnimatedParticles";
 import FloatingHelpButton from "@/components/FloatingHelpButton";
 import SiteHeader from "@/components/SiteHeader";
+import SEO from "@/components/SEO";
 
 const Index = () => {
   return (
     <div className="min-h-screen relative">
+      <SEO 
+        title="Kindai - The 3-Agent Playbook for Digital Rebels"
+        description="3 AI Agents that create content, build strategies, and automate your business. Built by rebels, for rebels. ADHD-friendly."
+        image="/og-home.png"
+        url="https://kindai.dev"
+      />
       <AnimatedParticles count={40} />
       <SiteHeader />
       <Hero />
