@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/kindai-logo-with-bird.png";
 import DemoAgent from "@/components/toolkit/DemoAgent";
+import SEO from "@/components/SEO";
 
 type AgentType = "content" | "strategy" | "tech";
 
@@ -43,6 +44,12 @@ const Demo = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Try Demo Free - Rebel Toolkit AI Agents"
+        description="Test the 3 AI agents for free. Create content, build strategies, and automate tasks with no signup required."
+        image="/og-demo.png"
+        url="https://kindai.dev/demo"
+      />
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="container flex items-center justify-between h-16 px-4">

@@ -19,6 +19,7 @@ import {
   Bot,
   FileText
 } from "lucide-react";
+import SEO from "@/components/SEO";
 
 // Gumroad product configuration
 const GUMROAD_PRODUCT_ID = "rebelkit";
@@ -160,6 +161,12 @@ const Purchase = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Get Rebel Toolkit - Build Your Freedom Business"
+        description="Everything you need to escape the 9-5. 3 AI Agents, complete guides, templates, and lifetime access. Built for neurodivergent entrepreneurs."
+        image="/og-purchase.png"
+        url="https://kindai.dev/purchase"
+      />
       {/* Header */}
       <header className="border-b border-border/50 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container px-4 py-4 flex items-center justify-between">
