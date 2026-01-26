@@ -1,0 +1,35 @@
+# Repository Settings
+# Note: These settings may require the Probot Settings app or manual configuration in GitHub
+
+repository:
+  # Repository description
+  description: "Kindai Showcase Shop - Rebel Toolkit"
+  
+  # Repository settings
+  has_issues: true
+  has_projects: true
+  has_wiki: false
+  has_downloads: true
+  
+  # Features
+  allow_squash_merge: true
+  allow_merge_commit: true
+  allow_rebase_merge: true
+  
+  # Delete branch on merge
+  delete_branch_on_merge: true
+  
+  # Enable automated security fixes
+  enable_automated_security_fixes: true
+  
+  # Enable vulnerability alerts
+  enable_vulnerability_alerts: true
+
+# Copilot Configuration
+# GitHub Copilot access should be configured through:
+# - Organization Settings → Copilot (for org-level policies)
+# - Repository Settings → Code security and analysis → GitHub Copilot
+#
+# Required Access Level: FULL ACCESS (READ + WRITE)
+# This ensures GitHub Copilot can provide comprehensive code suggestions
+# and assistance across the entire repository
