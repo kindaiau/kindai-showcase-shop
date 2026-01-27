@@ -1,18 +1,18 @@
 const steps = [
   {
-    title: "Align on the outcome",
+    title: "Describe what you need",
     description:
-      "Define the wedge user, the goal, and the timeline. Kindai translates it into a focused plan.",
+      "Tell the agent what you want — a blog post, business plan, or automation. Plain English, no prompts required.",
   },
   {
-    title: "Activate the assistants",
+    title: "Let the agent work",
     description:
-      "Kindai spins up a strategy agent, execution agent, and accountability agent tailored to your workflow.",
+      "The specialized AI builds your complete deliverable. Content, strategy, or tech — done in minutes.",
   },
   {
-    title: "Ship weekly results",
+    title: "Use it immediately",
     description:
-      "Receive prioritized tasks, automated follow-ups, and a weekly recap to stay on track.",
+      "Get ready-to-use outputs you can publish, implement, or customize. No editing marathon required.",
   },
 ];
 
@@ -25,8 +25,7 @@ const HowItWorksSection = () => {
             How it works
           </h2>
           <p className="mt-3 text-muted-foreground text-lg">
-            Three simple steps to turn your next initiative into a repeatable
-            operating rhythm.
+            Three steps to go from idea to done. No learning curve, no complexity.
           </p>
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-3">

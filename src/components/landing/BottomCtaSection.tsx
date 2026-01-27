@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { trackEvent } from "@/lib/analytics";
 
-const badges = ["Secure by design", "Human-in-the-loop", "Pilot-ready"];
+const badges = ["Lifetime access", "30-day guarantee", "No code required"];
 
 const BottomCtaSection = () => {
   return (
@@ -9,11 +9,10 @@ const BottomCtaSection = () => {
       <div className="container px-4">
         <div className="rounded-3xl border border-border bg-card p-10 text-center shadow-elegant">
           <h2 className="text-3xl md:text-4xl font-semibold">
-            Ready to run your pilot?
+            Ready to stop learning and start doing?
           </h2>
           <p className="mt-3 text-lg text-muted-foreground">
-            {/* TODO: Replace with wedge-specific CTA copy. */}
-            Let’s map the fastest path to your next measurable outcome.
+            Get the 3-Agent Playbook and build your digital business in minutes, not months.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-4">
             <Button
@@ -22,14 +21,14 @@ const BottomCtaSection = () => {
               className="bg-gradient-to-r from-kindai-pink to-kindai-orange hover:opacity-90"
             >
               <a
-                href="#lead-form"
+                href="/purchase"
                 onClick={() => trackEvent("cta_click", { location: "bottom" })}
               >
-                Start Pilot
+                Get the Playbook
               </a>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <a href="mailto:hello@kindai.ai">Contact us</a>
+              <a href="#how-it-works">See how it works</a>
             </Button>
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm text-muted-foreground">
