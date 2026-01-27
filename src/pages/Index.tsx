@@ -22,10 +22,10 @@ const Index = () => {
   return (
     <div className="min-h-screen relative">
       <SEO 
-        title="Kindai - People-first AI assistant system"
-        description="Kindai helps [Your User] get [Specific Outcome] in [Timeframe] without [Pain]."
+        title="Kindai - The 3-Agent Playbook for Digital Rebels"
+        description="3 AI Agents that create content, build strategies, and automate your business — in minutes, not weeks. Built by rebels, for rebels."
         image="/og-home.png"
-        url="https://kindai-showcase-shop.lovable.app"
+        url="https://kindai.dev"
       />
       <AnimatedParticles count={40} />
       <SiteHeader />
