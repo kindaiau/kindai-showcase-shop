@@ -108,46 +108,49 @@ What's the thing you're avoiding because you feel like an imposter? 👇
     prompt: "Set up an automation when someone buys my product",
     output: `## Post-Purchase Automation Workflow
 
-### Trigger: New Gumroad/Stripe Sale
+┌─────────────────────────────────────────────────────────────────┐
+│  ⚡ TRIGGER                                                      │
+├─────────────────────────────────────────────────────────────────┤
+│  📱 App: Gumroad (or Stripe)                                    │
+│  🎯 Event: New Sale                                             │
+│  📋 Account: Connect your Gumroad account                       │
+│  ⚙️  Test: Look for your most recent sale                        │
+└─────────────────────────────────────────────────────────────────┘
+                              ⬇️
+┌─────────────────────────────────────────────────────────────────┐
+│  ⚡ ACTION 1: Send Welcome Email                                 │
+├─────────────────────────────────────────────────────────────────┤
+│  📱 App: Gmail (or Mailchimp)                                   │
+│  🎯 Event: Send Email                                           │
+│  ⚙️  Field Mappings:                                             │
+│     • To: {{Gumroad > Purchaser Email}}                         │
+│     • Subject: "Welcome! Here's your access 🎉"                 │
+│     • Body: Include {{Gumroad > Product Name}}                  │
+└─────────────────────────────────────────────────────────────────┘
+                              ⬇️
+┌─────────────────────────────────────────────────────────────────┐
+│  ⚡ ACTION 2: Notify Team                                        │
+├─────────────────────────────────────────────────────────────────┤
+│  📱 App: Slack                                                  │
+│  🎯 Event: Send Channel Message                                 │
+│  ⚙️  Field Mappings:                                             │
+│     • Channel: #sales                                           │
+│     • Message: "🎉 New sale! {{Gumroad > Purchaser Name}}"      │
+│       "bought {{Gumroad > Product Name}} for {{Gumroad > Price}}" │
+└─────────────────────────────────────────────────────────────────┘
 
-**Step 1: Instant Welcome (0 min)**
+---
+
+📋 **ZAPIER AI PROMPT** (Copy & paste into Zapier):
 \`\`\`
-→ Send welcome email via Resend/Mailgun
-→ Include: Download link, login credentials, what's next
-→ Add tag: "customer" + product name
+When a new sale happens in Gumroad, automatically send a 
+welcome email via Gmail to the purchaser's email with their 
+product name included, then post a celebration message to 
+the #sales Slack channel with the customer name, product, 
+and price.
 \`\`\`
 
-**Step 2: Add to CRM (0 min)**
-\`\`\`
-→ Create/update contact in your CRM
-→ Fields: Email, Name, Product, Purchase Date, Amount
-→ Assign to "New Customer" pipeline stage
-\`\`\`
-
-**Step 3: Slack Notification (0 min)**
-\`\`\`
-→ Post to #sales channel
-→ Include: Customer name, product, amount
-→ 🎉 Celebrate the win with your team
-\`\`\`
-
-**Step 4: Onboarding Sequence (Day 1-7)**
-\`\`\`
-Day 1: "Here's how to get started" email
-Day 3: "Quick win" tutorial email
-Day 7: "How's it going?" check-in + upsell hint
-\`\`\`
-
-**Step 5: Review Request (Day 14)**
-\`\`\`
-→ Send testimonial request email
-→ Include: One-click review link
-→ Offer incentive (bonus template, discount code)
-\`\`\`
-
-### Tools Needed:
-Zapier/Make + Email provider + CRM (optional)
-**Setup time: ~30 minutes**`,
+**Setup time: ~10 minutes with Zapier AI**`,
   },
 ];
 
