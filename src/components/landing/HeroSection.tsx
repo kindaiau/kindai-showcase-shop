@@ -8,17 +8,15 @@ const HeroSection = () => {
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-center">
           <div className="space-y-6">
             <p className="text-sm uppercase tracking-widest text-muted-foreground">
-              Kindai — People-first AI assistant system
+              The 3-Agent Playbook for Digital Rebels
             </p>
-            {/* TODO: Replace with wedge-specific copy. */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight">
-              Kindai helps [Your User] get [Specific Outcome] in [Timeframe]
-              without [Pain].
+              Stop learning.{" "}
+              <span className="text-kindai-pink">Start doing.</span>
             </h1>
-            {/* TODO: Replace with wedge-specific subheading. */}
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-              A simple, human-centered AI copilot that clarifies priorities,
-              automates the busywork, and keeps you moving every week.
+              3 AI Agents that create content, build strategies, and automate 
+              your business — in minutes, not weeks. Built by rebels, for rebels.
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <Button
@@ -30,7 +28,7 @@ const HeroSection = () => {
                   href="#lead-form"
                   onClick={() => trackEvent("cta_click", { location: "hero" })}
                 >
-                  Start Pilot
+                  Get the Playbook
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="text-base px-6">
@@ -40,44 +38,49 @@ const HeroSection = () => {
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-kindai-green" />
-                Built for busy teams
+                No code required
               </div>
               <div className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-kindai-blue" />
-                Human-in-the-loop support
+                ADHD-friendly
               </div>
               <div className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-kindai-pink" />
-                Pilot ready in days
+                Lifetime access
               </div>
             </div>
           </div>
           <div className="rounded-3xl border border-border bg-card/80 p-8 shadow-elegant">
             <div className="space-y-4">
               <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
-                What Kindai replaces
+                Your AI Execution Team
               </p>
               <ul className="space-y-3 text-base">
                 <li className="flex items-start gap-3">
                   <span className="mt-2 h-2 w-2 rounded-full bg-kindai-orange" />
-                  Disconnected tools, manual status updates, and never-ending
-                  follow-ups.
+                  <div>
+                    <strong className="text-foreground">Content Creator</strong>
+                    <span className="text-muted-foreground"> — Blog posts, social media, emails. Ready to publish.</span>
+                  </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-2 h-2 w-2 rounded-full bg-kindai-pink" />
-                  Inconsistent handoffs between strategy, execution, and
-                  accountability.
+                  <div>
+                    <strong className="text-foreground">Business Strategist</strong>
+                    <span className="text-muted-foreground"> — Plans, pricing, positioning. Done for you.</span>
+                  </div>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="mt-2 h-2 w-2 rounded-full bg-kindai-green" />
-                  Weeks lost deciding what to do next.
+                  <div>
+                    <strong className="text-foreground">Automation Engineer</strong>
+                    <span className="text-muted-foreground"> — Workflows and tech setup. No code needed.</span>
+                  </div>
                 </li>
               </ul>
               <div className="rounded-2xl bg-muted/40 p-4 text-sm text-muted-foreground">
-                {/* TODO: Add wedge-specific proof point. */}
-                <strong className="text-foreground">Pilot promise:</strong> a
-                clear weekly plan, automated follow-through, and measurable
-                outcomes in your first sprint.
+                <strong className="text-foreground">Traditional way:</strong> 4–8 hours.{" "}
+                <strong className="text-kindai-green">Rebel way:</strong> 5–15 minutes.
               </div>
             </div>
           </div>
