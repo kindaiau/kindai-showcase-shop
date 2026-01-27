@@ -183,7 +183,7 @@ serve(async (req) => {
 
           // Send the email
           const { error: emailError } = await resend.emails.send({
-            from: "Kindai <onboarding@resend.dev>",
+            from: "Kindai <hello@kindai.dev>",
             to: [subscriber.email_address],
             subject: emailConfig.subject,
             html,
@@ -263,7 +263,7 @@ serve(async (req) => {
       );
 
       const { error: emailError } = await resend.emails.send({
-        from: "Kindai <onboarding@resend.dev>",
+        from: "Kindai <hello@kindai.dev>",
         to: [email],
         subject: emailConfig.subject,
         html,
