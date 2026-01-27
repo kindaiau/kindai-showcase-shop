@@ -150,7 +150,25 @@ const WhyDifferent = () => {
             <div className="text-center bg-gradient-to-r from-kindai-pink/10 via-kindai-green/10 to-kindai-blue/10 rounded-2xl p-8 border-2 border-border">
               <p className="text-2xl font-bold mb-2">
                 Ready to stop learning and start{" "}
-                <span className="text-kindai-green">getting things done</span>?
+                <span className="text-kindai-pink text-glow-pink">g</span>
+                <span className="text-kindai-orange text-glow-orange">e</span>
+                <span className="text-kindai-green text-glow-green">t</span>
+                <span className="text-kindai-blue text-glow-blue">t</span>
+                <span className="text-kindai-pink text-glow-pink">i</span>
+                <span className="text-kindai-orange text-glow-orange">n</span>
+                <span className="text-kindai-green text-glow-green">g</span>
+                {" "}
+                <span className="text-kindai-blue text-glow-blue">t</span>
+                <span className="text-kindai-pink text-glow-pink">h</span>
+                <span className="text-kindai-orange text-glow-orange">i</span>
+                <span className="text-kindai-green text-glow-green">n</span>
+                <span className="text-kindai-blue text-glow-blue">g</span>
+                <span className="text-kindai-pink text-glow-pink">s</span>
+                {" "}
+                <span className="text-kindai-orange text-glow-orange">d</span>
+                <span className="text-kindai-green text-glow-green">o</span>
+                <span className="text-kindai-blue text-glow-blue">n</span>
+                <span className="text-kindai-pink text-glow-pink">e</span>?
               </p>
               <p className="text-muted-foreground">
                 Join thousands of rebels who chose results over tutorials.

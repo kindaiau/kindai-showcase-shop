@@ -103,7 +103,21 @@ const LeadMagnetSection = () => {
               
               <h2 className="text-3xl md:text-4xl font-bold leading-tight">
                 The 5-Minute{" "}
-                <span className="text-kindai-pink">Business Rebel</span>{" "}
+                <span className="text-kindai-pink text-glow-pink">B</span>
+                <span className="text-kindai-orange text-glow-orange">u</span>
+                <span className="text-kindai-green text-glow-green">s</span>
+                <span className="text-kindai-blue text-glow-blue">i</span>
+                <span className="text-kindai-pink text-glow-pink">n</span>
+                <span className="text-kindai-orange text-glow-orange">e</span>
+                <span className="text-kindai-green text-glow-green">s</span>
+                <span className="text-kindai-blue text-glow-blue">s</span>
+                {" "}
+                <span className="text-kindai-pink text-glow-pink">R</span>
+                <span className="text-kindai-orange text-glow-orange">e</span>
+                <span className="text-kindai-green text-glow-green">b</span>
+                <span className="text-kindai-blue text-glow-blue">e</span>
+                <span className="text-kindai-pink text-glow-pink">l</span>
+                {" "}
                 Checklist
               </h2>
               
