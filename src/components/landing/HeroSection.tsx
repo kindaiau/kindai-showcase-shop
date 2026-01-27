@@ -12,7 +12,18 @@ const HeroSection = () => {
             </p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold leading-tight">
               Stop learning.{" "}
-              <span className="text-kindai-pink">Start doing.</span>
+              <span className="text-kindai-pink text-glow-pink">S</span>
+              <span className="text-kindai-orange text-glow-orange">t</span>
+              <span className="text-kindai-green text-glow-green">a</span>
+              <span className="text-kindai-blue text-glow-blue">r</span>
+              <span className="text-kindai-pink text-glow-pink">t</span>
+              {" "}
+              <span className="text-kindai-orange text-glow-orange">d</span>
+              <span className="text-kindai-green text-glow-green">o</span>
+              <span className="text-kindai-blue text-glow-blue">i</span>
+              <span className="text-kindai-pink text-glow-pink">n</span>
+              <span className="text-kindai-orange text-glow-orange">g</span>
+              <span className="text-kindai-green text-glow-green">.</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
               3 AI Agents that create content, build strategies, and automate 
