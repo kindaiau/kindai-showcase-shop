@@ -213,6 +213,38 @@ serve(async (req) => {
       console.warn("RESEND_API_KEY not configured - skipping email");
     }
 
+    // Enqueue subscriber for nurture sequence
+    try {
+      const now = new Date();
+      // First nurture email sends 2 days after lead magnet
+      const firstNurtureDate = new Date(now);
+      firstNurtureDate.setDate(firstNurtureDate.getDate() + 2);
+
+      const { error: queueError } = await supabase
+        .from("email_nurture_queue")
+        .upsert({
+          email_address: email,
+          subscriber_name: name,
+          sequence_name: "rebel-toolkit",
+          current_email_number: 0,
+          next_send_at: firstNurtureDate.toISOString(),
+          status: "active",
+          emails_sent: [],
+        }, { 
+          onConflict: "email_address",
+          ignoreDuplicates: true 
+        });
+
+      if (queueError) {
+        console.error("Error enqueueing for nurture:", queueError);
+        // Don't fail the request - lead magnet was sent successfully
+      } else {
+        console.log(`Enqueued ${email.substring(0, 3)}*** for nurture sequence starting ${firstNurtureDate.toISOString()}`);
+      }
+    } catch (queueErr) {
+      console.error("Nurture queue error:", queueErr);
+    }
+
     return new Response(JSON.stringify({ status: "ok" }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },

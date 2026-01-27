@@ -154,6 +154,59 @@ export type Database = {
         }
         Relationships: []
       }
+      email_nurture_queue: {
+        Row: {
+          created_at: string
+          current_email_number: number
+          email_address: string
+          emails_sent: Json | null
+          id: string
+          last_sent_at: string | null
+          next_send_at: string | null
+          sequence_name: string
+          status: string
+          subscriber_id: string | null
+          subscriber_name: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          current_email_number?: number
+          email_address: string
+          emails_sent?: Json | null
+          id?: string
+          last_sent_at?: string | null
+          next_send_at?: string | null
+          sequence_name?: string
+          status?: string
+          subscriber_id?: string | null
+          subscriber_name?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          current_email_number?: number
+          email_address?: string
+          emails_sent?: Json | null
+          id?: string
+          last_sent_at?: string | null
+          next_send_at?: string | null
+          sequence_name?: string
+          status?: string
+          subscriber_id?: string | null
+          subscriber_name?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_nurture_queue_subscriber_id_fkey"
+            columns: ["subscriber_id"]
+            isOneToOne: false
+            referencedRelation: "email_subscribers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       email_subscribers: {
         Row: {
           email: string
