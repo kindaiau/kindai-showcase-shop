@@ -1,9 +1,10 @@
 const deliverables = [
-  "A tailored workflow blueprint for your wedge user",
-  "Weekly execution sprint plan with clear owners",
-  "Automated follow-up scripts and templates",
-  "Executive summary dashboard for stakeholders",
-  "A 30-day feedback loop to refine the system",
+  "Content Creator Agent — blog posts, social media, emails, ads",
+  "Business Strategist Agent — plans, pricing, positioning, market analysis",
+  "Automation Engineer Agent — workflows, integrations, tech setup",
+  "Ready-to-use templates and frameworks",
+  "Step-by-step guides for each agent",
+  "Lifetime access + all future updates",
 ];
 
 const WhatYouGetSection = () => {
@@ -12,12 +13,10 @@ const WhatYouGetSection = () => {
       <div className="container px-4">
         <div className="max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-semibold">
-            What you get in the pilot
+            What's inside the Playbook
           </h2>
           <p className="mt-3 text-lg text-muted-foreground">
-            {/* TODO: Replace with wedge-specific deliverables. */}
-            A practical starter system you can test immediately with real
-            customers.
+            Everything you need to build your digital business — no courses, no fluff.
           </p>
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-2">
