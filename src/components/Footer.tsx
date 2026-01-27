@@ -6,43 +6,57 @@ const Footer = () => {
     <footer className="py-12 bg-background border-t border-border">
       <div className="container px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-6">
-              <img src={logo} alt="Kindai" className="h-8" />
-              <nav className="flex items-center gap-4 text-sm">
+          <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <img src={logo} alt="Kindai" className="h-8" />
+                <span className="font-semibold">Kindai</span>
+              </div>
+              <p className="text-sm text-muted-foreground max-w-sm">
+                {/* TODO: Replace with wedge-specific footer copy. */}
+                A people-first AI assistant system for teams who want clarity,
+                momentum, and measurable outcomes.
+              </p>
+              <div className="text-sm text-muted-foreground">
+                Contact:{" "}
+                <a
+                  href="mailto:hello@kindai.ai"
+                  className="text-foreground hover:text-primary transition-colors"
+                >
+                  hello@kindai.ai
+                </a>
+              </div>
+            </div>
+            <div className="flex flex-col gap-6 text-sm">
+              <nav className="flex flex-col gap-2">
+                <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Privacy Policy
+                </Link>
+                <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Terms of Service
+                </Link>
                 <Link to="/faq" className="text-muted-foreground hover:text-foreground transition-colors">
                   FAQ
                 </Link>
-                <Link to="/how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">
-                  How It Works
-                </Link>
-                <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Privacy
-                </Link>
-                <Link to="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Terms
-                </Link>
               </nav>
+              <div className="text-muted-foreground">
+                <p className="font-semibold text-foreground">Trust badges</p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <span className="rounded-full border border-border px-3 py-1 text-xs">
+                    Secure by design
+                  </span>
+                  <span className="rounded-full border border-border px-3 py-1 text-xs">
+                    Human-in-the-loop
+                  </span>
+                  <span className="rounded-full border border-border px-3 py-1 text-xs">
+                    Privacy first
+                  </span>
+                </div>
+              </div>
             </div>
-            
-            <div className="text-sm text-muted-foreground text-center md:text-right">
-              <p className="font-semibold">
-                Built by{" "}
-                <span className="text-kindai-pink text-glow-pink">r</span>
-                <span className="text-kindai-orange text-glow-orange">e</span>
-                <span className="text-kindai-green text-glow-green">b</span>
-                <span className="text-kindai-blue text-glow-blue">e</span>
-                <span className="text-kindai-pink text-glow-pink">l</span>
-                <span className="text-kindai-orange text-glow-orange">s</span>, for{" "}
-                <span className="text-kindai-green text-glow-green">r</span>
-                <span className="text-kindai-blue text-glow-blue">e</span>
-                <span className="text-kindai-pink text-glow-pink">b</span>
-                <span className="text-kindai-orange text-glow-orange">e</span>
-                <span className="text-kindai-green text-glow-green">l</span>
-                <span className="text-kindai-blue text-glow-blue">s</span>.
-              </p>
-              <p className="mt-1">© 2025 Kindai. Forged by bullies, freed by building.</p>
-            </div>
+          </div>
+          <div className="mt-10 text-xs text-muted-foreground">
+            © 2025 Kindai. All rights reserved.
           </div>
         </div>
       </div>
