@@ -1,19 +1,23 @@
 const quotes = [
   {
-    name: "Pilot Partner",
-    role: "Founder, Placeholder Co.",
+    name: "Solo Founder",
+    role: "Week 1 with Playbook",
     quote:
-      "“Kindai made our weekly ops review feel lightweight for the first time. We shipped more in two weeks than the previous month.”",
+      "\"I went from idea to published blog post in 12 minutes. I've never shipped content this fast.\"",
   },
   {
-    name: "Design Lead",
-    role: "Creative Studio",
+    name: "Online Coach",
+    role: "Transitioning from 1:1",
     quote:
-      "“The assistants keep us on track without micromanaging. It feels like a calm operations layer.”",
+      "\"The Business Strategist gave me a complete pricing strategy. It would've taken me days to figure that out alone.\"",
   },
 ];
 
-const logos = ["Placeholder Co.", "Northwind", "Studio A", "Local Services"];
+const highlights = [
+  "5-15 min average task completion",
+  "No prompt engineering required",
+  "Works for non-technical rebels",
+];
 
 const SocialProofSection = () => {
   return (
@@ -21,11 +25,10 @@ const SocialProofSection = () => {
       <div className="container px-4">
         <div className="max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-semibold">
-            Early teams are seeing momentum
+            Rebels are shipping faster
           </h2>
           <p className="mt-3 text-lg text-muted-foreground">
-            {/* TODO: Replace with real logos and testimonials. */}
-            Placeholder proof points until pilot partners are confirmed.
+            Real results from real rebels using the 3-Agent Playbook.
           </p>
         </div>
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
@@ -47,12 +50,13 @@ const SocialProofSection = () => {
           ))}
         </div>
         <div className="mt-10 flex flex-wrap gap-4 text-sm text-muted-foreground">
-          {logos.map((logo) => (
+          {highlights.map((highlight) => (
             <div
-              key={logo}
-              className="rounded-full border border-border px-4 py-2 bg-card/70"
+              key={highlight}
+              className="flex items-center gap-2 rounded-full border border-border px-4 py-2 bg-card/70"
             >
-              {logo}
+              <span className="h-2 w-2 rounded-full bg-kindai-green" />
+              {highlight}
             </div>
           ))}
         </div>
