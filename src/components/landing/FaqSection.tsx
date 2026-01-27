@@ -7,24 +7,29 @@ import {
 
 const faqs = [
   {
-    question: "Is Kindai an AI tool or a service?",
+    question: "What is the 3-Agent Playbook?",
     answer:
-      "Both. You get an AI-driven workflow plus human onboarding to make sure the system fits your team.",
+      "It's an AI-powered toolkit with three specialized agents — Content Creator, Business Strategist, and Automation Engineer — that actually DO the work for you instead of just teaching you how.",
   },
   {
-    question: "How long does a pilot take?",
+    question: "How is this different from ChatGPT?",
     answer:
-      "Most teams see measurable momentum within 2–4 weeks. The pilot is designed for fast feedback.",
+      "Unlike general AI assistants, our agents are pre-configured to deliver complete, ready-to-use outputs. No prompt engineering required — just describe what you need and get professional results.",
   },
   {
-    question: "Will this replace my existing tools?",
+    question: "Do I need technical skills?",
     answer:
-      "Kindai connects to your current stack and reduces manual coordination work, rather than forcing a rip-and-replace.",
+      "Nope. The Playbook is designed for non-technical rebels. If you can describe what you want, the agents handle the rest.",
   },
   {
-    question: "What do you need from us to get started?",
+    question: "What do I get after purchase?",
     answer:
-      "A clear outcome, a single point of contact, and 60 minutes for onboarding. We handle the rest.",
+      "Instant access to all three AI agents, templates, guides, and lifetime updates. One payment, no subscriptions.",
+  },
+  {
+    question: "Is there a refund policy?",
+    answer:
+      "Yes — 30-day money-back guarantee. If the Playbook doesn't work for you, we'll refund your purchase, no questions asked.",
   },
 ];
 
@@ -34,10 +39,10 @@ const FaqSection = () => {
       <div className="container px-4">
         <div className="max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-semibold">
-            Objections answered
+            Questions answered
           </h2>
           <p className="mt-3 text-lg text-muted-foreground">
-            Common questions we hear during pilot planning.
+            Everything you need to know before getting the Playbook.
           </p>
         </div>
         <div className="mt-8 max-w-3xl">

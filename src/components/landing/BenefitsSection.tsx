@@ -1,23 +1,23 @@
 const benefits = [
   {
-    title: "Clear weekly priorities",
+    title: "Done-for-you execution",
     description:
-      "Know exactly what to focus on each week without drowning in backlog noise.",
+      "Stop watching tutorials. Our agents deliver complete, ready-to-use outputs — not instructions.",
   },
   {
-    title: "Automated follow-through",
+    title: "Minutes, not hours",
     description:
-      "Let Kindai draft updates, nudges, and check-ins so momentum never stalls.",
+      "What used to take 4–8 hours now takes 5–15 minutes. Describe what you need, get it done.",
   },
   {
-    title: "Human-friendly workflows",
+    title: "ADHD-friendly design",
     description:
-      "Designed for focus, calm, and clarity — no over-automation or chaos.",
+      "Built for rebels who struggle with traditional courses. No fluff, no overwhelm — just results.",
   },
   {
-    title: "Outcome-driven reporting",
+    title: "Lifetime access included",
     description:
-      "Measure results against the outcome that matters, not vanity metrics.",
+      "One purchase, forever yours. All future updates and new agents included at no extra cost.",
   },
 ];
 
@@ -27,12 +27,10 @@ const BenefitsSection = () => {
       <div className="container px-4">
         <div className="max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-semibold">
-            Benefits that compound
+            Why rebels choose the Playbook
           </h2>
           <p className="mt-3 text-lg text-muted-foreground">
-            {/* TODO: Replace with wedge-specific benefits. */}
-            The Kindai pilot keeps teams moving with practical, repeatable
-            wins.
+            Finally, an AI toolkit that does the work instead of teaching you how.
           </p>
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-2">
