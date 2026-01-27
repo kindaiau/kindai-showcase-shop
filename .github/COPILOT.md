@@ -35,6 +35,6 @@ GitHub Copilot should have:
 
 ## Notes
 
-- GitHub Copilot (powered by OpenAI Codex) requires appropriate access levels to provide optimal assistance
+- GitHub Copilot requires appropriate access levels to provide optimal assistance
 - This configuration ensures developers get the best AI-powered coding experience
 - Access levels are managed through GitHub's web interface, not through code

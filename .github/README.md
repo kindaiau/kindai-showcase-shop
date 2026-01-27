@@ -12,7 +12,7 @@ Repository settings configuration file (requires Probot Settings app or manual a
 
 ## GitHub Copilot Access Change
 
-**Issue:** GitHub Copilot (Codex) had read-only access to this repository.
+**Issue:** GitHub Copilot had read-only access to this repository.
 
 **Resolution:** Changed to full access to enable comprehensive AI-powered code assistance.
 
