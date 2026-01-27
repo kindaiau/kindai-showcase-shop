@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
+import { Check, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const PricingSection = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [hasTracked, setHasTracked] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!sectionRef.current || hasTracked) return;
@@ -24,45 +27,98 @@ const PricingSection = () => {
     return () => observer.disconnect();
   }, [hasTracked]);
 
+  const tiers = [
+    {
+      name: "Starter",
+      price: "$47",
+      highlight: "Best for solo rebels",
+      features: ["Full 3-Agent Toolkit", "Core guides + templates", "Lifetime updates"],
+      badge: "Most Popular",
+    },
+    {
+      name: "Growth",
+      price: "$97",
+      highlight: "For scaling your first offer",
+      features: ["Everything in Starter", "Advanced prompt packs", "Priority support"],
+    },
+    {
+      name: "Agency",
+      price: "$197",
+      highlight: "For teams + client work",
+      features: ["Everything in Growth", "Client-ready checklists", "Implementation playbooks"],
+    },
+  ];
+
   return (
-    <section id="pricing" ref={sectionRef} className="py-16">
+    <section id="pricing" ref={sectionRef} className="py-16 md:py-24">
       <div className="container px-4">
-        <div className="max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-semibold">Pilot pricing</h2>
+        <div className="max-w-3xl mx-auto text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm mb-4">
+            <Sparkles className="w-4 h-4" />
+            One-time payment
+          </div>
+          <h2 className="text-3xl md:text-4xl font-semibold">
+            Choose Your{" "}
+            <span className="text-kindai-pink text-glow-pink">R</span>
+            <span className="text-kindai-orange text-glow-orange">e</span>
+            <span className="text-kindai-green text-glow-green">b</span>
+            <span className="text-kindai-blue text-glow-blue">e</span>
+            <span className="text-kindai-pink text-glow-pink">l</span>
+            {" "}Path
+          </h2>
           <p className="mt-3 text-lg text-muted-foreground">
-            {/* TODO: Replace with final pricing once the wedge is chosen. */}
-            Transparent pilot pricing based on your team size and timeline.
+            Lifetime access. No subscriptions. No upsells.
           </p>
         </div>
-        <div className="mt-8 grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border border-border bg-card p-6 shadow-elegant">
-            <h3 className="text-xl font-semibold">Starter Pilot</h3>
-            <p className="mt-2 text-muted-foreground">
-              Ideal for solo operators or small teams testing their first
-              workflow.
-            </p>
-            <div className="mt-6 text-3xl font-semibold">$X,XXX</div>
-            <p className="text-sm text-muted-foreground">per month</p>
-            <Button asChild className="mt-6 w-full" variant="outline">
-              <a href="#lead-form">Request details</a>
-            </Button>
-          </div>
-          <div className="rounded-2xl border border-border bg-card p-6 shadow-elegant">
-            <h3 className="text-xl font-semibold">Growth Pilot</h3>
-            <p className="mt-2 text-muted-foreground">
-              Designed for teams ready to operationalize an outcome across the
-              organization.
-            </p>
-            <div className="mt-6 text-3xl font-semibold">$XX,XXX</div>
-            <p className="text-sm text-muted-foreground">per month</p>
-            <Button
-              asChild
-              className="mt-6 w-full bg-gradient-to-r from-kindai-pink to-kindai-orange hover:opacity-90"
+
+        <div className="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
+          {tiers.map((tier) => (
+            <div
+              key={tier.name}
+              className={`rounded-2xl border p-6 shadow-elegant flex flex-col ${
+                tier.badge ? "border-primary/40 bg-primary/5 ring-2 ring-primary/20" : "border-border bg-card"
+              }`}
             >
-              <a href="#lead-form">Start a pilot</a>
-            </Button>
-          </div>
+              <div className="flex items-start justify-between gap-2 mb-4">
+                <div>
+                  <h3 className="text-xl font-semibold">{tier.name}</h3>
+                  <p className="text-sm text-muted-foreground">{tier.highlight}</p>
+                </div>
+                {tier.badge && (
+                  <span className="text-xs font-semibold uppercase tracking-wide text-primary bg-primary/10 px-2 py-1 rounded-full whitespace-nowrap">
+                    {tier.badge}
+                  </span>
+                )}
+              </div>
+
+              <div className="mb-6">
+                <span className="text-4xl font-bold">{tier.price}</span>
+                <span className="text-sm text-muted-foreground ml-1">one-time</span>
+              </div>
+
+              <ul className="space-y-3 mb-6 flex-1">
+                {tier.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2 text-sm">
+                    <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <Button
+                className={`w-full ${tier.badge ? "bg-gradient-to-r from-kindai-pink to-kindai-orange hover:opacity-90" : ""}`}
+                variant={tier.badge ? "default" : "outline"}
+                onClick={() => navigate("/purchase")}
+              >
+                Get {tier.name}
+              </Button>
+            </div>
+          ))}
         </div>
+
+        <p className="text-center text-sm text-muted-foreground mt-8">
+          🔒 30-day money-back guarantee. Secure payment via Gumroad.
+        </p>
       </div>
     </section>
   );
