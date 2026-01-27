@@ -3,6 +3,7 @@ import AnimatedParticles from "@/components/AnimatedParticles";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import SiteHeader from "@/components/SiteHeader";
+import AgentOutputsSection from "@/components/landing/AgentOutputsSection";
 import BenefitsSection from "@/components/landing/BenefitsSection";
 import BottomCtaSection from "@/components/landing/BottomCtaSection";
 import FaqSection from "@/components/landing/FaqSection";
@@ -32,6 +33,7 @@ const Index = () => {
       <HeroSection />
       <LeadMagnetSection />
       <HowItWorksSection />
+      <AgentOutputsSection />
       <BenefitsSection />
       <WhatYouGetSection />
       <SocialProofSection />
