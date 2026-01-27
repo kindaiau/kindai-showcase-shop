@@ -8,7 +8,7 @@ import BottomCtaSection from "@/components/landing/BottomCtaSection";
 import FaqSection from "@/components/landing/FaqSection";
 import HeroSection from "@/components/landing/HeroSection";
 import HowItWorksSection from "@/components/landing/HowItWorksSection";
-import LeadCaptureSection from "@/components/landing/LeadCaptureSection";
+import LeadMagnetSection from "@/components/landing/LeadMagnetSection";
 import PricingSection from "@/components/landing/PricingSection";
 import SocialProofSection from "@/components/landing/SocialProofSection";
 import WhatYouGetSection from "@/components/landing/WhatYouGetSection";
@@ -30,13 +30,13 @@ const Index = () => {
       <AnimatedParticles count={40} />
       <SiteHeader />
       <HeroSection />
+      <LeadMagnetSection />
       <HowItWorksSection />
       <BenefitsSection />
       <WhatYouGetSection />
       <SocialProofSection />
       <FaqSection />
       <PricingSection />
-      <LeadCaptureSection />
       <BottomCtaSection />
       <Footer />
     </div>
