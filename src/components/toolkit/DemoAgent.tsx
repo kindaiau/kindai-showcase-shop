@@ -17,7 +17,8 @@ import {
   TrendingUp,
   Zap,
   Lock,
-  ArrowRight
+  ArrowRight,
+  ExternalLink
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -324,23 +325,34 @@ const DemoAgent = ({
                         Copy All
                       </Button>
                       {agentType === "tech" && message.content.includes("ZAPIER AI PROMPT") && (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="h-7 text-xs bg-kindai-green/10 border-kindai-green/30 hover:bg-kindai-green/20"
-                          onClick={() => {
-                            const zapierMatch = message.content.match(/📋 ZAPIER AI PROMPT[:\s]*\n([\s\S]*?)(?=\n(?:##|🧪|💡|$))/i);
-                            const zapierPrompt = zapierMatch ? zapierMatch[1].trim() : null;
-                            if (zapierPrompt) {
-                              copyToClipboard(zapierPrompt, index + 1000);
-                            } else {
-                              toast.error("Could not find Zapier AI prompt section");
-                            }
-                          }}
-                        >
-                          <Zap className="w-3 h-3 mr-1" />
-                          Copy Zapier Prompt
-                        </Button>
+                        <>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-7 text-xs bg-kindai-green/10 border-kindai-green/30 hover:bg-kindai-green/20"
+                            onClick={() => {
+                              const zapierMatch = message.content.match(/📋 ZAPIER AI PROMPT[:\s]*\n([\s\S]*?)(?=\n(?:##|🧪|💡|$))/i);
+                              const zapierPrompt = zapierMatch ? zapierMatch[1].trim() : null;
+                              if (zapierPrompt) {
+                                copyToClipboard(zapierPrompt, index + 1000);
+                              } else {
+                                toast.error("Could not find Zapier AI prompt section");
+                              }
+                            }}
+                          >
+                            <Zap className="w-3 h-3 mr-1" />
+                            Copy Zapier Prompt
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="h-7 text-xs"
+                            onClick={() => window.open("https://create.zapier.com", "_blank")}
+                          >
+                            <ExternalLink className="w-3 h-3 mr-1" />
+                            Create in Zapier
+                          </Button>
+                        </>
                       )}
                     </div>
                   )}
