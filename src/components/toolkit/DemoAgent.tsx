@@ -331,7 +331,8 @@ const DemoAgent = ({
                             size="sm"
                             className="h-7 text-xs bg-kindai-green/10 border-kindai-green/30 hover:bg-kindai-green/20"
                             onClick={() => {
-                              const zapierMatch = message.content.match(/📋 ZAPIER AI PROMPT[:\s]*\n([\s\S]*?)(?=\n(?:##|🧪|💡|$))/i);
+                              // Match the Zapier AI prompt section - content between the dashed lines
+                              const zapierMatch = message.content.match(/📋 ZAPIER AI PROMPT[^\n]*\n─+\n([\s\S]*?)\n─+/i);
                               const zapierPrompt = zapierMatch ? zapierMatch[1].trim() : null;
                               if (zapierPrompt) {
                                 copyToClipboard(zapierPrompt, index + 1000);
