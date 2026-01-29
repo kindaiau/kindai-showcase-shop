@@ -1,4 +1,4 @@
-export type AnalyticsEventName = "cta_click" | "lead_submit" | "pricing_view" | "lead_magnet_download";
+export type AnalyticsEventName = "cta_click" | "lead_submit" | "pricing_view" | "lead_magnet_download" | "checkout_start";
 
 export type UtmParams = {
   utm_source?: string;

@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
-import { Check, Sparkles } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Check, Sparkles, ExternalLink } from "lucide-react";
 import PricingComparisonTable from "./PricingComparisonTable";
+
+// Gumroad product URL - opens directly to checkout
+const GUMROAD_PRODUCT_URL = "https://matthewgas.gumroad.com/l/rebelkit?wanted=true";
 
 const PricingSection = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [hasTracked, setHasTracked] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (!sectionRef.current || hasTracked) return;
@@ -121,11 +122,16 @@ const PricingSection = () => {
               </ul>
 
               <Button
-                className={`w-full ${tier.badge ? "bg-gradient-to-r from-kindai-pink to-kindai-orange hover:opacity-90" : ""}`}
+                className={`w-full gap-2 ${tier.badge ? "bg-gradient-to-r from-kindai-pink to-kindai-orange hover:opacity-90" : ""}`}
                 variant={tier.badge ? "default" : "outline"}
-                onClick={() => navigate("/purchase")}
+                onClick={() => {
+                  sessionStorage.setItem("selected_tier", tier.name);
+                  trackEvent("checkout_start", { tier: tier.name });
+                  window.open(GUMROAD_PRODUCT_URL, "_blank");
+                }}
               >
                 Get {tier.name}
+                <ExternalLink className="w-4 h-4" />
               </Button>
             </div>
           ))}
