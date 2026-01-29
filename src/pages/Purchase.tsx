@@ -32,6 +32,7 @@ const Purchase = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [licenseKey, setLicenseKey] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
+  const [selectedTier, setSelectedTier] = useState<string | null>(null);
   const { hasPurchased, isLoading: purchaseLoading, refetch } = usePurchaseStatus(user);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -45,6 +46,12 @@ const Purchase = () => {
     };
 
     checkAuth();
+
+    // Check for pre-selected tier from pricing section
+    const storedTier = sessionStorage.getItem("selected_tier");
+    if (storedTier) {
+      setSelectedTier(storedTier);
+    }
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
       setUser(session?.user ?? null);
@@ -281,18 +288,29 @@ const Purchase = () => {
             <div className="space-y-4">
               <h2 className="text-2xl font-semibold">Choose your access tier</h2>
               <div className="grid gap-4">
-                {tiers.map((tier) => (
+                {tiers.map((tier) => {
+                  const isSelected = selectedTier === tier.name;
+                  return (
                   <div
                     key={tier.name}
-                    className={`rounded-xl border p-5 space-y-4 ${
-                      tier.badge ? "border-primary/40 bg-primary/5" : "border-border bg-card"
+                    className={`rounded-xl border p-5 space-y-4 transition-all ${
+                      isSelected 
+                        ? "border-primary ring-2 ring-primary/30 bg-primary/10" 
+                        : tier.badge 
+                          ? "border-primary/40 bg-primary/5" 
+                          : "border-border bg-card"
                     }`}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <div className="flex items-center gap-2">
                           <h3 className="text-lg font-semibold">{tier.name}</h3>
-                          {tier.badge && (
+                          {isSelected && (
+                            <span className="text-xs font-semibold uppercase tracking-wide text-white bg-primary px-2 py-1 rounded-full">
+                              Selected
+                            </span>
+                          )}
+                          {!isSelected && tier.badge && (
                             <span className="text-xs font-semibold uppercase tracking-wide text-primary bg-primary/10 px-2 py-1 rounded-full">
                               {tier.badge}
                             </span>
@@ -327,7 +345,8 @@ const Purchase = () => {
                       <ExternalLink className="w-4 h-4" />
                     </Button>
                   </div>
-                ))}
+                  );
+                })}
               </div>
               <p className="text-xs text-center text-muted-foreground">
                 Secure payment via Gumroad. Instant access.
