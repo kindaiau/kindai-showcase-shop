@@ -309,7 +309,7 @@ const DemoAgent = ({
                     {message.content}
                   </div>
                   {message.role === "assistant" && (
-                    <div className="flex gap-2 mt-3 pt-2 border-t border-border/50">
+                    <div className="flex flex-wrap gap-2 mt-3 pt-2 border-t border-border/50">
                       <Button
                         variant="ghost"
                         size="sm"
@@ -321,8 +321,27 @@ const DemoAgent = ({
                         ) : (
                           <Copy className="w-3 h-3 mr-1" />
                         )}
-                        Copy
+                        Copy All
                       </Button>
+                      {agentType === "tech" && message.content.includes("ZAPIER AI PROMPT") && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-7 text-xs bg-kindai-green/10 border-kindai-green/30 hover:bg-kindai-green/20"
+                          onClick={() => {
+                            const zapierMatch = message.content.match(/📋 ZAPIER AI PROMPT[:\s]*\n([\s\S]*?)(?=\n(?:##|🧪|💡|$))/i);
+                            const zapierPrompt = zapierMatch ? zapierMatch[1].trim() : null;
+                            if (zapierPrompt) {
+                              copyToClipboard(zapierPrompt, index + 1000);
+                            } else {
+                              toast.error("Could not find Zapier AI prompt section");
+                            }
+                          }}
+                        >
+                          <Zap className="w-3 h-3 mr-1" />
+                          Copy Zapier Prompt
+                        </Button>
+                      )}
                     </div>
                   )}
                 </div>
