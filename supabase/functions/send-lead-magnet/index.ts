@@ -194,7 +194,7 @@ serve(async (req) => {
       const resend = new Resend(resendApiKey);
       
       const { error: emailError } = await resend.emails.send({
-        from: "Kindai <hello@kindai.dev>",
+        from: "Kindai <hello@kindai.com.au>",
         to: [email],
         subject: "🚀 Your 5-Minute Business Rebel Checklist",
         html: generateChecklistEmail(name),
