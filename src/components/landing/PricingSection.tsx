@@ -3,6 +3,7 @@ import { trackEvent } from "@/lib/analytics";
 import { Button } from "@/components/ui/button";
 import { Check, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import PricingComparisonTable from "./PricingComparisonTable";
 
 const PricingSection = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -129,6 +130,8 @@ const PricingSection = () => {
             </div>
           ))}
         </div>
+
+        <PricingComparisonTable />
 
         <p className="text-center text-sm text-muted-foreground mt-8">
           🔒 30-day money-back guarantee. Secure payment via Gumroad.
