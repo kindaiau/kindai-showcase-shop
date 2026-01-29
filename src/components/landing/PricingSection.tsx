@@ -32,20 +32,34 @@ const PricingSection = () => {
       name: "Starter",
       price: "$47",
       highlight: "Best for solo rebels",
-      features: ["Full 3-Agent Toolkit", "Core guides + templates", "Lifetime updates"],
+      features: [
+        "3 AI Agents (Content, Strategy, Automation)",
+        "Core guides & templates",
+        "Lifetime access + updates",
+      ],
       badge: "Most Popular",
     },
     {
       name: "Growth",
       price: "$97",
       highlight: "For scaling your first offer",
-      features: ["Everything in Starter", "Advanced prompt packs", "Priority support"],
+      features: [
+        "Everything in Starter",
+        "50+ advanced prompt templates",
+        "Priority email support",
+        "Bonus: Offer validation checklist",
+      ],
     },
     {
       name: "Agency",
       price: "$197",
       highlight: "For teams + client work",
-      features: ["Everything in Growth", "Client-ready checklists", "Implementation playbooks"],
+      features: [
+        "Everything in Growth",
+        "White-label client templates",
+        "Multi-project workflows",
+        "Done-for-you implementation guides",
+      ],
     },
   ];
 
