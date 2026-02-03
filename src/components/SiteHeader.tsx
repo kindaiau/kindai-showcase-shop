@@ -68,7 +68,13 @@ const SiteHeader = () => {
           </nav>
 
           {/* CTA Buttons */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-3">
+            <Link 
+              to="/purchase" 
+              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              Already purchased?
+            </Link>
             <Button
               type="button"
               variant="ghost"
@@ -83,7 +89,7 @@ const SiteHeader = () => {
                 Sign In
               </Button>
             </Link>
-            <Link to="/purchase">
+            <Link to="/#pricing">
               <Button size="sm" className="bg-gradient-to-r from-kindai-pink to-kindai-orange hover:opacity-90">
                 Get Access
               </Button>
@@ -140,10 +146,17 @@ const SiteHeader = () => {
                     Sign In
                   </Button>
                 </Link>
-                <Link to="/purchase" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/#pricing" onClick={() => setMobileMenuOpen(false)}>
                   <Button size="sm" className="w-full bg-gradient-to-r from-kindai-pink to-kindai-orange">
                     Get Access
                   </Button>
+                </Link>
+                <Link 
+                  to="/purchase" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-sm text-center text-muted-foreground hover:text-primary transition-colors pt-2"
+                >
+                  Already purchased? Verify license
                 </Link>
               </div>
             </nav>

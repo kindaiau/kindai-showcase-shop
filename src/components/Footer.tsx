@@ -29,6 +29,9 @@ const Footer = () => {
             </div>
             <div className="flex flex-col gap-6 text-sm">
               <nav className="flex flex-col gap-2">
+                <Link to="/purchase" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Already purchased? Verify license
+                </Link>
                 <Link to="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
                   Privacy Policy
                 </Link>
