@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +10,8 @@ import {
   PenTool,
   TrendingUp,
   Zap,
-  ArrowRight
+  ArrowRight,
+  Play
 } from "lucide-react";
 import logo from "@/assets/kindai-logo-with-bird.png";
 import DemoAgent from "@/components/toolkit/DemoAgent";
@@ -162,6 +163,27 @@ const Demo = () => {
         ) : (
           /* Agent Selection */
           <div className="space-y-6">
+            {/* Watch Full Demo Banner */}
+            <Card className="p-6 bg-gradient-to-r from-primary/5 to-kindai-pink/5 border-primary/20">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                  <h3 className="font-bold text-lg flex items-center gap-2">
+                    <Play className="w-5 h-5 text-primary" />
+                    Watch Full Demo
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    See all 3 agents work together on a sample business — no interaction needed.
+                  </p>
+                </div>
+                <Button asChild variant="outline" className="shrink-0">
+                  <Link to="/demo/guided">
+                    <Play className="w-4 h-4 mr-2" />
+                    Watch Demo
+                  </Link>
+                </Button>
+              </div>
+            </Card>
+
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold mb-2">Choose an Agent to Try</h2>
               <p className="text-muted-foreground">

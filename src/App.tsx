@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Toolkit from "./pages/Toolkit";
 import Demo from "./pages/Demo";
+import GuidedDemo from "./pages/GuidedDemo";
 import Assessment from "./pages/Assessment";
 import Purchase from "./pages/Purchase";
 import PurchaseRedirect from "./pages/PurchaseRedirect";
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/demo" element={<Demo />} />
+            <Route path="/demo/guided" element={<GuidedDemo />} />
             <Route path="/toolkit" element={<Toolkit />} />
             <Route path="/assessment" element={<Assessment />} />
             <Route path="/purchase" element={<Purchase />} />
