@@ -18,7 +18,7 @@ import SEO from "@/components/SEO";
 
 type AgentType = "content" | "strategy" | "tech";
 
-const DEMO_MESSAGE_LIMIT = 3;
+const DEMO_MESSAGE_LIMIT = 5;
 const DEMO_STORAGE_KEY = "rebel_demo_messages_used";
 
 const Demo = () => {
