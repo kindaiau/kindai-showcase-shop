@@ -47,6 +47,10 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
         kindai: {
           pink: "hsl(var(--kindai-pink))",
           orange: "hsl(var(--kindai-orange))",
@@ -56,6 +60,15 @@ export default {
           blue: "hsl(var(--kindai-blue))",
           violet: "hsl(var(--kindai-violet))",
         },
+      },
+      backgroundImage: {
+        'gradient-rebel': 'var(--gradient-rebel)',
+        'gradient-energy': 'var(--gradient-energy)',
+        'gradient-glow': 'var(--gradient-glow)',
+      },
+      boxShadow: {
+        'glow': 'var(--shadow-glow)',
+        'card': 'var(--shadow-card)',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -80,11 +93,11 @@ export default {
           },
         },
         "fade-in": {
-          from: { opacity: "0", transform: "translateY(20px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
+          from: { opacity: "0" },
+          to: { opacity: "1" },
         },
         "slide-up": {
-          from: { opacity: "0", transform: "translateY(40px)" },
+          from: { opacity: "0", transform: "translateY(20px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
         "float": {
@@ -92,8 +105,8 @@ export default {
           "50%": { transform: "translateY(-20px)" },
         },
         "pulse-glow": {
-          "0%, 100%": { opacity: "1" },
-          "50%": { opacity: "0.6" },
+          "0%, 100%": { opacity: "1", transform: "scale(1)" },
+          "50%": { opacity: "0.8", transform: "scale(1.05)" },
         },
         "particle": {
           "0%": { transform: "translateY(0) translateX(0)", opacity: "0" },
@@ -105,7 +118,6 @@ export default {
           "0%, 100%": { opacity: "0.2", transform: "scale(1)" },
           "50%": { opacity: "0.8", transform: "scale(1.2)" },
         },
-        // Mobile-optimized animations
         "bounce-in": {
           "0%": { opacity: "0", transform: "scale(0.3)" },
           "50%": { transform: "scale(1.05)" },
@@ -125,21 +137,25 @@ export default {
           "50%": { transform: "scale(0.95)" },
           "100%": { transform: "scale(1)" },
         },
+        "scale-in": {
+          from: { opacity: "0", transform: "scale(0.9)" },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.6s ease-out",
-        "slide-up": "slide-up 0.6s ease-out",
+        "fade-in": "fade-in 0.3s ease-out",
+        "slide-up": "slide-up 0.3s ease-out",
         "float": "float 6s ease-in-out infinite",
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "particle": "particle 15s linear infinite",
         "twinkle": "twinkle 3s ease-in-out infinite",
-        // Mobile-optimized animations
         "bounce-in": "bounce-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
         "slide-in-bottom": "slide-in-bottom 0.4s ease-out",
         "wiggle": "wiggle 0.3s ease-in-out",
         "tap-highlight": "tap-highlight 0.15s ease-out",
+        "scale-in": "scale-in 0.3s ease-out forwards",
       },
     },
   },

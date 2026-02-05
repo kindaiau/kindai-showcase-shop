@@ -6,96 +6,74 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* KindAI Cyberpunk Design System
+   All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 10%;
+    /* KindAI Cyberpunk Theme - Dark First */
+    --background: 220 30% 5%;
+    --foreground: 180 100% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 10%;
+    --card: 220 25% 8%;
+    --card-foreground: 180 100% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 10%;
+    --popover: 220 25% 8%;
+    --popover-foreground: 180 100% 95%;
 
-    /* Kindai Brand Colors - Official Palette */
-    --kindai-pink: 318 100% 64%;      /* #FF46C8 */
-    --kindai-orange: 6 97% 66%;        /* #FC6456 */
-    --kindai-yellow: 46 100% 68%;      /* #FFD75E */
-    --kindai-green: 158 58% 60%;       /* #5DD7A7 */
-    --kindai-aqua: 191 87% 65%;        /* #56DFF4 */
-    --kindai-blue: 232 66% 60%;        /* #5667DF */
-    --kindai-violet: 276 63% 46%;      /* #7B2CBF */
+    /* Aqua - Primary tech color */
+    --primary: 189 88% 65%;
+    --primary-foreground: 220 30% 5%;
 
-    --primary: 318 100% 64%;
-    --primary-foreground: 0 0% 100%;
+    /* Pink - Secondary accent */
+    --secondary: 318 100% 64%;
+    --secondary-foreground: 220 30% 5%;
 
-    --secondary: 232 66% 60%;
-    --secondary-foreground: 0 0% 100%;
+    /* Yellow - Attention/highlight */
+    --accent: 45 100% 68%;
+    --accent-foreground: 220 30% 5%;
 
-    --accent: 6 97% 66%;
-    --accent-foreground: 0 0% 100%;
+    /* Green - Success */
+    --success: 156 59% 60%;
+    --success-foreground: 220 30% 5%;
 
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    /* Brand Rainbow Palette */
+    --kindai-pink: 318 100% 64%;
+    --kindai-orange: 5 97% 66%;
+    --kindai-yellow: 45 100% 68%;
+    --kindai-green: 156 59% 60%;
+    --kindai-aqua: 189 88% 65%;
+    --kindai-blue: 233 68% 60%;
+    --kindai-violet: 275 63% 46%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
+    /* Utility Colors */
+    --muted: 220 20% 20%;
+    --muted-foreground: 189 50% 60%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 318 100% 64%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 180 100% 95%;
 
-    --radius: 0.75rem;
+    --border: 189 88% 65% / 0.3;
+    --input: 220 25% 12%;
+    --ring: 189 88% 65%;
+
+    --radius: 0.5rem;
 
     /* Gradients */
-    --gradient-rebel: linear-gradient(135deg, hsl(var(--kindai-pink)), hsl(var(--kindai-orange)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--kindai-pink)) 0%, hsl(var(--kindai-purple)) 50%, hsl(var(--kindai-blue)) 100%);
+    --gradient-rebel: linear-gradient(135deg, hsl(318 100% 64%), hsl(5 97% 66%), hsl(45 100% 68%));
+    --gradient-energy: linear-gradient(135deg, hsl(189 88% 65%), hsl(318 100% 64%));
+    --gradient-glow: linear-gradient(180deg, hsl(189 88% 65% / 0.2), transparent);
+    --gradient-hero: linear-gradient(135deg, hsl(var(--kindai-pink)) 0%, hsl(var(--kindai-violet)) 50%, hsl(var(--kindai-blue)) 100%);
     --gradient-accent: linear-gradient(90deg, hsl(var(--kindai-orange)), hsl(var(--kindai-green)));
     --gradient-full: linear-gradient(135deg, hsl(var(--kindai-pink)) 0%, hsl(var(--kindai-orange)) 25%, hsl(var(--kindai-green)) 75%, hsl(var(--kindai-blue)) 100%);
-    
-    /* Shadows */
-    --shadow-glow: 0 0 40px hsl(var(--kindai-pink) / 0.3);
-    --shadow-card: 0 10px 30px hsl(240 10% 10% / 0.1);
-    
-    /* Transitions */
+
+    /* Neon Shadows */
+    --shadow-glow: 0 0 40px hsl(189 88% 65% / 0.4), 0 0 80px hsl(318 100% 64% / 0.2);
+    --shadow-card: 0 8px 32px hsl(220 30% 5% / 0.8);
+
+    /* Smooth Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .dark {
-    --background: 240 10% 8%;
-    --foreground: 0 0% 98%;
-
-    --card: 240 8% 12%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 240 8% 12%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 318 100% 64%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 232 66% 60%;
-    --secondary-foreground: 0 0% 100%;
-
-    --accent: 6 97% 66%;
-    --accent-foreground: 0 0% 100%;
-
-    --muted: 240 6% 16%;
-    --muted-foreground: 240 5% 65%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 240 6% 20%;
-    --input: 240 6% 20%;
-    --ring: 318 100% 64%;
-    
-    --shadow-glow: 0 0 40px hsl(var(--kindai-pink) / 0.4);
-    --shadow-card: 0 10px 30px hsl(0 0% 0% / 0.5);
   }
 }
 
@@ -106,6 +84,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
     font-feature-settings: "kern" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -118,6 +97,7 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
+  /* Gradient backgrounds */
   .gradient-rebel {
     background: var(--gradient-rebel);
   }
@@ -133,7 +113,12 @@ All colors MUST be HSL.
   .gradient-full {
     background: var(--gradient-full);
   }
+
+  .gradient-energy {
+    background: var(--gradient-energy);
+  }
   
+  /* Gradient text */
   .text-gradient-rebel {
     background: var(--gradient-rebel);
     -webkit-background-clip: text;
@@ -147,7 +132,15 @@ All colors MUST be HSL.
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+
+  .text-gradient-energy {
+    background: var(--gradient-energy);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   
+  /* Shadow utilities */
   .shadow-glow {
     box-shadow: var(--shadow-glow);
   }
@@ -187,6 +180,33 @@ All colors MUST be HSL.
 
   .text-glow-violet {
     text-shadow: 0 0 20px hsl(var(--kindai-violet) / 0.5), 0 0 40px hsl(var(--kindai-violet) / 0.3);
+  }
+
+  /* Glass card effect */
+  .glass-card {
+    background: hsl(220 25% 8% / 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(189 88% 65% / 0.3);
+    border-radius: var(--radius);
+  }
+
+  /* Neon glow hover effect */
+  .neon-glow {
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  .neon-glow:hover {
+    box-shadow: 0 0 20px hsl(189 88% 65% / 0.5), 0 0 40px hsl(318 100% 64% / 0.3);
+  }
+
+  /* Floating orb decoration */
+  .floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
   }
 
   /* Mobile touch feedback */
