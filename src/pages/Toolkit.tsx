@@ -16,7 +16,8 @@ import {
   Zap,
   Sparkles,
   LayoutDashboard,
-  Play
+  Play,
+  Image
 } from "lucide-react";
 import logo from "@/assets/kindai-logo-with-bird.png";
 import ToolkitContentCard from "@/components/toolkit/ToolkitContentCard";
@@ -24,6 +25,7 @@ import ContentViewer from "@/components/toolkit/ContentViewer";
 import ToolkitDashboard from "@/components/toolkit/ToolkitDashboard";
 import SpecializedAgent from "@/components/toolkit/SpecializedAgent";
 import MockBusinessTest from "@/components/toolkit/MockBusinessTest";
+import SocialMediaGallery from "@/components/toolkit/SocialMediaGallery";
 import PurchaseGate from "@/components/PurchaseGate";
 import { usePurchaseStatus } from "@/hooks/use-purchase-status";
 
@@ -180,7 +182,7 @@ const ToolkitContent_ = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-6 mb-6 h-auto">
+          <TabsList className="grid grid-cols-7 mb-6 h-auto">
             <TabsTrigger value="dashboard" className="flex items-center gap-2 py-3">
               <LayoutDashboard className="w-4 h-4" />
               <span className="hidden sm:inline">Dashboard</span>
@@ -188,6 +190,10 @@ const ToolkitContent_ = () => {
             <TabsTrigger value="agents" className="flex items-center gap-2 py-3">
               <Bot className="w-4 h-4" />
               <span className="hidden sm:inline">AI Agents</span>
+            </TabsTrigger>
+            <TabsTrigger value="social" className="flex items-center gap-2 py-3">
+              <Image className="w-4 h-4" />
+              <span className="hidden sm:inline">Social</span>
             </TabsTrigger>
             <TabsTrigger value="guides" className="flex items-center gap-2 py-3">
               <BookOpen className="w-4 h-4" />
@@ -266,6 +272,11 @@ const ToolkitContent_ = () => {
                 </p>
               </div>
             </div>
+          </TabsContent>
+
+          {/* Social Media Gallery Tab */}
+          <TabsContent value="social">
+            <SocialMediaGallery />
           </TabsContent>
 
           {/* Demo Tab */}
