@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Download, Image, Square, Smartphone, ExternalLink } from "lucide-react";
+import { Download, Image, Square, Smartphone, ExternalLink, Package, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import JSZip from "jszip";
 
 // Import all Instagram assets
 import post01 from "@/assets/instagram/post-01-transformation.png";
@@ -314,6 +315,7 @@ const instagramStories: SocialAsset[] = [
 const SocialMediaGallery = () => {
   const [selectedAsset, setSelectedAsset] = useState<SocialAsset | null>(null);
   const [activeTab, setActiveTab] = useState("posts");
+  const [isDownloadingAll, setIsDownloadingAll] = useState(false);
 
   const handleDownload = async (asset: SocialAsset) => {
     try {
@@ -338,10 +340,57 @@ const SocialMediaGallery = () => {
     toast.success("Caption copied to clipboard!");
   };
 
+  const handleDownloadAll = async () => {
+    setIsDownloadingAll(true);
+    try {
+      const zip = new JSZip();
+      const postsFolder = zip.folder("posts");
+      const storiesFolder = zip.folder("stories");
+      const captionsFolder = zip.folder("captions");
+
+      // Download all posts
+      for (const post of instagramPosts) {
+        const response = await fetch(post.image);
+        const blob = await response.blob();
+        postsFolder?.file(`${post.id}.png`, blob);
+        
+        // Add caption as text file
+        if (post.caption) {
+          captionsFolder?.file(`${post.id}-caption.txt`, post.caption);
+        }
+      }
+
+      // Download all stories
+      for (const story of instagramStories) {
+        const response = await fetch(story.image);
+        const blob = await response.blob();
+        storiesFolder?.file(`${story.id}.png`, blob);
+      }
+
+      // Generate and download zip
+      const content = await zip.generateAsync({ type: "blob" });
+      const url = window.URL.createObjectURL(content);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "kindai-social-media-assets.zip";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      toast.success("All assets downloaded successfully!");
+    } catch (error) {
+      toast.error("Failed to download assets");
+      console.error(error);
+    } finally {
+      setIsDownloadingAll(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold flex items-center gap-2">
             <Image className="w-6 h-6 text-kindai-pink" />
@@ -351,15 +400,34 @@ const SocialMediaGallery = () => {
             Ready-to-post Instagram content with captions
           </p>
         </div>
-        <div className="flex gap-2 text-sm text-muted-foreground">
-          <span className="flex items-center gap-1">
-            <Square className="w-4 h-4" />
-            {instagramPosts.length} Posts
-          </span>
-          <span className="flex items-center gap-1">
-            <Smartphone className="w-4 h-4" />
-            {instagramStories.length} Stories
-          </span>
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex gap-2 text-sm text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <Square className="w-4 h-4" />
+              {instagramPosts.length} Posts
+            </span>
+            <span className="flex items-center gap-1">
+              <Smartphone className="w-4 h-4" />
+              {instagramStories.length} Stories
+            </span>
+          </div>
+          <Button
+            onClick={handleDownloadAll}
+            disabled={isDownloadingAll}
+            className="gradient-rebel"
+          >
+            {isDownloadingAll ? (
+              <>
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                Packaging...
+              </>
+            ) : (
+              <>
+                <Package className="w-4 h-4 mr-2" />
+                Download All (.zip)
+              </>
+            )}
+          </Button>
         </div>
       </div>
 
