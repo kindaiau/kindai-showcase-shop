@@ -17,7 +17,8 @@ import {
   Sparkles,
   LayoutDashboard,
   Play,
-  Image
+  Image,
+  Brain
 } from "lucide-react";
 import logo from "@/assets/kindai-logo-with-bird.png";
 import ToolkitContentCard from "@/components/toolkit/ToolkitContentCard";
@@ -177,12 +178,12 @@ const ToolkitContent_ = () => {
             <span className="text-kindai-green text-glow-green">l</span>{" "}🚀
           </h2>
           <p className="text-muted-foreground">
-            3 specialized AI agents that do the work for you. No learning curve, just results.
+            4 specialized AI agents that do the work for you. No learning curve, just results.
           </p>
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-7 mb-6 h-auto">
+          <TabsList className="grid grid-cols-8 mb-6 h-auto">
             <TabsTrigger value="dashboard" className="flex items-center gap-2 py-3">
               <LayoutDashboard className="w-4 h-4" />
               <span className="hidden sm:inline">Dashboard</span>
@@ -211,6 +212,10 @@ const ToolkitContent_ = () => {
               <Sparkles className="w-4 h-4" />
               <span className="hidden sm:inline">Resources</span>
             </TabsTrigger>
+            <TabsTrigger value="agent-coach" className="flex items-center gap-2 py-3 text-kindai-aqua">
+              <Brain className="w-4 h-4" />
+              <span className="hidden sm:inline">Coach</span>
+            </TabsTrigger>
           </TabsList>
 
           {/* Dashboard Tab */}
@@ -225,7 +230,7 @@ const ToolkitContent_ = () => {
           <TabsContent value="agents">
             <div className="space-y-6">
               {/* Agent Selection */}
-              <div className="grid md:grid-cols-3 gap-4">
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <AgentCard
                   title="Content Creator"
                   description="Writes complete blog posts, social media content, emails, and marketing copy."
@@ -249,6 +254,14 @@ const ToolkitContent_ = () => {
                   color="bg-kindai-green"
                   examples={["Zapier workflows", "CRM setups", "Email automations", "SEO markup"]}
                   onClick={() => setActiveTab("agent-tech")}
+                />
+                <AgentCard
+                  title="Kindai Coach"
+                  description="Your personal ADHD-friendly business coach. Gets you unstuck and moving forward."
+                  icon={<Brain className="w-6 h-6" />}
+                  color="bg-kindai-aqua"
+                  examples={["Overwhelm relief", "Priority sorting", "Tiny steps", "Accountability"]}
+                  onClick={() => setActiveTab("agent-coach")}
                 />
               </div>
 
@@ -307,6 +320,12 @@ const ToolkitContent_ = () => {
               ← Back to Agents
             </Button>
             <SpecializedAgent agentType="tech" />
+          </TabsContent>
+          <TabsContent value="agent-coach">
+            <Button variant="ghost" size="sm" onClick={() => setActiveTab("agents")} className="mb-4">
+              ← Back to Agents
+            </Button>
+            <SpecializedAgent agentType="coach" />
           </TabsContent>
 
           {/* Guides Tab */}

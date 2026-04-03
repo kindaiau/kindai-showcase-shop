@@ -16,7 +16,8 @@ import {
   TrendingUp,
   Zap,
   Download,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Brain
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -27,7 +28,7 @@ interface Message {
   imageUrl?: string;
 }
 
-type AgentType = "content" | "strategy" | "tech";
+type AgentType = "content" | "strategy" | "tech" | "coach";
 
 interface AgentConfig {
   name: string;
@@ -80,6 +81,20 @@ const AGENT_CONFIGS: Record<AgentType, AgentConfig> = {
       { label: "Lead Automation", prompt: "Create a complete lead nurturing automation system for [type of business]. Include email triggers, CRM updates, and notification workflows." },
       { label: "SEO Setup", prompt: "Generate complete technical SEO implementation for [website type]. Include schema markup code, meta tag templates, and sitemap structure." },
       { label: "Email Automation", prompt: "Build a complete email automation workflow for [scenario like abandoned cart, onboarding, etc.]. Include trigger conditions, timing, and email sequences." },
+    ],
+  },
+  coach: {
+    name: "Kindai Coach",
+    description: "Your personal ADHD-friendly business coach. I break big goals into tiny steps, get you unstuck, and help you figure out what to focus on RIGHT NOW.",
+    icon: <Brain className="w-5 h-5" />,
+    color: "text-kindai-aqua",
+    bgColor: "bg-kindai-aqua",
+    placeholder: "Tell me what's going on — what are you stuck on, overwhelmed by, or trying to figure out? I'm here to help...",
+    quickActions: [
+      { label: "I'm Overwhelmed", prompt: "I'm feeling completely overwhelmed right now. I have too many things to do and I don't know where to start. Can you help me do a brain dump and figure out my ONE next step?" },
+      { label: "Prioritise My Week", prompt: "Help me prioritise my week. I'll list everything I need to do and I need you to help me sort it into what to do first, what to do later, and what to ignore for now." },
+      { label: "Business Clarity", prompt: "I need clarity on my business direction. Help me figure out the ONE thing I should be focusing on right now to move the needle most." },
+      { label: "Accountability Check", prompt: "I want to set some micro-commitments for today. Help me pick 3 small, achievable actions I can actually complete today and hold me accountable." },
     ],
   },
 };
