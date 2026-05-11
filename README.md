@@ -71,3 +71,13 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## GitHub Copilot Configuration
+
+This repository is configured to work with **GitHub Copilot with full access** permissions.
+
+For repository administrators: Please ensure GitHub Copilot has appropriate read and write permissions by:
+1. Navigating to **Settings** → **Code security and analysis** → **GitHub Copilot**
+2. Checking organization-level Copilot settings if applicable
+
+See [`.github/COPILOT.md`](.github/COPILOT.md) for detailed configuration instructions.
